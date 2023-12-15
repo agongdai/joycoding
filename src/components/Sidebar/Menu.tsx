@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import cx from 'classnames';
 
 import JsesTooltip from '@jses/components/@mui/material/Tooltip';
 import AwesomeIcon from '@jses/components/AwesomeIcon';
@@ -44,12 +45,21 @@ export default function Menu({ menu, showMini }: Props) {
   };
 
   return (
-    <ListItem key={menu.title} disablePadding classes={{ root: 'block my-2' }}>
+    <ListItem
+      key={menu.title}
+      disablePadding
+      classes={{
+        root: cx('block my-2', {
+          'before:h-full before:z-10 before:block before:content-[" "] before:w-2 before:absolute before:left-0 before:top-0 before:rounded-e-[0.6rem] before:bg-primary-main':
+            selected,
+        }),
+      }}
+    >
       <ListItemButton
         color='secondary'
         selected={selected}
         onClick={handleClick}
-        classes={{ root: 'flex justify-between' }}
+        classes={{ root: cx('flex justify-between', { 'pl-4': showMini }) }}
       >
         <JsesLink
           href={hasSubMenus ? '/' : menu.href}

@@ -1,50 +1,44 @@
 import {
-  faAnchor,
-  faBuilding,
-  faCloudRainbow,
-  faMp3Player,
-  faNewspaper,
+  faCoins,
+  faDisplayChartUpCircleDollar,
+  faGauge,
   faPalette,
-  faPanorama,
-  faRectangleHistoryCircleUser,
   faScrewdriverWrench,
-  faUserCowboy,
-} from '@fortawesome/pro-light-svg-icons';
+  faSliders,
+  faUserRobotXmarks,
+  faUsersGear,
+} from '@fortawesome/pro-duotone-svg-icons';
 import { IMenu } from '@jses/types/common';
 
 const menus: IMenu[] = [
   {
-    title: 'Profile',
-    icon: faUserCowboy,
+    title: 'Dashboard',
+    icon: faGauge,
     href: '/',
   },
   {
-    title: 'Projects',
-    icon: faRectangleHistoryCircleUser,
-    href: '/projects',
+    title: 'Assets',
+    icon: faCoins,
+    href: '/assets',
   },
   {
-    title: 'Articles',
-    icon: faNewspaper,
-    href: '/articles',
+    title: 'Analysis',
+    icon: faDisplayChartUpCircleDollar,
+    href: '/analysis',
   },
   {
-    title: 'Tool',
+    title: 'Robot',
+    icon: faUserRobotXmarks,
+    href: '/robot',
+  },
+  {
+    title: 'Settings',
     icon: faScrewdriverWrench,
-    href: '/tools',
+    href: '/settings',
     subMenus: [
-      { title: 'Color Picker', icon: faPalette, href: '/color-picker' },
-      { title: 'Svg2Base64', icon: faAnchor, href: '/svg2base64' },
-    ],
-  },
-  {
-    title: 'Showcases',
-    icon: faCloudRainbow,
-    href: '/showcases',
-    subMenus: [
-      { title: 'Panorama Image Viewer', icon: faPanorama, href: '/panorama' },
-      { title: 'Audio Player', icon: faMp3Player, href: '/audio-player' },
-      { title: 'Enterprise', icon: faBuilding, href: '/enterprise' },
+      { title: 'Accounts', icon: faUsersGear, href: '/accounts' },
+      { title: 'Parameters', icon: faSliders, href: '/parameters' },
+      { title: 'Theme', icon: faPalette, href: '/theme' },
     ],
   },
 ];

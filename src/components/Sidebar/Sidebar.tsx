@@ -27,26 +27,33 @@ export default function Sidebar() {
   const $list = (
     <aside
       style={{ width: `${sidebarWidth}rem` }}
-      className='overflow-hidden transition-all pr-2 bg-white dark:bg-bg-dark-light'
+      className='overflow-hidden transition-all bg-white dark:bg-bg-dark-light h-full'
     >
-      <Toolbar classes={{ root: cx('flex justify-between', { 'px-0': showMini }) }}>
-        <JsesLink href='/'>
-          <Image src='/jses.svg' alt='Jses' width={48} height={48} />
-        </JsesLink>
-        {!xlDown && (
-          <JsesTooltip title='Toggle Mini Sidebar' placement={showMini ? 'right' : 'bottom'}>
-            <div onClick={toggleShowMini} className='cursor-pointer'>
-              {showMini ? <KeyboardArrowRightIcon /> : <KeyboardArrowLeftIcon />}
-            </div>
-          </JsesTooltip>
-        )}
-      </Toolbar>
-      <Divider classes={{ root: '!m-0' }} />
-      <List>
-        {menus.map((menu) => (
-          <Menu menu={menu} key={menu.title} showMini={showMini} />
-        ))}
-      </List>
+      <div className='flex flex-col justify-between h-full'>
+        <div>
+          <Toolbar classes={{ root: cx('flex justify-between', { 'px-0': showMini }) }}>
+            <JsesLink href='/'>
+              <Image src='/joytrading.png' alt='Joy Trading' width={48} height={48} />
+            </JsesLink>
+            {!xlDown && (
+              <JsesTooltip title='Toggle Mini Sidebar' placement={showMini ? 'right' : 'bottom'}>
+                <div onClick={toggleShowMini} className='cursor-pointer'>
+                  {showMini ? <KeyboardArrowRightIcon /> : <KeyboardArrowLeftIcon />}
+                </div>
+              </JsesTooltip>
+            )}
+          </Toolbar>
+          <Divider classes={{ root: '!m-0' }} />
+          <List>
+            {menus.map((menu) => (
+              <Menu menu={menu} key={menu.title} showMini={showMini} />
+            ))}
+          </List>
+        </div>
+        <div>
+          <Image src='/joytrading.png' alt='Joy Trading' width={500} height={500} />
+        </div>
+      </div>
     </aside>
   );
 

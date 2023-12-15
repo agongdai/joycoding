@@ -195,20 +195,23 @@ const theme = createTheme({
     MuiListItemButton: {
       styleOverrides: {
         root: {
-          borderRadius: '0 10rem 10rem 0',
-          '&:hover': {
-            backgroundColor: 'rgba(231, 227, 252, 0.04)',
-          },
+          paddingLeft: '3rem',
           '&.Mui-selected': {
-            boxShadow: 'rgba(58, 53, 65, 0.42) 0px 4px 8px -4px',
-            backgroundImage: 'linear-gradient(98deg, rgb(198, 167, 254), rgb(145, 85, 253) 94%)',
-            '& .MuiSvgIcon-root': {
-              color: palette.white,
+            backgroundColor: palette.bgDarkMain,
+            '& .MuiListItemIcon svg': {
+              color: palette.primaryMain,
             },
             '& .MuiTypography-root': {
-              color: palette.white,
+              color: palette.primaryMain,
             },
           },
+        },
+      },
+    },
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          minWidth: '4rem',
         },
       },
     },

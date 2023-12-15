@@ -182,26 +182,29 @@ const theme = createTheme({
     MuiListItemButton: {
       styleOverrides: {
         root: {
-          borderRadius: '0 10rem 10rem 0',
+          paddingLeft: '3rem',
           '&.Mui-selected': {
-            boxShadow: 'rgba(58, 53, 65, 0.42) 0px 4px 8px -4px',
-            backgroundImage: 'linear-gradient(98deg, rgb(198, 167, 254), rgb(145, 85, 253) 94%)',
-            '& .MuiSvgIcon-root': {
-              color: palette.white,
+            backgroundColor: palette.bgLightMain,
+            '& .MuiListItemIcon svg': {
+              color: palette.primaryMain,
             },
             '& .MuiTypography-root': {
-              color: palette.white,
+              color: palette.primaryMain,
             },
           },
         },
       },
     },
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          minWidth: '4rem',
+        },
+      },
+    },
     MuiMenu: {
       styleOverrides: {
-        paper: {
-          boxShadow:
-            '0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12)',
-        },
+        paper: {},
       },
     },
     MuiSkeleton: {

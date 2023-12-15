@@ -34,7 +34,7 @@ export default function AwesomeIcon({
       size={size}
       style={{ color: variantColor || color }}
       className={cx(`text-tertiary-main dark:text-tertiary-dark ${className}`, {
-        'text-white': contrast,
+        'text-text-highlight dark:text-text-highlight': contrast,
       })}
     />
   );

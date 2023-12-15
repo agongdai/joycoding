@@ -22,5 +22,5 @@ export const metadata: Metadata = {
 
 export default async function Home({ params: { lang } }: { params: ParamsWithLng }) {
   const messages = await getTranslations(lang);
-  return <JsesStyledPageWrapper>JoyCoding</JsesStyledPageWrapper>;
+  return <JsesStyledPageWrapper>Joy Trading</JsesStyledPageWrapper>;
 }

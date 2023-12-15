@@ -48,7 +48,7 @@ export default function Header() {
         <div className='flex-1 text-lg font-bold'>
           {mdDown && <MenuIcon onClick={showMobileSidebar} classes={{ root: 'cursor-pointer' }} />}
           <JsesLink href='/' className='!text-primary-main md:ml-4 sm:ml-2'>
-            JoyCoding.io
+            Joy Trading
           </JsesLink>
           <span className='ml-2 text-xs'>by Shaojiang</span>
         </div>
