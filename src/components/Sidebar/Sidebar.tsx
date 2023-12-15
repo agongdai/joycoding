@@ -25,7 +25,10 @@ export default function Sidebar() {
   };
 
   const $list = (
-    <aside style={{ width: `${sidebarWidth}rem` }} className='overflow-hidden transition-all'>
+    <aside
+      style={{ width: `${sidebarWidth}rem` }}
+      className='overflow-hidden transition-all pr-2 bg-white dark:bg-bg-dark-light'
+    >
       <Toolbar classes={{ root: cx('flex justify-between', { 'px-0': showMini }) }}>
         <JsesLink href='/'>
           <Image src='/jses.svg' alt='Jses' width={48} height={48} />
