@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply m-0 overflow-y-auto overflow-x-hidden text-base antialiased font-medium;
+}
+
+html,
+body,
+main {
+  @apply bg-bg-light-main box-border h-full overflow-y-auto text-text-primary;
+}
+
+html.dark,
+html.dark body,
+html.dark main {
+  @apply bg-bg-dark-main text-white;
+}
+
+a,
+a:hover,
+a:active,
+a:visited,
+a:link {
+  @apply font-medium text-link;
+}
+
+a:hover {
+  @apply underline;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+#root h1 {
+  @apply text-h1 leading-normal font-semibold md:text-h2;
+}
+
+#root h2 {
+  @apply text-h2 leading-normal font-semibold md:text-h3;
+}
+
+#root h3 {
+  @apply text-h3 leading-normal font-semibold md:text-h4;
+}
+
+#root h4 {
+  @apply text-h4 leading-normal font-semibold md:text-h5;
+}
+
+#root h5 {
+  @apply text-h5 leading-normal font-semibold md:text-h6;
+}
+
+caption,
+.text-caption {
+  @apply text-xs font-normal;
+}
+
+.jses-scrollbar {
+  /** // Firefox - Gecko **/
+  scrollbar-width: thin;
+  scrollbar-color: rgba(42, 42, 42, 0.2) rgba(93, 93, 93, 0.05);
+
+  /** // IE >= 8 **/
+  scrollbar-track-color: rgba(93, 93, 93, 0.05);
+  scrollbar-face-color: rgba(42, 42, 42, 0.2);
+  width: calc(100% - 0.6rem);
+
+  @apply relative right-1 left-0 overflow-y-auto max-h-full;
+}
+
+.jses-scrollbar::-webkit-scrollbar {
+  @apply visible w-[0.6rem] h-[0.6rem];
+}
+
+.jses-scrollbar::-webkit-scrollbar-track {
+  @apply rounded bg-gray-400;
+}
+
+.jses-scrollbar::-webkit-scrollbar-thumb {
+  @apply rounded bg-gray-600;
+}
+
+.jses-inline-code {
+  @apply px-1 py-[0.2rem] rounded bg-warning-25 dark:bg-bg-dark-main text-text-primary dark:text-text-primary-1;
+}
+
+.prose pre {
+  @apply sm:-mx-4 sm:rounded-none;
+}
+
+.prose blockquote {
+  @apply sm:-mx-4;
+}
+
+.prose code {
+  font-family: var(--font-space-mono), source-code-pro, Monaco, Consolas, monospace !important;
+  @apply overflow-x-auto jses-scrollbar !font-bold break-all;
+}
+
+.jses-limit-svg svg {
+  @apply max-w-full max-h-80;
+}
+
+.jses-bg-contain {
+  background-size: contain;
+}
