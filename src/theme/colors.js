@@ -9,12 +9,12 @@ const paletteBase = {
   primary10: 'rgba(234, 84, 85, 0.10)',
   primary5: 'rgba(234, 84, 85, 0.05)',
 
-  secondaryMain: 'rgba(255, 148, 148, 1)',
-  secondaryDark: 'rgba(235, 137, 137, 1)',
-  secondary50: 'rgba(255, 148, 148, 0.5)',
-  secondary25: 'rgba(255, 148, 148, 0.25)',
-  secondary10: 'rgba(255, 148, 148, 0.10)',
-  secondary5: 'rgba(255, 148, 148, 0.05)',
+  secondaryMain: 'rgba(159, 145, 204, 1)',
+  secondaryDark: 'rgba(147, 130, 203, 1)',
+  secondary50: 'rgba(159, 145, 204, 0.5)',
+  secondary25: 'rgba(159, 145, 204, 0.25)',
+  secondary10: 'rgba(159, 145, 204, 0.10)',
+  secondary5: 'rgba(159, 145, 204, 0.05)',
 
   tertiaryMain: 'rgba(58, 53, 65, 0.87)',
   tertiaryDark: 'rgba(231, 227, 252, 0.87)',
@@ -30,16 +30,16 @@ const paletteBase = {
   gray800: '#424242',
   gray900: '#212121',
 
-  successMain: 'rgba(50, 160, 80, 0.75)',
-  successDark: 'rgba(50, 160, 80, 1)',
+  successMain: 'rgba(22, 177, 87, 1)',
+  successDark: 'rgba(5, 154, 87, 1)',
 
   warningMain: 'rgb(255, 180, 0)',
   warningDark: 'rgb(224, 158, 0)',
   warning25: 'rgba(255, 180, 0, 0.25)',
 
-  errorMain: 'rgba(255, 109, 76, 0.75)',
-  errorDark: 'rgba(255, 109, 76, 1)',
-  error50: 'rgba(255, 109, 76, 50)',
+  errorMain: 'rgba(240, 83, 89, 1)',
+  errorDark: 'rgba(219, 63, 63, 1)',
+  error50: 'rgba(240, 84, 84, 0.5)',
 
   infoMain: 'rgba(104, 129, 255, 0.75)',
   infoDark: 'rgba(104, 129, 255, 1)',
@@ -47,14 +47,21 @@ const paletteBase = {
 
   bgLightLight: 'rgb(255, 255, 255)',
   bgLightMain: '#FAFBFF',
+  bgLightDark: '#efefef',
   bgWhite: 'rgba(255, 255, 255, 1)',
   bgDarkMain: '#213555',
   bgDarkLight: 'rgba(45, 64, 89, 1)',
+  bgDarkDark: '#1d304e',
   bgPrimary5: 'rgba(145, 85, 253, 0.05)',
   bgPrimary10: 'rgba(145, 85, 253, 0.10)',
 
   highlightMain: 'rgba(255, 109, 76, 0.75)',
   highlightDark: 'rgba(255, 109, 76, 1)',
+
+  hoverBgLight: 'rgba(0, 0, 0, 0.04)',
+  hoverBgDark: 'rgba(0, 0, 0, 0.04)',
+  selectedBgLight: 'rgba(234, 84, 85, 0.12)',
+  selectedBgDark: 'rgba(234, 84, 85, 0.12)',
 };
 
 // eslint-disable-next-line no-undef
@@ -70,8 +77,11 @@ module.exports = {
   textSecondary1: paletteBase.gray300,
   textDisabled1: paletteBase.gray500,
 
+  goUp: paletteBase.successMain,
+  goDown: paletteBase.errorMain,
+
   link: paletteBase.primaryMain,
 
   borderLight: paletteBase.gray200,
-  borderDark: paletteBase.primary25,
+  borderDark: paletteBase.secondary25,
 };

@@ -17,6 +17,7 @@ interface Props {
   disabled?: boolean;
   download?: boolean;
   inverted?: boolean;
+  title?: string;
 }
 
 export default function JsesLink({
@@ -29,6 +30,7 @@ export default function JsesLink({
   disabled = false,
   download = false,
   inverted = false,
+  title = '',
 }: Props) {
   const { locale: currentLocale, pathName } = useLocale();
   const isExternal =
@@ -58,6 +60,7 @@ export default function JsesLink({
         'text-text-highlight': isActive || pathName === href,
         'text-white': inverted,
       })}
+      title={title}
     >
       {children}
     </Link>

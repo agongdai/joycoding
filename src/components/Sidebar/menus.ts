@@ -1,4 +1,5 @@
 import {
+  faChartMixedUpCircleDollar,
   faCoins,
   faDisplayChartUpCircleDollar,
   faGauge,
@@ -15,6 +16,11 @@ const menus: IMenu[] = [
     title: 'Dashboard',
     icon: faGauge,
     href: '/',
+  },
+  {
+    title: 'Markets',
+    icon: faChartMixedUpCircleDollar,
+    href: '/markets',
   },
   {
     title: 'Assets',

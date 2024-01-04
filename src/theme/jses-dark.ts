@@ -257,45 +257,6 @@ const theme = createTheme({
         },
       },
     },
-    MuiTimelineConnector: {
-      styleOverrides: {
-        root: {
-          backgroundColor: palette.borderDark,
-          height: '4rem',
-        },
-      },
-    },
-    MuiTimelineDot: {
-      styleOverrides: {
-        root: {
-          '&.MuiTimelineDot-filledPrimary': {
-            boxShadow: 'rgba(145, 85, 253, 0.12) 0px 0px 0px 3px',
-          },
-          '&.MuiTimelineDot-filledError': {
-            boxShadow: 'rgba(255, 76, 81, 0.12) 0px 0px 0px 3px',
-          },
-          '&.MuiTimelineDot-filledInfo': {
-            boxShadow: 'rgba(22, 177, 255, 0.12) 0px 0px 0px 3px',
-          },
-          '&.MuiTimelineDot-filledWarning': {
-            boxShadow: 'rgba(255, 180, 0, 0.12) 0px 0px 0px 3px',
-          },
-          '&.MuiTimelineDot-filledSuccess': {
-            boxShadow: 'rgba(86, 202, 0, 0.12) 0px 0px 0px 3px',
-          },
-        },
-      },
-    },
-    MuiTimelineItem: {
-      styleOverrides: {
-        root: {
-          '&:before': {
-            flex: 'none',
-            padding: 0,
-          },
-        },
-      },
-    },
     MuiFormHelperText: {
       styleOverrides: {
         contained: {
@@ -318,11 +279,33 @@ const theme = createTheme({
         },
       },
     },
-    MuiMobileStepper: {
+    MuiTableCell: {
       styleOverrides: {
         root: {
-          backgroundColor: palette.bgPrimary10,
-          color: palette.textPrimary1,
+          backgroundColor: palette.bgDarkLight,
+          borderColor: palette.borderDark,
+          padding: '1rem 1.6rem',
+        },
+        head: {
+          padding: '0.4rem 1.6rem',
+          opacity: 0.6,
+          backgroundColor: palette.bgDarkDark,
+        },
+      },
+    },
+    MuiTableContainer: {
+      styleOverrides: {
+        root: {
+          backgroundColor: palette.bgDarkLight,
+        },
+      },
+    },
+    MuiTableRow: {
+      styleOverrides: {
+        root: {
+          '&:hover .MuiTableCell-root': {
+            backgroundColor: palette.hoverBgDark,
+          },
         },
       },
     },

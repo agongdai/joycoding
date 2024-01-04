@@ -18,6 +18,18 @@ export const enum Status {
   Inactive = 'inactive',
 }
 
+export enum Severity {
+  Success = 'success',
+  Info = 'info',
+  Warning = 'warning',
+  Error = 'error',
+}
+
+export enum ExchangeStatus {
+  Operative = 1,
+  Maintenance = 0,
+}
+
 export type IMenu = {
   title: string;
   icon: IconProp;
@@ -36,3 +48,23 @@ export const enum StyleVariant {
   Highlight = 'highlight',
   Default = '',
 }
+
+export const enum ValueFormat {
+  Number = 'number',
+  Currency = 'currency',
+  Percentage = 'percentage',
+  Date = 'date',
+  Boolean = 'boolean',
+  String = 'string',
+  Coin = 'coin',
+  Price = 'price',
+  Volume = 'volume',
+}
+
+export type Value = string | number | boolean | Date | null | undefined;
+
+export type Coin = {
+  name: string;
+  symbol: string;
+  detailsUrl?: string;
+};

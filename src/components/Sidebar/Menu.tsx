@@ -87,7 +87,7 @@ export default function Menu({ menu, showMini }: Props) {
                 <ListItem key={subMenu.title} classes={{ root: 'block p-0' }}>
                   <ListItemButton
                     selected={exactSelect}
-                    classes={{ root: 'py-1 my-1' }}
+                    classes={{ root: cx('py-1 my-1', { 'pl-4': showMini }) }}
                     onClick={hideMobileSidebar}
                   >
                     <JsesLink href={`${menu.href}${subMenu.href}`} className='hover:no-underline'>

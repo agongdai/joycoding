@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Bitcoin",
+    "symbol": "BTC"
+  },
+  {
+    "name": "Ethereum",
+    "symbol": "ETH"
+  },
+  {
+    "name": "Litecoin",
+    "symbol": "LTC"
+  },
+  {
+    "name": "Binance Coin",
+    "symbol": "BNB"
+  },
+  {
+    "name": "Dash",
+    "symbol": "DSH"
+  },
+  {
+    "name": "Ripple",
+    "symbol": "XRP"
+  },
+  {
+    "name": "EOS",
+    "symbol": "EOS"
+  },
+  {
+    "name": "Qredo",
+    "symbol": "QRDO"
+  },
+  {
+    "name": "Radix",
+    "symbol": "XRD"
+  },
+  {
+    "name": "Luna2",
+    "symbol": "LUNA2"
+  },
+  {
+    "name": "Sushi",
+    "symbol": "SUSHI"
+  },
+  {
+    "name": "v.systems",
+    "symbol": "VSY"
+  },
+  {
+    "name": "0x",
+    "symbol": "ZRX"
+  },
+  {
+    "name": "Aptos",
+    "symbol": "APT"
+  },
+  {
+    "name": "UNUS SED LEO",
+    "symbol": "LEO"
+  },
+  {
+    "name": "Dogecoin",
+    "symbol": "DOGE"
+  },
+  {
+    "name": "yearn.finance",
+    "symbol": "YFI"
+  },
+  {
+    "name": "Polygon",
+    "symbol": "MATIC"
+  }
+]

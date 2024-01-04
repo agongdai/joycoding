@@ -3,6 +3,7 @@ import React from 'react';
 import { useTheme } from 'next-themes';
 import cx from 'classnames';
 
+import ExStatus from '@jses/components/ExStatus';
 import JsesLink from '@jses/components/JsesLink';
 import LangSwitch from '@jses/components/LangSwitch';
 import ThemeSwitch from '@jses/components/ThemeSwitch';
@@ -12,11 +13,12 @@ import { useJsesDispatch, useJsesSelector } from '@jses/store';
 import { setMobileSidebarOpen } from '@jses/store/actions';
 import { selectScrollTop } from '@jses/store/selectors';
 import { JsesTheme } from '@jses/theme';
+import { ExchangeStatus } from '@jses/types/common';
 import { Direction } from '@jses/types/window';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 
-export default function Header() {
+export default function Header({ bfxStatus }: { bfxStatus: ExchangeStatus }) {
   const dispatch = useJsesDispatch();
   const { mdDown } = useSidebar();
   const scrollTop = useJsesSelector(selectScrollTop);
@@ -52,11 +54,14 @@ export default function Header() {
           </JsesLink>
           <span className='ml-2 text-xs'>by Shaojiang</span>
         </div>
-        <ul className='grid grid-cols-2 gap-1 sm:gap-0'>
-          <li>
+        <ul className='flex items-center'>
+          <li className='mr-2'>
+            <ExStatus status={bfxStatus} />
+          </li>
+          <li className='ml-1'>
             <LangSwitch />
           </li>
-          <li>
+          <li className='ml-1'>
             <ThemeSwitch />
           </li>
         </ul>

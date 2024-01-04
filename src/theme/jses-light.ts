@@ -214,41 +214,25 @@ const theme = createTheme({
         },
       },
     },
-    MuiTimelineConnector: {
+    MuiTableCell: {
       styleOverrides: {
         root: {
-          backgroundColor: palette.borderLight,
-          height: '4rem',
+          backgroundColor: palette.bgLightLight,
+          borderColor: palette.borderLight,
+          padding: '1rem 1.6rem',
+        },
+        head: {
+          padding: '0.4rem 1.6rem',
+          opacity: 0.6,
+          backgroundColor: palette.bgLightDark,
         },
       },
     },
-    MuiTimelineDot: {
+    MuiTableRow: {
       styleOverrides: {
         root: {
-          '&.MuiTimelineDot-filledPrimary': {
-            boxShadow: 'rgba(145, 85, 253, 0.12) 0px 0px 0px 3px',
-          },
-          '&.MuiTimelineDot-filledError': {
-            boxShadow: 'rgba(255, 76, 81, 0.12) 0px 0px 0px 3px',
-          },
-          '&.MuiTimelineDot-filledInfo': {
-            boxShadow: 'rgba(22, 177, 255, 0.12) 0px 0px 0px 3px',
-          },
-          '&.MuiTimelineDot-filledWarning': {
-            boxShadow: 'rgba(255, 180, 0, 0.12) 0px 0px 0px 3px',
-          },
-          '&.MuiTimelineDot-filledSuccess': {
-            boxShadow: 'rgba(86, 202, 0, 0.12) 0px 0px 0px 3px',
-          },
-        },
-      },
-    },
-    MuiTimelineItem: {
-      styleOverrides: {
-        root: {
-          '&:before': {
-            flex: 'none',
-            padding: 0,
+          '&:hover .MuiTableCell-root': {
+            backgroundColor: palette.hoverBgLight,
           },
         },
       },
