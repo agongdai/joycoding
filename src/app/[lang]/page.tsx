@@ -7,6 +7,7 @@ import { getTranslations } from '@jses/i18n/translations';
 import { ParamsWithLng } from '@jses/types/i18n';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(Seo.siteUrl),
   title: Seo.title,
   description: Seo.description,
   keywords: Seo.keywords,

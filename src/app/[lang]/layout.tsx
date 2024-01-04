@@ -30,6 +30,7 @@ config.autoAddCss = false;
 export const revalidate = 600;
 
 export const metadata: Metadata = {
+  metadataBase: new URL(Seo.siteUrl),
   title: Seo.title,
   description: Seo.description,
   keywords: Seo.keywords,
