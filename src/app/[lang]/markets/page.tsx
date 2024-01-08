@@ -39,6 +39,7 @@ const columns: ColumnData<BfxTradingPair>[] = [
     label: 'Name',
     dataKey: 'symbol',
     format: ValueFormat.Coin,
+    sortable: true,
   },
   {
     width: 120,
@@ -57,12 +58,14 @@ const columns: ColumnData<BfxTradingPair>[] = [
     label: '24H Change %',
     dataKey: 'dailyChangePerc',
     format: ValueFormat.Percentage,
+    sortable: true,
   },
   {
     width: 100,
     label: 'Daily Volume',
     dataKey: '_volumeAmount',
     format: ValueFormat.Volume,
+    sortable: true,
   },
 ];
 
@@ -71,7 +74,12 @@ export default async function MarketsPage() {
   return (
     <JsesStyledPageWrapper>
       <h1>Markets</h1>
-      <JsesTable<BfxTradingPair> data={tradingPairs} columns={columns} />
+      <JsesTable<BfxTradingPair>
+        data={tradingPairs}
+        columns={columns}
+        defaultSortingField='_volumeAmount'
+        defaultSortingDirection='-'
+      />
     </JsesStyledPageWrapper>
   );
 }

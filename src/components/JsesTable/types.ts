@@ -5,4 +5,5 @@ export interface ColumnData<T> {
   label: string;
   width: number;
   format?: ValueFormat;
+  sortable?: boolean;
 }

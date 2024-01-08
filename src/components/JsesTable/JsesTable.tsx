@@ -1,8 +1,12 @@
 'use client';
 
 import React from 'react';
+import cx from 'classnames';
+import _sortBy from 'lodash/sortBy';
 import { TableComponents, TableVirtuoso } from 'react-virtuoso';
 
+import { faSortDown, faSortUp } from '@fortawesome/pro-duotone-svg-icons';
+import AwesomeIcon from '@jses/components/AwesomeIcon';
 import JsesFormatter from '@jses/components/JsesFormatter';
 import { Value, ValueFormat } from '@jses/types/common';
 import {
@@ -17,7 +21,41 @@ import {
 
 import { ColumnData } from './types';
 
-export default function JsesTable<T>({ data, columns }: { data: T[]; columns: ColumnData<T>[] }) {
+type Props<T> = {
+  data: T[];
+  columns: ColumnData<T>[];
+  defaultSortingField?: keyof T;
+  defaultSortingDirection?: '' | '-';
+};
+
+export default function JsesTable<T>({
+  data,
+  columns,
+  defaultSortingField,
+  defaultSortingDirection = '',
+}: Props<T>) {
+  const [sortingField, setSortingField] = React.useState<keyof T | undefined>(defaultSortingField);
+  const [sortingDirection, setSortingDirection] = React.useState<'' | '-'>(defaultSortingDirection);
+
+  React.useEffect(() => {
+    if (defaultSortingField) {
+      setSortingField(defaultSortingField);
+    }
+  }, [defaultSortingField]);
+
+  React.useEffect(() => {
+    if (defaultSortingDirection) {
+      setSortingDirection(defaultSortingDirection);
+    }
+  }, [defaultSortingDirection]);
+
+  const sortedData = React.useMemo(() => {
+    if (!sortingField) return data;
+
+    const sorted = _sortBy(data, sortingField);
+    return sortingDirection === '-' ? sorted.reverse() : sorted;
+  }, [sortingDirection, sortingField, data]);
+
   const VirtuosoTableComponents: TableComponents<T> = {
     /* eslint-disable react/display-name */
     Scroller: React.forwardRef<HTMLDivElement>((props, ref) => (
@@ -33,6 +71,19 @@ export default function JsesTable<T>({ data, columns }: { data: T[]; columns: Co
     )),
   };
 
+  const sortByField =
+    (field: keyof T, sortable: boolean = false) =>
+    () => {
+      if (!sortable) return;
+
+      if (sortingField === field) {
+        setSortingDirection(sortingDirection === '-' ? '' : '-');
+      } else {
+        setSortingField(field);
+        setSortingDirection('');
+      }
+    };
+
   function fixedHeaderContent() {
     return (
       <TableRow>
@@ -42,8 +93,19 @@ export default function JsesTable<T>({ data, columns }: { data: T[]; columns: Co
             variant='head'
             align={'left'}
             style={{ width: column.width }}
+            className={cx({ 'cursor-pointer hover:opacity-50': column.sortable })}
+            onClick={sortByField(column.dataKey, column.sortable)}
           >
-            {column.label}
+            <div>
+              {column.label}
+              {sortingField === column.dataKey && (
+                <AwesomeIcon
+                  size='sm'
+                  icon={sortingDirection === '-' ? faSortUp : faSortDown}
+                  className={`ml-1`}
+                />
+              )}
+            </div>
           </TableCell>
         ))}
       </TableRow>
@@ -66,10 +128,10 @@ export default function JsesTable<T>({ data, columns }: { data: T[]; columns: Co
   }
 
   return (
-    <div className='my-6' style={{ height: `${data.length * 6 + 3}rem` }}>
+    <div className='my-6' style={{ height: `${sortedData.length * 6 + 3}rem` }}>
       <TableVirtuoso
         style={{ height: '100%' }}
-        data={data}
+        data={sortedData}
         components={VirtuosoTableComponents}
         fixedHeaderContent={fixedHeaderContent}
         itemContent={rowContent}
