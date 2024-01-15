@@ -1,4 +1,4 @@
-import { Language, Locale } from '@jses/types/i18n';
+import { Language, Locale } from '@myex/types/i18n';
 
 export const languages: Language[] = [
   {

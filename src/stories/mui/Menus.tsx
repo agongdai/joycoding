@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { defaultLocale, languages } from '@jses/i18n/config';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
 import TranslateIcon from '@mui/icons-material/Translate';
@@ -10,6 +9,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import { defaultLocale, languages } from '@myex/i18n/config';
 
 interface Menus {
   label: string;

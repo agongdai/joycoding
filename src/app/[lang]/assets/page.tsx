@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { fetchTradingPairs, fetchWallets } from '@jses/app/serverActions';
-import { JsesStyledPageWrapper } from '@jses/components/JsesStyled';
-import MyAssets from '@jses/components/MyAssets';
+import { fetchTradingPairs, fetchWallets } from '@myex/app/serverActions';
+import MyAssets from '@myex/components/MyAssets';
+import { MyexStyledPageWrapper } from '@myex/components/MyexStyled';
 
 export default async function Assets() {
   const bfxWallets = await fetchWallets();
   const tradingPairs = await fetchTradingPairs();
   return (
-    <JsesStyledPageWrapper>
+    <MyexStyledPageWrapper>
       <h1>Assets</h1>
       <MyAssets bfxWallets={bfxWallets} tradingPairs={tradingPairs} />
-    </JsesStyledPageWrapper>
+    </MyexStyledPageWrapper>
   );
 }

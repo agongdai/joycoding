@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 
-import Tooltip from '@jses/components/@mui/material/Tooltip';
 import { TooltipProps } from '@mui/material';
+import Tooltip from '@myex/components/@mui/material/Tooltip';
 
 interface Props {
   text: string;

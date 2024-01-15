@@ -1,8 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 
-import JsesLink from '@jses/components/JsesLink';
 import { Button, Typography } from '@mui/material';
+import MyexLink from '@myex/components/MyexLink';
 
 export default function NotFound() {
   return (
@@ -11,11 +11,11 @@ export default function NotFound() {
       <Typography color='secondary' classes={{ root: 'my-10 text-center' }}>
         The page you are looking for has been removed or you have a wrong link.
       </Typography>
-      <JsesLink href='/'>
+      <MyexLink href='/'>
         <Button variant='contained' color='primary' size='large'>
           Go Home
         </Button>
-      </JsesLink>
+      </MyexLink>
     </div>
   );
 }

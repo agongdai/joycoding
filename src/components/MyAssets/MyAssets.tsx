@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BfxTradingPair, BfxWallet } from '@jses/types/bitfinex';
+import { BfxTradingPair, BfxWallet } from '@myex/types/bitfinex';
 
 interface Props {
   bfxWallets: BfxWallet[];

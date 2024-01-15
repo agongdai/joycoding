@@ -1,4 +1,4 @@
-import { Locale } from '@jses/types/i18n';
+import { Locale } from '@myex/types/i18n';
 
 import 'server-only';
 

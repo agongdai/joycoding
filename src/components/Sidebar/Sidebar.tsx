@@ -2,23 +2,23 @@
 import React from 'react';
 import cx from 'classnames';
 
-import JsesTooltip from '@jses/components/@mui/material/Tooltip';
-import JsesImage from '@jses/components/JsesImage';
-import JsesLink from '@jses/components/JsesLink';
-import { useSidebar } from '@jses/hooks/useSidebar';
-import { useJsesDispatch, useJsesSelector } from '@jses/store';
-import { setMobileSidebarOpen } from '@jses/store/actions';
-import { selectMobileSidebarOpen } from '@jses/store/dom/selectors';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { Divider, Drawer, List, Toolbar } from '@mui/material';
+import MyexTooltip from '@myex/components/@mui/material/Tooltip';
+import MyexImage from '@myex/components/MyexImage';
+import MyexLink from '@myex/components/MyexLink';
+import { useSidebar } from '@myex/hooks/useSidebar';
+import { useMyexDispatch, useMyexSelector } from '@myex/store';
+import { setMobileSidebarOpen } from '@myex/store/actions';
+import { selectMobileSidebarOpen } from '@myex/store/dom/selectors';
 
 import Menu from './Menu';
 import menus from './menus';
 
 export default function Sidebar() {
-  const dispatch = useJsesDispatch();
-  const showMobileSidebar = useJsesSelector(selectMobileSidebarOpen);
+  const dispatch = useMyexDispatch();
+  const showMobileSidebar = useMyexSelector(selectMobileSidebarOpen);
   const { sidebarWidth, toggleShowMini, showMini, xlDown, mdDown } = useSidebar();
   const toggleSidebar = () => {
     dispatch(setMobileSidebarOpen(!showMobileSidebar));
@@ -32,15 +32,15 @@ export default function Sidebar() {
       <div className='flex flex-col justify-between h-full'>
         <div>
           <Toolbar classes={{ root: cx('flex justify-between', { 'px-0': showMini }) }}>
-            <JsesLink href='/'>
-              <JsesImage src='/joytrading.png' alt='Joy Trading' width={48} height={48} />
-            </JsesLink>
+            <MyexLink href='/'>
+              <MyexImage src='/joytrading.png' alt='Joy Trading' width={48} height={48} />
+            </MyexLink>
             {!xlDown && (
-              <JsesTooltip title='Toggle Mini Sidebar' placement={showMini ? 'right' : 'bottom'}>
+              <MyexTooltip title='Toggle Mini Sidebar' placement={showMini ? 'right' : 'bottom'}>
                 <div onClick={toggleShowMini} className='cursor-pointer'>
                   {showMini ? <KeyboardArrowRightIcon /> : <KeyboardArrowLeftIcon />}
                 </div>
-              </JsesTooltip>
+              </MyexTooltip>
             )}
           </Toolbar>
           <Divider classes={{ root: '!m-0' }} />
@@ -51,7 +51,7 @@ export default function Sidebar() {
           </List>
         </div>
         <div>
-          <JsesImage src='/joytrading.png' alt='Joy Trading' width={500} height={500} />
+          <MyexImage src='/joytrading.png' alt='Joy Trading' width={500} height={500} />
         </div>
       </div>
     </aside>

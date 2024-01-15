@@ -4,13 +4,13 @@ import { useServerInsertedHTML } from 'next/navigation';
 
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
-import useJsesTheme from '@jses/hooks/useJsesTheme';
-import { JsesTheme } from '@jses/theme/index';
-import DarkTheme from '@jses/theme/jses-dark';
-import LightTheme from '@jses/theme/jses-light';
 import { Theme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
+import useMyexTheme from '@myex/hooks/useMyexTheme';
+import { MyexTheme } from '@myex/theme/index';
+import DarkTheme from '@myex/theme/myex-dark';
+import LightTheme from '@myex/theme/myex-light';
 
 // This implementation is from emotion-js
 // https://github.com/emotion-js/emotion/issues/2928#issuecomment-1319747902
@@ -21,8 +21,8 @@ export default function ThemeRegistry({
   options: Parameters<typeof createCache>[0];
   children: React.ReactNode;
 }) {
-  const { theme } = useJsesTheme();
-  const appTheme: Theme = theme === JsesTheme.Dark ? DarkTheme : LightTheme;
+  const { theme } = useMyexTheme();
+  const appTheme: Theme = theme === MyexTheme.Dark ? DarkTheme : LightTheme;
 
   const [{ cache, flush }] = React.useState(() => {
     const cache = createCache(options);

@@ -11,7 +11,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const JsesTimeline = ({ children, className = '' }: Props) => {
+const MyexTimeline = ({ children, className = '' }: Props) => {
   const muiTheme = useMuiTheme();
   const mdUp = useMediaQuery(muiTheme.breakpoints.up('md'));
   return (
@@ -21,4 +21,4 @@ const JsesTimeline = ({ children, className = '' }: Props) => {
   );
 };
 
-export default JsesTimeline;
+export default MyexTimeline;

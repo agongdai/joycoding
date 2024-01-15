@@ -19,7 +19,7 @@ const config: StorybookConfig = {
   webpackFinal: async (config: any) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@jses': path.resolve(__dirname, '../src'),
+      '@myex': path.resolve(__dirname, '../src'),
     };
 
     return config;

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import JsesLink from '@jses/components/JsesLink';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Divider from '@mui/material/Divider';
+import MyexLink from '@myex/components/MyexLink';
 
 export default function Footer() {
   return (
@@ -20,18 +20,18 @@ export default function Footer() {
               root: 'my-0 mx-3 h-3 border-primary-main dark:border-gray-lighter sm:hidden',
             }}
           />
-          <JsesLink href='/privacy'>Privacy</JsesLink>
+          <MyexLink href='/privacy'>Privacy</MyexLink>
           <Divider
             orientation='vertical'
             classes={{ root: 'my-0 mx-3 h-3 border-primary-main dark:border-gray-lighter' }}
           />
-          <JsesLink href='/terms'>Terms</JsesLink>
+          <MyexLink href='/terms'>Terms</MyexLink>
         </div>
       </div>
       <div className='flex items-center'>
-        <JsesLink href='mailto:caishaojiang@gmail.com'>
+        <MyexLink href='mailto:caishaojiang@gmail.com'>
           <EmailOutlinedIcon fontSize='small' classes={{ root: 'mr-1' }} /> caishaojiang@gmail.com
-        </JsesLink>
+        </MyexLink>
       </div>
     </footer>
   );

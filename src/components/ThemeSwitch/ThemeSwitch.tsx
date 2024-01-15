@@ -1,33 +1,33 @@
 'use client';
 import React from 'react';
 
-import JsesTooltip from '@jses/components/@mui/material/Tooltip';
-import useJsesTheme from '@jses/hooks/useJsesTheme';
-import { JsesTheme } from '@jses/theme';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { IconButton } from '@mui/material';
+import MyexTooltip from '@myex/components/@mui/material/Tooltip';
+import useMyexTheme from '@myex/hooks/useMyexTheme';
+import { MyexTheme } from '@myex/theme';
 
 export default function ThemeSwitch() {
-  const { theme, setTheme } = useJsesTheme();
+  const { theme, setTheme } = useMyexTheme();
 
   if (!theme) {
     return null;
   }
 
   const toggleTheme = () => {
-    setTheme(theme === JsesTheme.Dark ? JsesTheme.Light : JsesTheme.Dark);
+    setTheme(theme === MyexTheme.Dark ? MyexTheme.Light : MyexTheme.Dark);
   };
 
   return (
-    <JsesTooltip title='Switch Theme'>
+    <MyexTooltip title='Switch Theme'>
       <IconButton onClick={toggleTheme}>
-        {theme === JsesTheme.Dark ? (
+        {theme === MyexTheme.Dark ? (
           <LightModeIcon color='tertiary' />
         ) : (
           <DarkModeIcon color='tertiary' />
         )}
       </IconButton>
-    </JsesTooltip>
+    </MyexTooltip>
   );
 }

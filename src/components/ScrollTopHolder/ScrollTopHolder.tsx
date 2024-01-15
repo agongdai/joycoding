@@ -1,18 +1,18 @@
 'use client';
 import React, { useCallback, useEffect } from 'react';
 
-import { useJsesDispatch, useJsesSelector } from '@jses/store';
-import { setScrollTop } from '@jses/store/actions';
-import { selectScrollTop } from '@jses/store/dom/selectors';
+import { useMyexDispatch, useMyexSelector } from '@myex/store';
+import { setScrollTop } from '@myex/store/actions';
+import { selectScrollTop } from '@myex/store/dom/selectors';
 
 interface Props {
   children: React.ReactNode;
 }
 
 export default function ScrollTopHolder({ children }: Props) {
-  const dispatch = useJsesDispatch();
+  const dispatch = useMyexDispatch();
   const holderRef = React.useRef<HTMLDivElement>(null);
-  const scrollTop = useJsesSelector(selectScrollTop);
+  const scrollTop = useMyexSelector(selectScrollTop);
 
   const setScrollTopEvent = useCallback(() => {
     if (holderRef.current) {
@@ -40,7 +40,7 @@ export default function ScrollTopHolder({ children }: Props) {
   }, [scrollTop]);
 
   return (
-    <div className='flex-1 px-4 jses-scrollbar lg:p-0' ref={holderRef}>
+    <div className='flex-1 px-4 myex-scrollbar lg:p-0' ref={holderRef}>
       {children}
     </div>
   );

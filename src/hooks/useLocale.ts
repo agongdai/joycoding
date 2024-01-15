@@ -2,8 +2,8 @@
 import { usePathname } from 'next/navigation';
 import _compact from 'lodash/compact';
 
-import { locales } from '@jses/i18n/config';
-import { Locale } from '@jses/types/i18n';
+import { locales } from '@myex/i18n/config';
+import { Locale } from '@myex/types/i18n';
 
 export default function useLocale() {
   const pathName = usePathname();

@@ -2,11 +2,11 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
-import JsesDropdown from '@jses/components/JsesDropdown';
-import useLocale from '@jses/hooks/useLocale';
-import { defaultLocale, languages } from '@jses/i18n/config';
 import TranslateIcon from '@mui/icons-material/Translate';
 import { IconButton } from '@mui/material';
+import MyexDropdown from '@myex/components/MyexDropdown';
+import useLocale from '@myex/hooks/useLocale';
+import { defaultLocale, languages } from '@myex/i18n/config';
 
 export default function LangSwitch() {
   const { locale, pathName } = useLocale();
@@ -17,7 +17,7 @@ export default function LangSwitch() {
   };
 
   return (
-    <JsesDropdown
+    <MyexDropdown
       tooltip='Switch Language'
       menus={languages.map((lang) => ({ label: lang.name, value: lang.code }))}
       activeValue={locale || defaultLocale}
@@ -26,6 +26,6 @@ export default function LangSwitch() {
       <IconButton>
         <TranslateIcon color='tertiary' />
       </IconButton>
-    </JsesDropdown>
+    </MyexDropdown>
   );
 }

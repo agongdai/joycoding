@@ -4,25 +4,25 @@ import NextTopLoader from 'nextjs-toploader';
 import { dir } from 'i18next';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
-import { BfxEndpoints } from '@jses/api/endpoints';
-import Loading from '@jses/app/[lang]/loading';
-import Providers from '@jses/app/Providers';
-import Footer from '@jses/components/Footer';
-import Header from '@jses/components/Header';
-import JsesScrollToTop from '@jses/components/JsesScrollToTop';
-import ScrollTopHolder from '@jses/components/ScrollTopHolder';
-import Sidebar from '@jses/components/Sidebar';
-import Seo from '@jses/data/seo.json';
-import { languages } from '@jses/i18n/config';
-import colors from '@jses/theme/colors';
-import fonts from '@jses/theme/font';
-import ThemeRegistry from '@jses/theme/ThemeRegistry';
-import { ExchangeStatus } from '@jses/types/common';
-import { Language, ParamsWithLng } from '@jses/types/i18n';
+import { BfxEndpoints } from '@myex/api/endpoints';
+import Loading from '@myex/app/[lang]/loading';
+import Providers from '@myex/app/Providers';
+import Footer from '@myex/components/Footer';
+import Header from '@myex/components/Header';
+import MyexScrollToTop from '@myex/components/MyexScrollToTop';
+import ScrollTopHolder from '@myex/components/ScrollTopHolder';
+import Sidebar from '@myex/components/Sidebar';
+import Seo from '@myex/data/seo.json';
+import { languages } from '@myex/i18n/config';
+import colors from '@myex/theme/colors';
+import fonts from '@myex/theme/font';
+import ThemeRegistry from '@myex/theme/ThemeRegistry';
+import { ExchangeStatus } from '@myex/types/common';
+import { Language, ParamsWithLng } from '@myex/types/i18n';
 import { Analytics } from '@vercel/analytics/react';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import '@jses/app/globals.css';
+import '@myex/app/globals.css';
 
 config.autoAddCss = false;
 
@@ -73,7 +73,7 @@ export default async function RootLayout({
               <ScrollTopHolder>
                 <Header bfxStatus={bfxApiStatus} />
                 <Suspense fallback={<Loading />}>{children}</Suspense>
-                <JsesScrollToTop />
+                <MyexScrollToTop />
                 <Footer />
               </ScrollTopHolder>
             </main>

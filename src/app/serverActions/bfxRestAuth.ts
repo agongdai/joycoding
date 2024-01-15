@@ -2,8 +2,8 @@
 import BigNumber from 'bignumber.js';
 import crypto from 'crypto';
 
-import { BfxEndpoints } from '@jses/api/endpoints';
-import { BfxWallet } from '@jses/types/bitfinex';
+import { BfxEndpoints } from '@myex/api/endpoints';
+import { BfxWallet } from '@myex/types/bitfinex';
 
 const apiKey = process.env.BITFINEX_API_KEY || '';
 const apiSecret = process.env.BITFINEX_API_SECRET || ''; // const apiSecret = 'paste secret here'

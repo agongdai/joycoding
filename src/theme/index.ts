@@ -1,20 +1,20 @@
 import { Theme } from '@mui/material';
 
-import darkTheme from './jses-dark';
-import lightTheme from './jses-light';
+import darkTheme from './myex-dark';
+import lightTheme from './myex-light';
 
 export * from './palette';
 
-export enum JsesTheme {
+export enum MyexTheme {
   // eslint-disable-next-line no-unused-vars
   Light = 'light',
   // eslint-disable-next-line no-unused-vars
   Dark = 'dark',
 }
 
-export const DEFAULT_THEME = JsesTheme.Light;
+export const DEFAULT_THEME = MyexTheme.Light;
 
-export const themes: Record<JsesTheme, Theme> = {
-  [JsesTheme.Light]: lightTheme,
-  [JsesTheme.Dark]: darkTheme,
+export const themes: Record<MyexTheme, Theme> = {
+  [MyexTheme.Light]: lightTheme,
+  [MyexTheme.Dark]: darkTheme,
 };

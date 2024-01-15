@@ -1,10 +1,10 @@
 import React from 'react';
 import { Metadata } from 'next';
 
-import { JsesStyledPageWrapper } from '@jses/components/JsesStyled';
-import Seo from '@jses/data/seo.json';
-import { getTranslations } from '@jses/i18n/translations';
-import { ParamsWithLng } from '@jses/types/i18n';
+import { MyexStyledPageWrapper } from '@myex/components/MyexStyled';
+import Seo from '@myex/data/seo.json';
+import { getTranslations } from '@myex/i18n/translations';
+import { ParamsWithLng } from '@myex/types/i18n';
 
 export const metadata: Metadata = {
   metadataBase: new URL(Seo.siteUrl),
@@ -23,5 +23,5 @@ export const metadata: Metadata = {
 
 export default async function Home({ params: { lang } }: { params: ParamsWithLng }) {
   const messages = await getTranslations(lang);
-  return <JsesStyledPageWrapper>Joy Trading</JsesStyledPageWrapper>;
+  return <MyexStyledPageWrapper>Joy Trading</MyexStyledPageWrapper>;
 }

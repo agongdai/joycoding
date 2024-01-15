@@ -1,11 +1,11 @@
 'use server';
 import BigNumber from 'bignumber.js';
 
-import { BfxEndpoints } from '@jses/api/endpoints';
-import coins from '@jses/data/coins.json';
-import { BfxTradingPair } from '@jses/types/bitfinex';
-import { Coin } from '@jses/types/common';
-import { currencyToSymbol, symbolToCurrency } from '@jses/utils/trading';
+import { BfxEndpoints } from '@myex/api/endpoints';
+import coins from '@myex/data/coins.json';
+import { BfxTradingPair } from '@myex/types/bitfinex';
+import { Coin } from '@myex/types/common';
+import { currencyToSymbol, symbolToCurrency } from '@myex/utils/trading';
 
 export async function fetchTradingPairs(): Promise<BfxTradingPair[]> {
   const symbolsStr = coins.map((coin: Coin) => currencyToSymbol(coin.currency)).join(',');

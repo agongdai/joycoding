@@ -3,13 +3,6 @@
 import React from 'react';
 import cx from 'classnames';
 
-import JsesTooltip from '@jses/components/@mui/material/Tooltip';
-import AwesomeIcon from '@jses/components/AwesomeIcon';
-import JsesLink from '@jses/components/JsesLink';
-import useLocale from '@jses/hooks/useLocale';
-import { useJsesDispatch } from '@jses/store';
-import { setMobileSidebarOpen } from '@jses/store/dom/actions';
-import { IMenu } from '@jses/types/common';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import {
   Collapse,
@@ -19,6 +12,13 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
+import MyexTooltip from '@myex/components/@mui/material/Tooltip';
+import AwesomeIcon from '@myex/components/AwesomeIcon';
+import MyexLink from '@myex/components/MyexLink';
+import useLocale from '@myex/hooks/useLocale';
+import { useMyexDispatch } from '@myex/store';
+import { setMobileSidebarOpen } from '@myex/store/dom/actions';
+import { IMenu } from '@myex/types/common';
 
 interface Props {
   menu: IMenu;
@@ -26,7 +26,7 @@ interface Props {
 }
 
 export default function Menu({ menu, showMini }: Props) {
-  const dispatch = useJsesDispatch();
+  const dispatch = useMyexDispatch();
   const { pathName } = useLocale();
   const selected = menu.href === '/' ? pathName === '/' : pathName.startsWith(menu.href);
   const [open, setOpen] = React.useState(false);
@@ -61,21 +61,21 @@ export default function Menu({ menu, showMini }: Props) {
         onClick={handleClick}
         classes={{ root: cx('flex justify-between', { 'pl-4': showMini }) }}
       >
-        <JsesLink
+        <MyexLink
           href={hasSubMenus ? '/' : menu.href}
           className='hover:no-underline'
           disabled={hasSubMenus}
         >
-          <JsesTooltip title={showMini ? menu.title : ''} placement='right'>
+          <MyexTooltip title={showMini ? menu.title : ''} placement='right'>
             <ListItemIcon>
               <AwesomeIcon icon={menu.icon} size='lg' contrast={selected} />
             </ListItemIcon>
-          </JsesTooltip>
+          </MyexTooltip>
           <ListItemText
             primary={showMini ? '' : menu.title}
             classes={{ root: 'text-text-primary dark:text-text-primary-1' }}
           />
-        </JsesLink>
+        </MyexLink>
         {hasSubMenus && (open ? <ExpandLess /> : <ExpandMore />)}
       </ListItemButton>
       {hasSubMenus && (
@@ -90,17 +90,17 @@ export default function Menu({ menu, showMini }: Props) {
                     classes={{ root: cx('py-1 my-1', { 'pl-4': showMini }) }}
                     onClick={hideMobileSidebar}
                   >
-                    <JsesLink href={`${menu.href}${subMenu.href}`} className='hover:no-underline'>
-                      <JsesTooltip title={showMini ? subMenu.title : ''} placement='right'>
+                    <MyexLink href={`${menu.href}${subMenu.href}`} className='hover:no-underline'>
+                      <MyexTooltip title={showMini ? subMenu.title : ''} placement='right'>
                         <ListItemIcon>
                           <AwesomeIcon icon={subMenu.icon} size='lg' contrast={exactSelect} />
                         </ListItemIcon>
-                      </JsesTooltip>
+                      </MyexTooltip>
                       <ListItemText
                         primary={showMini ? '' : subMenu.title}
                         classes={{ root: 'text-text-primary dark:text-text-primary-1' }}
                       />
-                    </JsesLink>
+                    </MyexLink>
                   </ListItemButton>
                 </ListItem>
               );

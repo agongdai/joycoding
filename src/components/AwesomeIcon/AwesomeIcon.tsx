@@ -3,9 +3,9 @@ import cx from 'classnames';
 
 import { IconProp, SizeProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { variant2Color } from '@jses/theme/palette';
-import { StyleVariant } from '@jses/types/common';
 import { Tooltip, Zoom } from '@mui/material';
+import { variant2Color } from '@myex/theme/palette';
+import { StyleVariant } from '@myex/types/common';
 
 interface Props {
   icon: IconProp;

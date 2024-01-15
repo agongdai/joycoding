@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { WindowSize } from '@jses/types/window';
+import { WindowSize } from '@myex/types/window';
 
 export default function useWindowSize(): WindowSize {
   // Initialize state with undefined width/height so server and client renders match

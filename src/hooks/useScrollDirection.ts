@@ -1,12 +1,12 @@
 'use client';
 
-import usePrevious from '@jses/hooks/usePrevious';
-import { useJsesSelector } from '@jses/store';
-import { selectScrollTop } from '@jses/store/dom/selectors';
-import { Direction } from '@jses/types/window';
+import usePrevious from '@myex/hooks/usePrevious';
+import { useMyexSelector } from '@myex/store';
+import { selectScrollTop } from '@myex/store/dom/selectors';
+import { Direction } from '@myex/types/window';
 
 export default function useScrollDirection() {
-  const scrollTop = useJsesSelector(selectScrollTop);
+  const scrollTop = useMyexSelector(selectScrollTop);
   const previousScrollTop = usePrevious(scrollTop);
 
   return scrollTop && scrollTop > previousScrollTop ? Direction.Down : Direction.Up;

@@ -1,4 +1,4 @@
-import { StyleVariant } from '@jses/types/common';
+import { StyleVariant } from '@myex/types/common';
 
 import colors from './colors';
 

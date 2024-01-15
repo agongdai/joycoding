@@ -4,9 +4,9 @@ import { ThemeProvider } from 'next-themes';
 import _debounce from 'lodash/debounce';
 import { Provider as ReduxProvider } from 'react-redux';
 
-import store from '@jses/store';
-import { saveState } from '@jses/store/localStorage';
-import { JsesTheme } from '@jses/theme';
+import store from '@myex/store';
+import { saveState } from '@myex/store/localStorage';
+import { MyexTheme } from '@myex/theme';
 
 // here we subscribe to the store changes
 store.subscribe(
@@ -20,7 +20,7 @@ store.subscribe(
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ReduxProvider store={store}>
-      <ThemeProvider defaultTheme={JsesTheme.Dark} attribute='class'>
+      <ThemeProvider defaultTheme={MyexTheme.Dark} attribute='class'>
         {children}
       </ThemeProvider>
     </ReduxProvider>

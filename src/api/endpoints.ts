@@ -1,4 +1,4 @@
-import { Endpoint } from '@jses/types/api';
+import { Endpoint } from '@myex/types/api';
 
 const BfxBaseUrl = 'https://api-pub.bitfinex.com';
 

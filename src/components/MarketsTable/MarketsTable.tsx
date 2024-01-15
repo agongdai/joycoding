@@ -1,11 +1,11 @@
 'use client';
 import React from 'react';
 
-import JsesTable from '@jses/components/JsesTable';
-import { ColumnData } from '@jses/components/JsesTable/types';
-import { useJsesSelector } from '@jses/store';
-import { selectFavorites, selectShowFavorites } from '@jses/store/trading/selectors';
-import { BfxTradingPair } from '@jses/types/bitfinex';
+import MyexTable from '@myex/components/MyexTable';
+import { ColumnData } from '@myex/components/MyexTable/types';
+import { useMyexSelector } from '@myex/store';
+import { selectFavorites, selectShowFavorites } from '@myex/store/trading/selectors';
+import { BfxTradingPair } from '@myex/types/bitfinex';
 
 interface Props {
   tradingPairs: BfxTradingPair[];
@@ -13,14 +13,14 @@ interface Props {
 }
 
 export default function MarketsTable({ tradingPairs, columns }: Props) {
-  const showFavoritesState = useJsesSelector(selectShowFavorites);
-  const favoritesState = useJsesSelector(selectFavorites);
+  const showFavoritesState = useMyexSelector(selectShowFavorites);
+  const favoritesState = useMyexSelector(selectFavorites);
   const tableData = showFavoritesState
     ? tradingPairs.filter((pair) => favoritesState.includes(pair.symbol))
     : tradingPairs;
 
   return (
-    <JsesTable<BfxTradingPair>
+    <MyexTable<BfxTradingPair>
       data={tableData}
       columns={columns}
       defaultSortingField='dailyChangePerc'

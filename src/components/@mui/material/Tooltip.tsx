@@ -6,10 +6,10 @@ type Props = TooltipProps & {
   children: React.ReactNode;
 };
 
-const JsesTooltip = ({ children, ...props }: Props) => (
+const MyexTooltip = ({ children, ...props }: Props) => (
   <Tooltip arrow TransitionComponent={Zoom} TransitionProps={{ timeout: 300 }} {...props}>
     {children}
   </Tooltip>
 );
 
-export default JsesTooltip;
+export default MyexTooltip;

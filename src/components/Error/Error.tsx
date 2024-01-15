@@ -1,8 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 
-import JsesLink from '@jses/components/JsesLink';
 import { Button, Typography } from '@mui/material';
+import MyexLink from '@myex/components/MyexLink';
 
 export default function Error() {
   return (
@@ -11,11 +11,11 @@ export default function Error() {
       <Typography color='secondary' classes={{ root: 'my-10 text-center' }}>
         {`It's not your fault, it's ours. We are working on it.`}
       </Typography>
-      <JsesLink href='/'>
+      <MyexLink href='/'>
         <Button variant='contained' color='primary' size='large'>
           Go Home
         </Button>
-      </JsesLink>
+      </MyexLink>
     </div>
   );
 }

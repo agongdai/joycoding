@@ -31,8 +31,8 @@ const config = process.env.NODE_ENV === 'production'
 
     // Suppresses source map uploading logs during build
     silent: true,
-    org: 'jsesio',
-    project: 'jses',
+    org: 'myexio',
+    project: 'myex',
   }, {
     // For all available options, see:
     // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/

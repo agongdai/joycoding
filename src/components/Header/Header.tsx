@@ -3,25 +3,25 @@ import React from 'react';
 import { useTheme } from 'next-themes';
 import cx from 'classnames';
 
-import ExStatus from '@jses/components/ExStatus';
-import JsesLink from '@jses/components/JsesLink';
-import LangSwitch from '@jses/components/LangSwitch';
-import ThemeSwitch from '@jses/components/ThemeSwitch';
-import { useSidebar } from '@jses/hooks';
-import useScrollDirection from '@jses/hooks/useScrollDirection';
-import { useJsesDispatch, useJsesSelector } from '@jses/store';
-import { setMobileSidebarOpen } from '@jses/store/actions';
-import { selectScrollTop } from '@jses/store/selectors';
-import { JsesTheme } from '@jses/theme';
-import { ExchangeStatus } from '@jses/types/common';
-import { Direction } from '@jses/types/window';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
+import ExStatus from '@myex/components/ExStatus';
+import LangSwitch from '@myex/components/LangSwitch';
+import MyexLink from '@myex/components/MyexLink';
+import ThemeSwitch from '@myex/components/ThemeSwitch';
+import { useSidebar } from '@myex/hooks';
+import useScrollDirection from '@myex/hooks/useScrollDirection';
+import { useMyexDispatch, useMyexSelector } from '@myex/store';
+import { setMobileSidebarOpen } from '@myex/store/actions';
+import { selectScrollTop } from '@myex/store/selectors';
+import { MyexTheme } from '@myex/theme';
+import { ExchangeStatus } from '@myex/types/common';
+import { Direction } from '@myex/types/window';
 
 export default function Header({ bfxStatus }: { bfxStatus: ExchangeStatus }) {
-  const dispatch = useJsesDispatch();
+  const dispatch = useMyexDispatch();
   const { mdDown } = useSidebar();
-  const scrollTop = useJsesSelector(selectScrollTop);
+  const scrollTop = useMyexSelector(selectScrollTop);
   const scrollingDirection = useScrollDirection();
   const { theme } = useTheme();
 
@@ -42,16 +42,16 @@ export default function Header({ bfxStatus }: { bfxStatus: ExchangeStatus }) {
     >
       <div
         className={cx('transition-all flex justify-between items-center px-4 py-2 sm:px-2', {
-          'bg-bg-light-light': theme === JsesTheme.Light && scrolled,
-          'bg-bg-dark-light': theme === JsesTheme.Dark && scrolled,
+          'bg-bg-light-light': theme === MyexTheme.Light && scrolled,
+          'bg-bg-dark-light': theme === MyexTheme.Dark && scrolled,
           'shadow-lg mx-4 sm:mx-0': scrolled,
         })}
       >
         <div className='flex-1 text-lg font-bold'>
           {mdDown && <MenuIcon onClick={showMobileSidebar} classes={{ root: 'cursor-pointer' }} />}
-          <JsesLink href='/' className='!text-primary-main md:ml-4 sm:ml-2'>
-            Joy Trading
-          </JsesLink>
+          <MyexLink href='/' className='!text-primary-main md:ml-4 sm:ml-2'>
+            MyEx.ai
+          </MyexLink>
           <span className='ml-2 text-xs'>by Shaojiang</span>
         </div>
         <ul className='flex items-center'>

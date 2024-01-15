@@ -9,7 +9,7 @@ import {
   faUserRobotXmarks,
   faUsersGear,
 } from '@fortawesome/pro-duotone-svg-icons';
-import { IMenu } from '@jses/types/common';
+import { IMenu } from '@myex/types/common';
 
 const menus: IMenu[] = [
   {

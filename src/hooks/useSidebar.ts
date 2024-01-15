@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { SIDEBAR_WIDTH_DESKTOP, SIDEBAR_WIDTH_TABLET } from '@jses/config';
-import useMuiMediaQuery from '@jses/hooks/useMuiMediaQuery';
-import { useJsesDispatch } from '@jses/store';
-import { setMobileSidebarOpen } from '@jses/store/actions';
+import { SIDEBAR_WIDTH_DESKTOP, SIDEBAR_WIDTH_TABLET } from '@myex/config';
+import useMuiMediaQuery from '@myex/hooks/useMuiMediaQuery';
+import { useMyexDispatch } from '@myex/store';
+import { setMobileSidebarOpen } from '@myex/store/actions';
 
 export function useSidebar() {
-  const dispatch = useJsesDispatch();
+  const dispatch = useMyexDispatch();
   const { xlDown, mdDown } = useMuiMediaQuery();
   const [showMini, setShowMini] = useState(false);
 

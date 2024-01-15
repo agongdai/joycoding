@@ -72,7 +72,7 @@ caption,
   @apply text-xs font-normal;
 }
 
-.jses-scrollbar {
+.myex-scrollbar {
   /** // Firefox - Gecko **/
   scrollbar-width: thin;
   scrollbar-color: rgba(42, 42, 42, 0.2) rgba(93, 93, 93, 0.05);
@@ -85,19 +85,19 @@ caption,
   @apply relative right-1 left-0 overflow-y-auto max-h-full;
 }
 
-.jses-scrollbar::-webkit-scrollbar {
+.myex-scrollbar::-webkit-scrollbar {
   @apply visible w-[0.6rem] h-[0.6rem];
 }
 
-.jses-scrollbar::-webkit-scrollbar-track {
+.myex-scrollbar::-webkit-scrollbar-track {
   @apply rounded bg-gray-400;
 }
 
-.jses-scrollbar::-webkit-scrollbar-thumb {
+.myex-scrollbar::-webkit-scrollbar-thumb {
   @apply rounded bg-gray-600;
 }
 
-.jses-inline-code {
+.myex-inline-code {
   @apply px-1 py-[0.2rem] rounded bg-warning-25 dark:bg-bg-dark-main text-text-primary dark:text-text-primary-1;
 }
 
@@ -111,13 +111,13 @@ caption,
 
 .prose code {
   font-family: var(--font-space-mono), source-code-pro, Monaco, Consolas, monospace !important;
-  @apply overflow-x-auto jses-scrollbar !font-bold break-all;
+  @apply overflow-x-auto myex-scrollbar !font-bold break-all;
 }
 
-.jses-limit-svg svg {
+.myex-limit-svg svg {
   @apply max-w-full max-h-80;
 }
 
-.jses-bg-contain {
+.myex-bg-contain {
   background-size: contain;
 }
