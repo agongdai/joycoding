@@ -5,6 +5,7 @@ import { Value, ValueFormat } from '@jses/types/common';
 import Coin from './Coin';
 import Percentage from './Percentage';
 import Price from './Price';
+import UserActions from './UserActions';
 import Volume from './Volume';
 
 export default function JsesFormatter({
@@ -28,6 +29,10 @@ export default function JsesFormatter({
 
   if (ValueFormat.Coin === format) {
     return <Coin value={value} />;
+  }
+
+  if (ValueFormat.UserActions === format) {
+    return <UserActions symbol={String(value)} />;
   }
 
   return <div>{String(value)}</div>;

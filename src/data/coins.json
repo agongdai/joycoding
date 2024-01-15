@@ -1,74 +1,78 @@
 [
   {
     "name": "Bitcoin",
-    "symbol": "BTC"
+    "currency": "BTC"
   },
   {
     "name": "Ethereum",
-    "symbol": "ETH"
+    "currency": "ETH"
   },
   {
     "name": "Litecoin",
-    "symbol": "LTC"
+    "currency": "LTC"
   },
   {
     "name": "Binance Coin",
-    "symbol": "BNB"
+    "currency": "BNB"
   },
   {
     "name": "Dash",
-    "symbol": "DSH"
+    "currency": "DSH"
   },
   {
     "name": "Ripple",
-    "symbol": "XRP"
+    "currency": "XRP"
   },
   {
     "name": "EOS",
-    "symbol": "EOS"
+    "currency": "EOS"
   },
   {
     "name": "Qredo",
-    "symbol": "QRDO"
+    "currency": "QRDO"
   },
   {
     "name": "Radix",
-    "symbol": "XRD"
+    "currency": "XRD"
   },
   {
     "name": "Luna2",
-    "symbol": "LUNA2"
+    "currency": "LUNA2"
   },
   {
     "name": "Sushi",
-    "symbol": "SUSHI"
+    "currency": "SUSHI"
   },
   {
     "name": "v.systems",
-    "symbol": "VSY"
+    "currency": "VSY"
   },
   {
     "name": "0x",
-    "symbol": "ZRX"
+    "currency": "ZRX"
   },
   {
     "name": "Aptos",
-    "symbol": "APT"
+    "currency": "APT"
   },
   {
     "name": "UNUS SED LEO",
-    "symbol": "LEO"
+    "currency": "LEO"
   },
   {
     "name": "Dogecoin",
-    "symbol": "DOGE"
+    "currency": "DOGE"
   },
   {
     "name": "yearn.finance",
-    "symbol": "YFI"
+    "currency": "YFI"
   },
   {
     "name": "Polygon",
-    "symbol": "MATIC"
+    "currency": "MATIC"
+  },
+  {
+    "name": "Wrapped NCG",
+    "currency": "WNCG"
   }
 ]

@@ -59,12 +59,13 @@ export const enum ValueFormat {
   Coin = 'coin',
   Price = 'price',
   Volume = 'volume',
+  UserActions = 'userActions',
 }
 
 export type Value = string | number | boolean | Date | null | undefined;
 
 export type Coin = {
   name: string;
-  symbol: string;
+  currency: string;
   detailsUrl?: string;
 };

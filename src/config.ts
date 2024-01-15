@@ -7,4 +7,4 @@ export const SIDEBAR_WIDTH_TABLET: number = 5.5;
 export const FIAT_CURRENCY_SYMBOL: string = '$';
 
 export const PRICE_MAX_DECIMAL_PLACES: number = 8;
-export const PRICE_DEFAULT_DECIMAL_PLACES: number = 2;
+export const PRICE_DEFAULT_DECIMAL_PLACES: number = 3;

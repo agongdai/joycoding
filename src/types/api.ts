@@ -27,6 +27,7 @@ export enum HttpStatusCode {
 
 export type Endpoint = {
   path: string;
+  apiPath?: string;
   method?: HttpMethod;
   payload?: any;
 };

@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import Image from 'next/image';
 import cx from 'classnames';
 
 import JsesTooltip from '@jses/components/@mui/material/Tooltip';
+import JsesImage from '@jses/components/JsesImage';
 import JsesLink from '@jses/components/JsesLink';
 import { useSidebar } from '@jses/hooks/useSidebar';
 import { useJsesDispatch, useJsesSelector } from '@jses/store';
@@ -33,7 +33,7 @@ export default function Sidebar() {
         <div>
           <Toolbar classes={{ root: cx('flex justify-between', { 'px-0': showMini }) }}>
             <JsesLink href='/'>
-              <Image src='/joytrading.png' alt='Joy Trading' width={48} height={48} />
+              <JsesImage src='/joytrading.png' alt='Joy Trading' width={48} height={48} />
             </JsesLink>
             {!xlDown && (
               <JsesTooltip title='Toggle Mini Sidebar' placement={showMini ? 'right' : 'bottom'}>
@@ -51,7 +51,7 @@ export default function Sidebar() {
           </List>
         </div>
         <div>
-          <Image src='/joytrading.png' alt='Joy Trading' width={500} height={500} />
+          <JsesImage src='/joytrading.png' alt='Joy Trading' width={500} height={500} />
         </div>
       </div>
     </aside>

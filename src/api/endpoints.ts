@@ -13,4 +13,8 @@ export const BfxEndpoints: Record<string, Endpoint> = {
   tickers: {
     path: getBfxApiUrl('/tickers'),
   },
+  wallets: {
+    path: getBfxApiUrl('/auth/r/wallets'),
+    apiPath: 'v2/auth/r/wallets', // for signature
+  },
 };

@@ -214,29 +214,6 @@ const theme = createTheme({
         },
       },
     },
-    MuiTableCell: {
-      styleOverrides: {
-        root: {
-          backgroundColor: palette.bgLightLight,
-          borderColor: palette.borderLight,
-          padding: '1rem 1.6rem',
-        },
-        head: {
-          padding: '0.4rem 1.6rem',
-          opacity: 0.6,
-          backgroundColor: palette.bgLightDark,
-        },
-      },
-    },
-    MuiTableRow: {
-      styleOverrides: {
-        root: {
-          '&:hover .MuiTableCell-root': {
-            backgroundColor: palette.hoverBgLight,
-          },
-        },
-      },
-    },
     MuiFormHelperText: {
       styleOverrides: {
         contained: {

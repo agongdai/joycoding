@@ -15,6 +15,7 @@ interface Props {
   contrast?: boolean;
   tooltip?: string;
   variant?: StyleVariant;
+  onClick?: () => void;
 }
 
 export default function AwesomeIcon({
@@ -25,11 +26,13 @@ export default function AwesomeIcon({
   contrast = false,
   tooltip = '',
   variant = StyleVariant.Default,
+  onClick,
 }: Props) {
   const variantColor = variant2Color(variant);
 
   const iconNode = (
     <FontAwesomeIcon
+      onClick={onClick}
       icon={icon}
       size={size}
       style={{ color: variantColor || color }}

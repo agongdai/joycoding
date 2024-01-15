@@ -11,6 +11,9 @@ const nextConfig = {
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   productionBrowserSourceMaps: true,
   compress: true,
+  experimental: {
+    serverActions: true,
+  },
 };
 
 const withMDX = createMDX({

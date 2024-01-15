@@ -3,11 +3,15 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
 import domReducer from './dom/slice';
+import tradingReducer from './trading/slice';
+import { loadState } from './localStorage';
 
 const store = configureStore({
   reducer: {
     dom: domReducer,
+    trading: tradingReducer,
   },
+  preloadedState: loadState(),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

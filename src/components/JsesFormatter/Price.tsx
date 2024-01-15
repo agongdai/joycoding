@@ -20,7 +20,7 @@ const priceFormat = {
 };
 
 export default function Price({ value, nDecimals = 0 }: { value: Value; nDecimals?: number }) {
-  const displayedDecimals = BigNumber(String(value)).isLessThan(BigNumber(0.01))
+  const displayedDecimals = BigNumber(String(value)).isLessThan(BigNumber(10))
     ? PRICE_MAX_DECIMAL_PLACES
     : PRICE_DEFAULT_DECIMAL_PLACES;
 

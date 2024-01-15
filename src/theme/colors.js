@@ -59,7 +59,7 @@ const paletteBase = {
   highlightDark: 'rgba(255, 109, 76, 1)',
 
   hoverBgLight: 'rgba(0, 0, 0, 0.04)',
-  hoverBgDark: 'rgba(0, 0, 0, 0.04)',
+  hoverBgDark: 'rgba(40, 56, 78, 1)',
   selectedBgLight: 'rgba(234, 84, 85, 0.12)',
   selectedBgDark: 'rgba(234, 84, 85, 0.12)',
 };
