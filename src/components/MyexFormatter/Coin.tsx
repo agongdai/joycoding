@@ -5,11 +5,9 @@ import MyexImage from '@myex/components/MyexImage';
 import MyexLink from '@myex/components/MyexLink';
 import coins from '@myex/data/coins.json';
 import { Value } from '@myex/types/common';
-import { symbolToCurrency } from '@myex/utils/trading';
 
 export default function Coin({ value }: { value: Value }) {
-  const strValue = String(value);
-  const currency = symbolToCurrency(strValue);
+  const currency = String(value);
   const name = coins.find((coin) => coin.currency === currency)?.name || '';
 
   return (

@@ -1,11 +1,7 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
-import {
-  FIAT_CURRENCY_SYMBOL,
-  PRICE_DEFAULT_DECIMAL_PLACES,
-  PRICE_MAX_DECIMAL_PLACES,
-} from '@myex/config';
+import { PRICE_DEFAULT_DECIMAL_PLACES, PRICE_MAX_DECIMAL_PLACES } from '@myex/config';
 import { Value } from '@myex/types/common';
 
 const priceFormat = {
@@ -19,18 +15,19 @@ const priceFormat = {
   suffix: '',
 };
 
-export default function Price({ value, nDecimals = 0 }: { value: Value; nDecimals?: number }) {
+export default function Number({ value, nDecimals = 0 }: { value: Value; nDecimals?: number }) {
   const displayedDecimals = BigNumber(String(value)).isLessThan(BigNumber(10))
     ? PRICE_MAX_DECIMAL_PLACES
     : PRICE_DEFAULT_DECIMAL_PLACES;
 
   return (
     <span className=''>
-      {FIAT_CURRENCY_SYMBOL}
       <span className='inline-block w-[0.2rem]' />
-      {BigNumber(String(value))
-        .toFormat(nDecimals || displayedDecimals, priceFormat)
-        .replace(/(\.[0-9]*[1-9])0+$|\.0*$/, '$1')}
+      {
+        BigNumber(String(value))
+          .toFormat(nDecimals || displayedDecimals, priceFormat)
+          .replace(/(\.[0-9]*[1-9])0+$|\.0*$/, '$1') // Remove trailing zeros
+      }
     </span>
   );
 }

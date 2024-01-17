@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
 import _sortBy from 'lodash/sortBy';

@@ -12,21 +12,21 @@ export const revalidate = 10;
 
 const columns: ColumnData<BfxTradingPair>[] = [
   {
-    label: 'Name',
-    dataKey: 'symbol',
+    label: 'Coin',
+    dataKey: '_currency',
     format: ValueFormat.Coin,
     sortable: true,
   },
   {
     label: 'Price',
     dataKey: 'lastPrice',
-    format: ValueFormat.Price,
+    format: ValueFormat.Money,
     sortable: true,
   },
   {
     label: '24H Change',
     dataKey: 'dailyChange',
-    format: ValueFormat.Price,
+    format: ValueFormat.Money,
   },
   {
     label: '24H Change %',

@@ -51,13 +51,12 @@ export const enum StyleVariant {
 
 export const enum ValueFormat {
   Number = 'number',
-  Currency = 'currency',
+  Money = 'money',
   Percentage = 'percentage',
   Date = 'date',
   Boolean = 'boolean',
   String = 'string',
   Coin = 'coin',
-  Price = 'price',
   Volume = 'volume',
   UserActions = 'userActions',
 }

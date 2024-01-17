@@ -1,24 +1,57 @@
 import React from 'react';
 
+import MyexTable from '@myex/components/MyexTable';
+import { ColumnData } from '@myex/components/MyexTable/types';
 import { BfxTradingPair, BfxWallet } from '@myex/types/bitfinex';
+import { ValueFormat } from '@myex/types/common';
+import { MyexAsset } from '@myex/types/trading';
+import { composeAssetsInfo } from '@myex/utils/trading';
 
 interface Props {
   bfxWallets: BfxWallet[];
   tradingPairs: BfxTradingPair[];
 }
 
+const columns: ColumnData<MyexAsset>[] = [
+  {
+    label: 'Coin',
+    dataKey: 'currency',
+    format: ValueFormat.Coin,
+    sortable: true,
+  },
+  {
+    label: 'Price',
+    dataKey: 'lastPrice',
+    format: ValueFormat.Money,
+    sortable: true,
+  },
+  {
+    label: 'Amount',
+    dataKey: 'balance',
+    format: ValueFormat.Number,
+  },
+  {
+    label: 'Balance (USD)',
+    dataKey: '_balanceUsd',
+    format: ValueFormat.Money,
+    sortable: true,
+  },
+  {
+    label: '24H Change %',
+    dataKey: 'dailyChangePerc',
+    format: ValueFormat.Percentage,
+    sortable: true,
+  },
+];
+
 export default function MyAssets({ bfxWallets, tradingPairs }: Props) {
+  const myexAssets = composeAssetsInfo(bfxWallets, tradingPairs);
   return (
-    <div className='shadow'>
-      {JSON.stringify(bfxWallets)}
-      <header className='grid grid-cols-6 bg-bg-light-light dark:bg-bg-dark-light hover:bg-hover-bg-dark py-1 text-sm border-b border-border-dark'>
-        <div className='px-4'>Coin</div>
-        <div className='px-4'>Amount</div>
-        <div className='px-4'>Worth ($)</div>
-        <div className='px-4'>Cost Price</div>
-        <div className='px-4'>Current Price</div>
-        <div className='px-4'>Unrealized Profit / Lost</div>
-      </header>
-    </div>
+    <MyexTable<MyexAsset>
+      data={myexAssets}
+      columns={columns}
+      defaultSortingField='_balanceUsd'
+      defaultSortingDirection='-'
+    />
   );
 }
