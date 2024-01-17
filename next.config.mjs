@@ -11,9 +11,6 @@ const nextConfig = {
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   productionBrowserSourceMaps: true,
   compress: true,
-  experimental: {
-    serverActions: true,
-  },
 };
 
 const withMDX = createMDX({
@@ -31,7 +28,7 @@ const config = process.env.NODE_ENV === 'production'
 
     // Suppresses source map uploading logs during build
     silent: true,
-    org: 'myexio',
+    org: 'jsesio',
     project: 'myex',
   }, {
     // For all available options, see:

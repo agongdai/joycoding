@@ -23,5 +23,5 @@ export const metadata: Metadata = {
 
 export default async function Home({ params: { lang } }: { params: ParamsWithLng }) {
   const messages = await getTranslations(lang);
-  return <MyexStyledPageWrapper>Joy Trading</MyexStyledPageWrapper>;
+  return <MyexStyledPageWrapper>My Exchanges AI</MyexStyledPageWrapper>;
 }

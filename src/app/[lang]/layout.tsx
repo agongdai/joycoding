@@ -21,7 +21,6 @@ import { ExchangeStatus } from '@myex/types/common';
 import { Language, ParamsWithLng } from '@myex/types/i18n';
 import { Analytics } from '@vercel/analytics/react';
 
-import '@fortawesome/fontawesome-svg-core/styles.css';
 import '@myex/app/globals.css';
 
 config.autoAddCss = false;
