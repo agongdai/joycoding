@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { NextAuthRequest } from 'next-auth/lib';
 import Negotiator from 'negotiator';
 
 import { match as matchLocale } from '@formatjs/intl-localematcher';
@@ -6,7 +7,6 @@ import { match as matchLocale } from '@formatjs/intl-localematcher';
 import { auth } from '../auth';
 
 import { defaultLocale, locales } from './i18n/config';
-import { NextAuthRequest } from 'next-auth/lib';
 
 const PUBLIC_FILE = /\.(.*)$/;
 
@@ -54,5 +54,5 @@ export default auth((request: NextAuthRequest) => {
 });
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 };

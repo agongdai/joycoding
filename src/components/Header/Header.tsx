@@ -55,9 +55,7 @@ export default function Header({ statusNode = null }: { statusNode?: React.React
           <span className='ml-2 text-xs'>by Shaojiang</span>
         </div>
         <ul className='flex items-center'>
-          <li className='mr-2'>
-            {statusNode}
-          </li>
+          <li className='mr-2'>{statusNode}</li>
           <li className='ml-1'>
             <LangSwitch />
           </li>

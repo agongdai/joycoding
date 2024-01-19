@@ -5,13 +5,9 @@ import { Button } from '@mui/material';
 import { authSignOut } from '@myex/app/serverActions/auth';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
 
-type Props = { provider?: string } & React.ComponentPropsWithRef<typeof Button>
+type Props = { provider?: string } & React.ComponentPropsWithRef<typeof Button>;
 
-export default function SignOut(
-  {
-    provider,
-    ...props
-  }: Props) {
+export default function SignOut({ provider, ...props }: Props) {
   return (
     <form action={authSignOut}>
       <Button

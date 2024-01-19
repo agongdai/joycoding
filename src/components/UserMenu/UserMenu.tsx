@@ -53,12 +53,8 @@ export default function UserMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>
-          {user?.name || 'Anonymous'}
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          {user?.email}
-        </MenuItem>
+        <MenuItem onClick={handleClose}>{user?.name || 'Anonymous'}</MenuItem>
+        <MenuItem onClick={handleClose}>{user?.email}</MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
           <SignOut />

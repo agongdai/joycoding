@@ -56,14 +56,13 @@ async function checkBfxApiStatus(): Promise<ExchangeStatus> {
   return data ? data[0] : ExchangeStatus.Maintenance;
 }
 
-export default async function RootLayout(
-  {
-    children,
-    params: { lang },
-  }: {
-    children: React.ReactNode;
-    params: ParamsWithLng;
-  }) {
+export default async function RootLayout({
+  children,
+  params: { lang },
+}: {
+  children: React.ReactNode;
+  params: ParamsWithLng;
+}) {
   const bfxApiStatus = await checkBfxApiStatus();
   const session = await auth();
   return (

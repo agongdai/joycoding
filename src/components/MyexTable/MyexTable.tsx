@@ -73,8 +73,8 @@ export default function MyexTable<T>({
               flexBasis: column.widthPercentage
                 ? `${column.widthPercentage}%`
                 : column.widthRem
-                ? `${column.widthRem}rem`
-                : 0,
+                  ? `${column.widthRem}rem`
+                  : 0,
             }}
           >
             <div>
@@ -106,8 +106,8 @@ export default function MyexTable<T>({
                 flexBasis: column.widthPercentage
                   ? `${column.widthPercentage}%`
                   : column.widthRem
-                  ? `${column.widthRem}rem`
-                  : 0,
+                    ? `${column.widthRem}rem`
+                    : 0,
               }}
             >
               <MyexFormatter
