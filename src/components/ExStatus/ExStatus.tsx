@@ -5,7 +5,7 @@ import MyexTooltip from '@myex/components/@mui/material/Tooltip';
 import MyexLink from '@myex/components/MyexLink';
 import { ExchangeStatus } from '@myex/types/common';
 
-export default function BfxApiStatus({ status }: { status: ExchangeStatus }) {
+export default function ExStatus({ status }: { status: ExchangeStatus }) {
   const offline = status === ExchangeStatus.Maintenance;
   return (
     <MyexLink href='https://bitfinex.statuspage.io/' className='no-underline'>

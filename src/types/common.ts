@@ -35,6 +35,7 @@ export type IMenu = {
   icon: IconProp;
   href: string;
   subMenus?: IMenu[];
+  protected?: boolean;
 };
 
 export const enum StyleVariant {

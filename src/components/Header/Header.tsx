@@ -5,20 +5,19 @@ import cx from 'classnames';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
-import ExStatus from '@myex/components/ExStatus';
 import LangSwitch from '@myex/components/LangSwitch';
 import MyexLink from '@myex/components/MyexLink';
 import ThemeSwitch from '@myex/components/ThemeSwitch';
+import UserMenu from '@myex/components/UserMenu';
 import { useSidebar } from '@myex/hooks';
 import useScrollDirection from '@myex/hooks/useScrollDirection';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
 import { setMobileSidebarOpen } from '@myex/store/actions';
 import { selectScrollTop } from '@myex/store/selectors';
 import { MyexTheme } from '@myex/theme';
-import { ExchangeStatus } from '@myex/types/common';
 import { Direction } from '@myex/types/window';
 
-export default function Header({ bfxStatus }: { bfxStatus: ExchangeStatus }) {
+export default function Header({ statusNode = null }: { statusNode?: React.ReactNode }) {
   const dispatch = useMyexDispatch();
   const { mdDown } = useSidebar();
   const scrollTop = useMyexSelector(selectScrollTop);
@@ -31,6 +30,7 @@ export default function Header({ bfxStatus }: { bfxStatus: ExchangeStatus }) {
     dispatch(setMobileSidebarOpen(true));
   };
 
+  console.log('client component rendered', new Date().getTime());
   return (
     <AppBar
       position='sticky'
@@ -56,13 +56,16 @@ export default function Header({ bfxStatus }: { bfxStatus: ExchangeStatus }) {
         </div>
         <ul className='flex items-center'>
           <li className='mr-2'>
-            <ExStatus status={bfxStatus} />
+            {statusNode}
           </li>
           <li className='ml-1'>
             <LangSwitch />
           </li>
           <li className='ml-1'>
             <ThemeSwitch />
+          </li>
+          <li className='ml-1'>
+            <UserMenu />
           </li>
         </ul>
       </div>

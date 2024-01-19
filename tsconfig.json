@@ -25,7 +25,8 @@
     "paths": {
       "@myex/*": [
         "./src/*"
-      ]
+      ],
+      "@myex/auth": ["./auth"]
     }
   },
   "include": [

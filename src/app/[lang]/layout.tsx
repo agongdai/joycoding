@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
+import { SessionProvider } from 'next-auth/react';
 import NextTopLoader from 'nextjs-toploader';
 import { dir } from 'i18next';
 
@@ -7,6 +8,8 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import { BfxEndpoints } from '@myex/api/endpoints';
 import Loading from '@myex/app/[lang]/loading';
 import Providers from '@myex/app/Providers';
+import { auth } from '@myex/auth';
+import ExStatus from '@myex/components/ExStatus';
 import Footer from '@myex/components/Footer';
 import Header from '@myex/components/Header';
 import MyexScrollToTop from '@myex/components/MyexScrollToTop';
@@ -53,14 +56,16 @@ async function checkBfxApiStatus(): Promise<ExchangeStatus> {
   return data ? data[0] : ExchangeStatus.Maintenance;
 }
 
-export default async function RootLayout({
-  children,
-  params: { lang },
-}: {
-  children: React.ReactNode;
-  params: ParamsWithLng;
-}) {
+export default async function RootLayout(
+  {
+    children,
+    params: { lang },
+  }: {
+    children: React.ReactNode;
+    params: ParamsWithLng;
+  }) {
   const bfxApiStatus = await checkBfxApiStatus();
+  const session = await auth();
   return (
     <html lang={lang} dir={dir(lang)} suppressHydrationWarning className={fonts.spaceMono.variable}>
       <body className={fonts.default.className} id='root'>
@@ -70,7 +75,9 @@ export default async function RootLayout({
             <main className='flex'>
               <Sidebar />
               <ScrollTopHolder>
-                <Header bfxStatus={bfxApiStatus} />
+                <SessionProvider session={session}>
+                  <Header statusNode={<ExStatus status={bfxApiStatus} />} />
+                </SessionProvider>
                 <Suspense fallback={<Loading />}>{children}</Suspense>
                 <MyexScrollToTop />
                 <Footer />

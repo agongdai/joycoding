@@ -3,7 +3,10 @@ import Negotiator from 'negotiator';
 
 import { match as matchLocale } from '@formatjs/intl-localematcher';
 
+import { auth } from '../auth';
+
 import { defaultLocale, locales } from './i18n/config';
+import { NextAuthRequest } from 'next-auth/lib';
 
 const PUBLIC_FILE = /\.(.*)$/;
 
@@ -19,18 +22,23 @@ function getLocale(request: NextRequest) {
   return matchLocale(languages, locales, defaultLocale);
 }
 
-export function middleware(request: NextRequest) {
+export default auth((request: NextAuthRequest) => {
+  const pathname = request.nextUrl.pathname;
   if (
-    request.nextUrl.pathname.startsWith('/_next') ||
-    request.nextUrl.pathname.includes('/api/') ||
-    request.nextUrl.pathname.includes('/monitoring') ||
+    pathname.startsWith('/_next') ||
+    pathname.includes('/api/') ||
+    pathname.includes('/monitoring') ||
     PUBLIC_FILE.test(request.nextUrl.pathname)
   ) {
     return;
   }
 
+  // Redirect to signin if not authenticated
+  if (pathname.startsWith('/@') && !request.auth) {
+    return NextResponse.redirect(new URL('/api/auth/signin', request.url));
+  }
+
   // Check if there is any supported locale in the pathname
-  const pathname = request.nextUrl.pathname;
   const pathnameIsMissingLocale = locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
   );
@@ -43,13 +51,8 @@ export function middleware(request: NextRequest) {
     // keep the url without locale but sending response of default locale
     return NextResponse.rewrite(new URL(`/${locale}${pathname}`, request.url));
   }
-}
+});
 
 export const config = {
-  matcher: [
-    // Skip all internal paths (_next)
-    '/((?!_next).*)',
-    // Optional: only run on root (/) URL
-    // '/'
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
