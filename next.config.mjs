@@ -6,11 +6,17 @@ import createMDX from '@next/mdx';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['images.ctfassets.net'],
+    remotePatterns: ['images.ctfassets.net'],
   },
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   productionBrowserSourceMaps: true,
   compress: true,
+  experimental: {
+    serverActions: {
+      // edit: updated to new key. Was previously `allowedForwardedHosts`
+      allowedOrigins: ['myex.ai'],
+    },
+  },
 };
 
 const withMDX = createMDX({
