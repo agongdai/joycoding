@@ -64,6 +64,7 @@ import GitHub from 'next-auth/providers/github';
 import Google from 'next-auth/providers/google';
 
 export const config = {
+  trustHost: true, // @github https://github.com/nextauthjs/next-auth/issues/6113
   theme: {
     logo: '/joytrading.png',
   },
