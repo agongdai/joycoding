@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { useSession } from 'next-auth/react';
 import cx from 'classnames';
 
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -18,6 +19,8 @@ import menus from './menus';
 
 export default function Sidebar() {
   const dispatch = useMyexDispatch();
+  const { data: session } = useSession();
+  const authed = !!session?.user;
   const showMobileSidebar = useMyexSelector(selectMobileSidebarOpen);
   const { sidebarWidth, toggleShowMini, showMini, xlDown, mdDown } = useSidebar();
   const toggleSidebar = () => {
@@ -45,9 +48,11 @@ export default function Sidebar() {
           </Toolbar>
           <Divider classes={{ root: '!m-0' }} />
           <List>
-            {menus.map((menu) => (
-              <Menu menu={menu} key={menu.title} showMini={showMini} />
-            ))}
+            {menus
+              .filter((m) => authed || !m.protected)
+              .map((menu) => (
+                <Menu menu={menu} key={menu.title} showMini={showMini} />
+              ))}
           </List>
         </div>
         <div>

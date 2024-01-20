@@ -65,7 +65,7 @@ import Google from 'next-auth/providers/google';
 
 export const config = {
   theme: {
-    logo: 'https://next-auth.js.org/img/logo/logo-sm.png',
+    logo: '/joytrading.png',
   },
   providers: [
     // Apple,
@@ -131,14 +131,6 @@ export const config = {
     // Zoho,
     // Zoom,
   ],
-  callbacks: {
-    authorized({ request, auth }) {
-      const { pathname } = request.nextUrl;
-      console.log('pathname', pathname, 'auth', auth);
-      if (pathname.startsWith('/@')) return !!auth;
-      return true;
-    },
-  },
 } satisfies NextAuthConfig;
 
 export const { handlers, auth, signIn, signOut } = NextAuth(config);

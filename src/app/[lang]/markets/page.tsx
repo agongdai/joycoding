@@ -3,6 +3,7 @@ import React from 'react';
 import { fetchTradingPairs } from '@myex/app/serverActions';
 import MarketsTable from '@myex/components/MarketsTable';
 import MyexFavorite from '@myex/components/MyexFavorite';
+import MyexLink from '@myex/components/MyexLink';
 import { MyexStyledPageWrapper } from '@myex/components/MyexStyled';
 import { ColumnData } from '@myex/components/MyexTable/types';
 import { BfxTradingPair } from '@myex/types/bitfinex';
@@ -54,6 +55,13 @@ export default async function MarketsPage() {
   return (
     <MyexStyledPageWrapper>
       <h1>Markets</h1>
+      <p>
+        Only{' '}
+        <MyexLink href='https://github.com/agongdai/myex.ai/blob/main/src/data/coins.json'>
+          some coins
+        </MyexLink>{' '}
+        are listed.
+      </p>
       <MarketsTable tradingPairs={tradingPairs} columns={columns} />
     </MyexStyledPageWrapper>
   );

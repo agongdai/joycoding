@@ -30,7 +30,6 @@ export default function Header({ statusNode = null }: { statusNode?: React.React
     dispatch(setMobileSidebarOpen(true));
   };
 
-  console.log('client component rendered', new Date().getTime());
   return (
     <AppBar
       position='sticky'

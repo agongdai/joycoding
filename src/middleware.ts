@@ -34,7 +34,7 @@ export default auth((request: NextAuthRequest) => {
   }
 
   // Redirect to signin if not authenticated
-  if (pathname.startsWith('/@') && !request.auth) {
+  if (pathname.startsWith('/@me') && !request.auth) {
     return NextResponse.redirect(new URL('/api/auth/signin', request.url));
   }
 

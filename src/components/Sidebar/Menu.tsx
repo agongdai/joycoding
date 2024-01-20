@@ -28,7 +28,10 @@ interface Props {
 export default function Menu({ menu, showMini }: Props) {
   const dispatch = useMyexDispatch();
   const { pathName } = useLocale();
-  const selected = menu.href === '/' ? pathName === '/' : pathName.startsWith(menu.href);
+  const selected =
+    menu.href === '/'
+      ? pathName === '/'
+      : pathName.startsWith((menu.protected ? '/@me' : '') + menu.href);
   const [open, setOpen] = React.useState(false);
   const hasSubMenus = Number(menu.subMenus?.length) > 0;
 
@@ -62,8 +65,8 @@ export default function Menu({ menu, showMini }: Props) {
         classes={{ root: cx('flex justify-between', { 'pl-4': showMini }) }}
       >
         <MyexLink
-          href={hasSubMenus ? '/' : menu.href}
-          className='hover:no-underline'
+          href={hasSubMenus ? '/' : (menu.protected ? `/@me` : '') + menu.href}
+          className='hover:no-underline w-full'
           disabled={hasSubMenus}
         >
           <MyexTooltip title={showMini ? menu.title : ''} placement='right'>

@@ -72,7 +72,9 @@ export default async function RootLayout({
         <Providers>
           <ThemeRegistry options={{ key: 'mui' }}>
             <main className='flex'>
-              <Sidebar />
+              <SessionProvider session={session}>
+                <Sidebar />
+              </SessionProvider>
               <ScrollTopHolder>
                 <SessionProvider session={session}>
                   <Header statusNode={<ExStatus status={bfxApiStatus} />} />
