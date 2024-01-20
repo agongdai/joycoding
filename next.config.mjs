@@ -6,7 +6,13 @@ import createMDX from '@next/mdx';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: ['images.ctfassets.net'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.ctfassets.net',
+        port: '',
+      },
+    ],
   },
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   productionBrowserSourceMaps: true,
