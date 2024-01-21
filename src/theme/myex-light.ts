@@ -94,16 +94,16 @@ const theme = createTheme({
           padding: 0,
         },
         root: {
-          color: palette.white,
-          '& .MuiAlert-icon': {
-            color: palette.white,
-          },
+          color: palette.textPrimary,
         },
         standardInfo: {
           backgroundColor: palette.infoDark,
         },
         standardWarning: {
           backgroundColor: palette.warningDark,
+        },
+        standardError: {
+          backgroundColor: palette.error50,
         },
       },
     },

@@ -3,37 +3,25 @@ import { MetadataRoute } from 'next';
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: 'https://joycoding.io',
+      url: 'https://myex.ai',
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
-      url: 'https://joycoding.io/projects',
+      url: 'https://myex.ai/markets',
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.8,
+      priority: 1,
     },
     {
-      url: 'https://joycoding.io/tools/color-picker',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: 'https://joycoding.io/tools/svg2base64',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: 'https://joycoding.io/terms',
+      url: 'https://myex.ai/terms',
       lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.4,
     },
     {
-      url: 'https://joycoding.io/privacy',
+      url: 'https://myex.ai/privacy',
       lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.4,

@@ -106,6 +106,9 @@ const theme = createTheme({
         standardWarning: {
           backgroundColor: palette.warningDark,
         },
+        standardError: {
+          backgroundColor: palette.error50,
+        },
       },
     },
     MuiAppBar: {

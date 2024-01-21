@@ -8,7 +8,7 @@ type Props = { provider?: string } & React.ComponentPropsWithRef<typeof Button>;
 export default function SignIn({ provider, ...props }: Props) {
   return (
     <form action={authSignIn}>
-      <Button {...props} variant='contained' type='submit' size='small'>
+      <Button variant='contained' type='submit' size='small' {...props}>
         Sign In
       </Button>
     </form>

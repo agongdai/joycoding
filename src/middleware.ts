@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { NextAuthRequest } from 'next-auth/lib';
 import Negotiator from 'negotiator';
 
 import { match as matchLocale } from '@formatjs/intl-localematcher';
-
-import { auth } from '../auth';
 
 import { defaultLocale, locales } from './i18n/config';
 
@@ -22,7 +19,7 @@ function getLocale(request: NextRequest) {
   return matchLocale(languages, locales, defaultLocale);
 }
 
-export default auth((request: NextAuthRequest) => {
+export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   if (
     pathname.startsWith('/_next') ||
@@ -31,11 +28,6 @@ export default auth((request: NextAuthRequest) => {
     PUBLIC_FILE.test(request.nextUrl.pathname)
   ) {
     return;
-  }
-
-  // Redirect to signin if not authenticated
-  if (pathname.startsWith('/@me') && !request.auth) {
-    return NextResponse.redirect(new URL('/api/auth/signin', request.url));
   }
 
   // Check if there is any supported locale in the pathname
@@ -51,7 +43,7 @@ export default auth((request: NextAuthRequest) => {
     // keep the url without locale but sending response of default locale
     return NextResponse.rewrite(new URL(`/${locale}${pathname}`, request.url));
   }
-});
+}
 
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
