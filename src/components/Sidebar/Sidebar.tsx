@@ -30,7 +30,7 @@ export default function Sidebar() {
   const $list = (
     <aside
       style={{ width: `${sidebarWidth}rem` }}
-      className='overflow-hidden transition-all bg-white dark:bg-bg-dark-light h-full'
+      className='overflow-hidden transition-all bg-white dark:bg-bg-dark-light h-full shadow-2xl'
     >
       <div className='flex flex-col justify-between h-full'>
         <div>

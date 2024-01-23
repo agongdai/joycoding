@@ -4,12 +4,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface TradingState {
   favorites: string[];
   showFavorites: boolean;
+  live: boolean;
 }
 
 // Define the initial state using that type
 const initialState: TradingState = {
   favorites: [],
   showFavorites: false,
+  live: false,
 };
 
 export const tradingSlice = createSlice({
@@ -31,6 +33,9 @@ export const tradingSlice = createSlice({
     },
     toggleShowFavorites: (state) => {
       state.showFavorites = !state.showFavorites;
+    },
+    toggleLive: (state) => {
+      state.live = !state.live;
     },
   },
 });

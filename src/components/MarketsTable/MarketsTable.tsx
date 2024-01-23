@@ -1,8 +1,9 @@
 'use client';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import MyexTable from '@myex/components/MyexTable';
 import { ColumnData } from '@myex/components/MyexTable/types';
+import useWsTradingPairs from '@myex/hooks/useWsTradingPairs';
 import { useMyexSelector } from '@myex/store';
 import { selectFavorites, selectShowFavorites } from '@myex/store/trading/selectors';
 import { BfxTradingPair } from '@myex/types/bitfinex';
@@ -15,13 +16,20 @@ interface Props {
 export default function MarketsTable({ tradingPairs, columns }: Props) {
   const showFavoritesState = useMyexSelector(selectShowFavorites);
   const favoritesState = useMyexSelector(selectFavorites);
-  const tableData = showFavoritesState
-    ? tradingPairs.filter((pair) => favoritesState.includes(pair.symbol))
-    : tradingPairs;
+
+  const tableData = useMemo(
+    () =>
+      showFavoritesState
+        ? tradingPairs.filter((pair) => favoritesState.includes(pair.symbol))
+        : tradingPairs,
+    [favoritesState, showFavoritesState, tradingPairs],
+  );
+
+  const realTimeData = useWsTradingPairs(tableData);
 
   return (
     <MyexTable<BfxTradingPair>
-      data={tableData}
+      data={realTimeData}
       columns={columns}
       defaultSortingField='dailyChangePerc'
       defaultSortingDirection='-'

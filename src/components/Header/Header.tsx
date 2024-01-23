@@ -6,6 +6,7 @@ import cx from 'classnames';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import LangSwitch from '@myex/components/LangSwitch';
+import LiveIndicator from '@myex/components/LiveIndicator/LiveIndicator';
 import MyexLink from '@myex/components/MyexLink';
 import ThemeSwitch from '@myex/components/ThemeSwitch';
 import UserMenu from '@myex/components/UserMenu';
@@ -55,6 +56,9 @@ export default function Header({ statusNode = null }: { statusNode?: React.React
         </div>
         <ul className='flex items-center'>
           <li className='mr-2'>{statusNode}</li>
+          <li className='ml-1'>
+            <LiveIndicator />
+          </li>
           <li className='ml-1'>
             <LangSwitch />
           </li>

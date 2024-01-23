@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
 import _sortBy from 'lodash/sortBy';
 
@@ -45,18 +45,20 @@ export default function MyexTable<T>({
     return sortingDirection === '-' ? sorted.reverse() : sorted;
   }, [sortingDirection, sortingField, data]);
 
-  const sortByField =
+  const sortByField = useCallback(
     (field: keyof T, sortable: boolean = false) =>
-    () => {
-      if (!sortable) return;
+      () => {
+        if (!sortable) return;
 
-      if (sortingField === field) {
-        setSortingDirection(sortingDirection === '-' ? '' : '-');
-      } else {
-        setSortingField(field);
-        setSortingDirection('');
-      }
-    };
+        if (sortingField === field) {
+          setSortingDirection(sortingDirection === '-' ? '' : '-');
+        } else {
+          setSortingField(field);
+          setSortingDirection('');
+        }
+      },
+    [sortingField, sortingDirection],
+  );
 
   return (
     <div className='shadow my-6'>

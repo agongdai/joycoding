@@ -17,7 +17,7 @@ export default function MyexFormatter({
   format: ValueFormat;
 }) {
   if (ValueFormat.Money === format) {
-    return <Money value={value} />;
+    return <Money value={value} flash />;
   }
 
   if (ValueFormat.Number === format) {

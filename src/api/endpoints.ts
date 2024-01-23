@@ -1,6 +1,7 @@
 import { Endpoint } from '@myex/types/api';
 
 const BfxBaseUrl = 'https://api-pub.bitfinex.com';
+export const BfxWsBaseUrl = 'wss://api-pub.bitfinex.com/ws/2';
 
 export const BfxApiBaseUrl = BfxBaseUrl + '/v2';
 

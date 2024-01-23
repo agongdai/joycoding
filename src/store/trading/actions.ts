@@ -1,4 +1,4 @@
 import { tradingSlice } from './slice';
 
-export const { addFavorite, removeFavorite, toggleFavorite, toggleShowFavorites } =
+export const { addFavorite, removeFavorite, toggleFavorite, toggleShowFavorites, toggleLive } =
   tradingSlice.actions;
