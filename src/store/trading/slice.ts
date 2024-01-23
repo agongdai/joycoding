@@ -11,7 +11,7 @@ export interface TradingState {
 const initialState: TradingState = {
   favorites: [],
   showFavorites: false,
-  live: false,
+  live: true,
 };
 
 export const tradingSlice = createSlice({
