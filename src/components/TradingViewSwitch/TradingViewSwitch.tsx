@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { faChartMixed } from '@fortawesome/pro-duotone-svg-icons';
+import { faChartMixed } from '@fortawesome/pro-solid-svg-icons';
 import MyexTooltip from '@myex/components/@mui/material/Tooltip';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';

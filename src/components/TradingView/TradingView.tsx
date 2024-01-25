@@ -4,6 +4,7 @@ import React from 'react';
 import cx from 'classnames';
 import _upperFirst from 'lodash/upperFirst';
 import TradingViewWidget from 'react-tradingview-widget';
+import { Collapse } from '@mui/material';
 
 import useMyexTheme from '@myex/hooks/useMyexTheme';
 import { useMyexSelector } from '@myex/store';
@@ -15,12 +16,14 @@ export default function TradingView() {
   const showTradingView = useMyexSelector(selectShowTradingView);
 
   return (
-    <div className={cx('h-[50rem] my-6', { hidden: !showTradingView })}>
-      <TradingViewWidget
-        theme={_upperFirst(theme || 'Dark')}
-        autosize
-        symbol={`Bitfinex:${currentPair}`}
-      />
-    </div>
+    <Collapse in={showTradingView} timeout='auto'>
+      <div className={cx('h-[50rem] my-6')}>
+        <TradingViewWidget
+          theme={_upperFirst(theme || 'Dark')}
+          autosize
+          symbol={`Bitfinex:${currentPair}`}
+        />
+      </div>
+    </Collapse>
   );
 }
