@@ -21,6 +21,14 @@ export function symbolToCurrency(symbol: string) {
 }
 
 /**
+ * `tBTCUSD` => `BTCUSD`
+ * @param symbol
+ */
+export function symbolToPair(symbol: string) {
+  return symbol.slice(1);
+}
+
+/**
  * Compose assets info from wallet and trading pairs
  * @param assets
  * @param tradingPairs

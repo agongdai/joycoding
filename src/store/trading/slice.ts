@@ -1,3 +1,4 @@
+import { symbolToPair } from '@myex/utils/trading';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // Define a type for the slice state
@@ -5,6 +6,8 @@ export interface TradingState {
   favorites: string[];
   showFavorites: boolean;
   live: boolean;
+  showTradingView: boolean;
+  currentPair?: string;
 }
 
 // Define the initial state using that type
@@ -12,6 +15,8 @@ const initialState: TradingState = {
   favorites: [],
   showFavorites: false,
   live: true,
+  showTradingView: true,
+  currentPair: 'BTCUSD',
 };
 
 export const tradingSlice = createSlice({
@@ -36,6 +41,14 @@ export const tradingSlice = createSlice({
     },
     toggleLive: (state) => {
       state.live = !state.live;
+    },
+    toggleShowTradingView: (state) => {
+      state.showTradingView = !state.showTradingView;
+    },
+    setCurrentPair: (state, action: PayloadAction<string>) => {
+      state.currentPair = action.payload.startsWith('t')
+        ? symbolToPair(action.payload)
+        : action.payload;
     },
   },
 });

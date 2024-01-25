@@ -1,11 +1,18 @@
-import React from 'react';
+'use client';
+
+import React, { useMemo } from 'react';
 
 import MyexTable from '@myex/components/MyexTable';
 import { ColumnData } from '@myex/components/MyexTable/types';
+import TradingView from '@myex/components/TradingView';
+import useWsTradingPairs from '@myex/hooks/useWsTradingPairs';
+import { useMyexDispatch, useMyexSelector } from '@myex/store';
+import { setCurrentPair } from '@myex/store/trading/actions';
+import { selectShowTradingView } from '@myex/store/trading/selectors';
 import { BfxTradingPair, BfxWallet } from '@myex/types/bitfinex';
 import { ValueFormat } from '@myex/types/common';
 import { MyexAsset } from '@myex/types/trading';
-import { composeAssetsInfo } from '@myex/utils/trading';
+import { composeAssetsInfo, currencyToSymbol } from '@myex/utils/trading';
 
 interface Props {
   bfxWallets: BfxWallet[];
@@ -45,13 +52,31 @@ const columns: ColumnData<MyexAsset>[] = [
 ];
 
 export default function MyAssets({ bfxWallets, tradingPairs }: Props) {
-  const myexAssets = composeAssetsInfo(bfxWallets, tradingPairs);
+  const tradingPairsForAssets = useMemo(
+    () => tradingPairs.filter((pair) => bfxWallets.find((w) => w.currency === pair._currency)),
+    [bfxWallets, tradingPairs],
+  );
+
+  const realTimeData = useWsTradingPairs(tradingPairsForAssets);
+  const myexAssets = composeAssetsInfo(bfxWallets, realTimeData);
+  const dispatch = useMyexDispatch();
+  const showTradingView = useMyexSelector(selectShowTradingView);
+
+  const onSetCurrentPair = (row: MyexAsset) => {
+    dispatch(setCurrentPair(currencyToSymbol(row.currency)));
+  };
+
   return (
-    <MyexTable<MyexAsset>
-      data={myexAssets}
-      columns={columns}
-      defaultSortingField='_balanceUsd'
-      defaultSortingDirection='-'
-    />
+    <>
+      <h1>Assets</h1>
+      <TradingView />
+      <MyexTable<MyexAsset>
+        data={myexAssets}
+        columns={columns}
+        defaultSortingField='_balanceUsd'
+        defaultSortingDirection='-'
+        onRowClick={showTradingView ? onSetCurrentPair : undefined}
+      />
+    </>
   );
 }

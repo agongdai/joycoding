@@ -12,7 +12,6 @@ export default async function Assets() {
   const tradingPairs = await fetchTradingPairs();
   return (
     <MyexStyledPageWrapper>
-      <h1>Assets</h1>
       <MyAssets bfxWallets={bfxWallets} tradingPairs={tradingPairs} />
     </MyexStyledPageWrapper>
   );

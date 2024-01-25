@@ -6,6 +6,7 @@ import MyexFavorite from '@myex/components/MyexFavorite';
 import MyexLink from '@myex/components/MyexLink';
 import { MyexStyledPageWrapper } from '@myex/components/MyexStyled';
 import { ColumnData } from '@myex/components/MyexTable/types';
+import TradingView from '@myex/components/TradingView';
 import { BfxTradingPair } from '@myex/types/bitfinex';
 import { ValueFormat } from '@myex/types/common';
 
@@ -62,6 +63,7 @@ export default async function MarketsPage() {
         </MyexLink>{' '}
         are listed.
       </p>
+      <TradingView />
       <MarketsTable tradingPairs={tradingPairs} columns={columns} />
     </MyexStyledPageWrapper>
   );

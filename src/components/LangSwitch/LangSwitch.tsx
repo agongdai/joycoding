@@ -18,7 +18,7 @@ export default function LangSwitch() {
 
   return (
     <MyexDropdown
-      tooltip='Switch Language'
+      tooltip='Switch language'
       menus={languages.map((lang) => ({ label: lang.name, value: lang.code }))}
       activeValue={locale || defaultLocale}
       onChange={setLocale}

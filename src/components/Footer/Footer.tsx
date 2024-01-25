@@ -7,7 +7,7 @@ import MyexLink from '@myex/components/MyexLink';
 
 export default function Footer() {
   return (
-    <footer className='w-full flex justify-between items-center my-4 p-4 bg-bg-primary-5 md:block mx-[auto] xl:mx-4 max-w-[116rem]'>
+    <footer className='w-full flex justify-between items-center my-4 p-4 bg-bg-primary-5 md:block mx-[auto] xl:mx-4 max-w-[148rem]'>
       <div className='flex items-center sm:block'>
         <div>
           &copy; {new Date().getFullYear()} Made with

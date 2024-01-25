@@ -9,6 +9,7 @@ import LangSwitch from '@myex/components/LangSwitch';
 import LiveIndicator from '@myex/components/LiveIndicator/LiveIndicator';
 import MyexLink from '@myex/components/MyexLink';
 import ThemeSwitch from '@myex/components/ThemeSwitch';
+import TradingViewSwitch from '@myex/components/TradingViewSwitch';
 import UserMenu from '@myex/components/UserMenu';
 import { useSidebar } from '@myex/hooks';
 import useScrollDirection from '@myex/hooks/useScrollDirection';
@@ -35,7 +36,7 @@ export default function Header({ statusNode = null }: { statusNode?: React.React
     <AppBar
       position='sticky'
       classes={{
-        root: cx('mx-[auto] max-w-[120rem] transition-all', {
+        root: cx('mx-[auto] max-w-[150rem] transition-all', {
           '-translate-y-16': scrolled && scrollingDirection === Direction.Down,
         }),
       }}
@@ -50,7 +51,7 @@ export default function Header({ statusNode = null }: { statusNode?: React.React
         <div className='flex-1 text-lg font-bold'>
           {mdDown && <MenuIcon onClick={showMobileSidebar} classes={{ root: 'cursor-pointer' }} />}
           <MyexLink href='/' className='!text-primary-main md:ml-4 sm:ml-2'>
-            MyEx.ai
+            MyEx.AI
           </MyexLink>
           <span className='ml-2 text-xs'>by Shaojiang</span>
         </div>
@@ -58,6 +59,9 @@ export default function Header({ statusNode = null }: { statusNode?: React.React
           <li className='mr-2'>{statusNode}</li>
           <li className='ml-1'>
             <LiveIndicator />
+          </li>
+          <li className='ml-1'>
+            <TradingViewSwitch />
           </li>
           <li className='ml-1'>
             <LangSwitch />

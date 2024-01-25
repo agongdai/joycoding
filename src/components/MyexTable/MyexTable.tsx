@@ -15,6 +15,7 @@ type Props<T> = {
   columns: ColumnData<T>[];
   defaultSortingField?: keyof T;
   defaultSortingDirection?: '' | '-';
+  onRowClick?: (row: T) => void;
 };
 
 export default function MyexTable<T>({
@@ -22,6 +23,7 @@ export default function MyexTable<T>({
   columns,
   defaultSortingField,
   defaultSortingDirection = '',
+  onRowClick,
 }: Props<T>) {
   const [sortingField, setSortingField] = useState<keyof T | undefined>(defaultSortingField);
   const [sortingDirection, setSortingDirection] = useState<'' | '-'>(defaultSortingDirection);
@@ -95,8 +97,13 @@ export default function MyexTable<T>({
 
       {sortedData.map((item, index) => (
         <div
-          className='flex w-full bg-white dark:bg-bg-dark-light hover:dark:bg-hover-bg-dark hover:bg-hover-bg-light border-t border-border-light dark:border-border-dark'
+          className={cx(
+            'flex w-full dark:bg-bg-dark-light hover:dark:bg-hover-bg-dark hover:bg-hover-bg-light ' +
+              'bg-white border-t border-border-light dark:border-border-dark',
+            { 'cursor-pointer': !!onRowClick },
+          )}
           key={index}
+          onClick={() => onRowClick && onRowClick(item)}
         >
           {columns.map((column, index) => (
             <div

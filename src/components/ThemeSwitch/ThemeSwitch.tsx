@@ -20,7 +20,7 @@ export default function ThemeSwitch() {
   };
 
   return (
-    <MyexTooltip title='Switch Theme'>
+    <MyexTooltip title='Switch theme'>
       <IconButton onClick={toggleTheme}>
         {theme === MyexTheme.Dark ? (
           <LightModeIcon color='tertiary' />
