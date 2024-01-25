@@ -4,8 +4,8 @@ import React from 'react';
 import cx from 'classnames';
 import _upperFirst from 'lodash/upperFirst';
 import TradingViewWidget from 'react-tradingview-widget';
-import { Collapse } from '@mui/material';
 
+import { Collapse } from '@mui/material';
 import useMyexTheme from '@myex/hooks/useMyexTheme';
 import { useMyexSelector } from '@myex/store';
 import { selectCurrentPair, selectShowTradingView } from '@myex/store/trading/selectors';
