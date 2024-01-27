@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 import _pick from 'lodash/pick';
 
 import { BfxTradingPair, BfxWallet } from '@myex/types/bitfinex';
-import { MyexAsset } from '@myex/types/trading';
+import { Balance, MyexAsset } from '@myex/types/trading';
 
 /**
  * `BTC` => `tBTCUSD`
@@ -26,6 +26,21 @@ export function symbolToCurrency(symbol: string) {
  */
 export function symbolToPair(symbol: string) {
   return symbol.slice(1);
+}
+
+/**
+ * Get USD balance from wallets
+ * @param wallets
+ */
+export function getUsdBalance(wallets: BfxWallet[]): Balance {
+  const usdWallet = wallets.find((wallet) => wallet.currency === 'USD');
+  const total = usdWallet?.balance || 0;
+  const available = usdWallet?.availableBalance || 0;
+
+  return {
+    total,
+    available,
+  };
 }
 
 /**

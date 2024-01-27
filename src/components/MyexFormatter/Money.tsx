@@ -24,7 +24,7 @@ export default function Money({
 
   return (
     <span className={cx('transition px-1 relative -left-1', flash ? flashClass : '')}>
-      {currencySymbol}
+      <span className='myes-monospace'>{currencySymbol}</span>
       <Number value={value} nDecimals={nDecimals} />
     </span>
   );

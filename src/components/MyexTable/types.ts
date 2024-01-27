@@ -9,4 +9,5 @@ export interface ColumnData<T> {
   widthPercentage?: number;
   format?: ValueFormat;
   sortable?: boolean;
+  className?: string;
 }

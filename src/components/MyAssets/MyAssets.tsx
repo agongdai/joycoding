@@ -12,7 +12,9 @@ import { selectShowTradingView } from '@myex/store/trading/selectors';
 import { BfxTradingPair, BfxWallet } from '@myex/types/bitfinex';
 import { ValueFormat } from '@myex/types/common';
 import { MyexAsset } from '@myex/types/trading';
-import { composeAssetsInfo, currencyToSymbol } from '@myex/utils/trading';
+import { composeAssetsInfo, currencyToSymbol, getUsdBalance } from '@myex/utils/trading';
+
+import AssetsSummary from './AssetsSummary';
 
 interface Props {
   bfxWallets: BfxWallet[];
@@ -38,10 +40,11 @@ const columns: ColumnData<MyexAsset>[] = [
     format: ValueFormat.Number,
   },
   {
-    label: 'Balance (USD)',
+    label: 'Worth (USD)',
     dataKey: '_balanceUsd',
     format: ValueFormat.Money,
     sortable: true,
+    className: 'text-lg',
   },
   {
     label: '24H Change %',
@@ -52,6 +55,8 @@ const columns: ColumnData<MyexAsset>[] = [
 ];
 
 export default function MyAssets({ bfxWallets, tradingPairs }: Props) {
+  const dispatch = useMyexDispatch();
+  const showTradingView = useMyexSelector(selectShowTradingView);
   const tradingPairsForAssets = useMemo(
     () => tradingPairs.filter((pair) => bfxWallets.find((w) => w.currency === pair._currency)),
     [bfxWallets, tradingPairs],
@@ -59,8 +64,7 @@ export default function MyAssets({ bfxWallets, tradingPairs }: Props) {
 
   const realTimeData = useWsTradingPairs(tradingPairsForAssets);
   const myexAssets = composeAssetsInfo(bfxWallets, realTimeData);
-  const dispatch = useMyexDispatch();
-  const showTradingView = useMyexSelector(selectShowTradingView);
+  const usdBalance = getUsdBalance(bfxWallets);
 
   const onSetCurrentPair = (row: MyexAsset) => {
     dispatch(setCurrentPair(currencyToSymbol(row.currency)));
@@ -69,6 +73,7 @@ export default function MyAssets({ bfxWallets, tradingPairs }: Props) {
   return (
     <>
       <h1>Assets</h1>
+      <AssetsSummary assets={myexAssets} usdBalance={usdBalance} />
       <TradingView />
       <MyexTable<MyexAsset>
         data={myexAssets}

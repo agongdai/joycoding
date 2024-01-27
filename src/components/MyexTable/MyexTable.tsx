@@ -108,7 +108,7 @@ export default function MyexTable<T>({
           {columns.map((column, index) => (
             <div
               key={index}
-              className={cx('grow shrink flex items-center py-2 px-4', {
+              className={cx('grow shrink flex items-center py-2 px-4', column.className || '', {
                 'grow-0 shrink-0': column.widthPercentage || column.widthRem,
               })}
               style={{

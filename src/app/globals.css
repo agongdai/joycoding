@@ -97,7 +97,13 @@ caption,
   @apply rounded bg-gray-600;
 }
 
+.myes-monospace {
+  font-family: var(--font-space-mono), source-code-pro, Monaco, Consolas, monospace;
+  font-size: 1.1em;
+}
+
 .myex-inline-code {
+  font-family: var(--font-space-mono), source-code-pro, Monaco, Consolas, monospace;
   @apply px-1 py-[0.2rem] rounded bg-warning-25 dark:bg-bg-dark-main text-text-primary dark:text-text-primary-1;
 }
 
