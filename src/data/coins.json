@@ -74,5 +74,10 @@
   {
     "name": "Wrapped NCG",
     "currency": "WNCG"
+  },
+  {
+    "name": "Bonk",
+    "currency": "BONK",
+    "icon": "https://static.bitfinex.com/images/icons/BONK.png"
   }
 ]

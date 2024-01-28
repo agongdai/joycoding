@@ -8,7 +8,9 @@ import { Value } from '@myex/types/common';
 
 export default function Coin({ value }: { value: Value }) {
   const currency = String(value);
-  const name = coins.find((coin) => coin.currency === currency)?.name || '';
+  const coin = coins.find((coin) => coin.currency === currency);
+  const name = coin?.name || '';
+  const icon = coin?.icon || `https://static.bitfinex.com/images/icons/${currency}.svg`;
 
   return (
     <MyexLink
@@ -16,7 +18,7 @@ export default function Coin({ value }: { value: Value }) {
       className='inline-flex hover:no-underline'
     >
       <MyexImage
-        src={`https://static.bitfinex.com/images/icons/${currency}.svg`}
+        src={icon}
         alt=''
         width={28}
         height={28}

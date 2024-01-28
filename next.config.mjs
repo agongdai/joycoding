@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: 'images.ctfassets.net',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'static.bitfinex.com',
+        port: '',
+      },
     ],
   },
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
