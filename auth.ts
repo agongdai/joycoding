@@ -36,7 +36,7 @@
 // import Zoho from "next-auth/providers/zoho"
 // import Zoom from "next-auth/providers/zoom"
 import type { NextAuthConfig } from 'next-auth';
-import NextAuth from 'next-auth';
+import NextAuth, { Session } from 'next-auth';
 // import Apple from "next-auth/providers/apple"
 // import Atlassian from "next-auth/providers/atlassian"
 // import Auth0 from "next-auth/providers/auth0"
@@ -62,6 +62,8 @@ import NextAuth from 'next-auth';
 import GitHub from 'next-auth/providers/github';
 // import Gitlab from "next-auth/providers/gitlab"
 import Google from 'next-auth/providers/google';
+
+import { prisma } from '@myex/db';
 
 export const config = {
   trustHost: true, // @github https://github.com/nextauthjs/next-auth/issues/6113
@@ -132,6 +134,24 @@ export const config = {
     // Zoho,
     // Zoom,
   ],
+  callbacks: {
+    async session({ session }: { session: Session }) {
+      const sessionUser = session?.user;
+      if (sessionUser?.email && !sessionUser.username) {
+        const user = await prisma.user.findUnique({
+          where: {
+            email: sessionUser.email || '',
+          },
+        });
+        session.user = {
+          ...sessionUser,
+          isAdmin: user?.isAdmin || false,
+          username: user?.username || '',
+        };
+      }
+      return session as Session;
+    },
+  },
 } satisfies NextAuthConfig;
 
 export const { handlers, auth, signIn, signOut } = NextAuth(config);

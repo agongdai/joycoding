@@ -10,13 +10,19 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'images.ctfassets.net',
-        port: '',
       },
       {
         protocol: 'https',
         hostname: 'static.bitfinex.com',
-        port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      }
     ],
   },
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],

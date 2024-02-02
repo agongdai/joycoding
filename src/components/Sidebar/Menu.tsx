@@ -62,11 +62,11 @@ export default function Menu({ menu, showMini }: Props) {
         color='secondary'
         selected={selected}
         onClick={handleClick}
-        classes={{ root: cx('flex justify-between', { 'pl-4': showMini }) }}
+        classes={{ root: cx('flex justify-between py-0', { 'pl-4': showMini }) }}
       >
         <MyexLink
           href={hasSubMenus ? '/' : (menu.protected ? `/@me` : '') + menu.href}
-          className='hover:no-underline w-full'
+          className='hover:no-underline w-full py-2'
           disabled={hasSubMenus}
         >
           <MyexTooltip title={showMini ? menu.title : ''} placement='right'>
@@ -90,10 +90,13 @@ export default function Menu({ menu, showMini }: Props) {
                 <ListItem key={subMenu.title} classes={{ root: 'block p-0' }}>
                   <ListItemButton
                     selected={exactSelect}
-                    classes={{ root: cx('py-1 my-1', { 'pl-4': showMini }) }}
+                    classes={{ root: cx('py-0 my-1', { 'pl-4': showMini }) }}
                     onClick={hideMobileSidebar}
                   >
-                    <MyexLink href={`${menu.href}${subMenu.href}`} className='hover:no-underline'>
+                    <MyexLink
+                      href={`${menu.href}${subMenu.href}`}
+                      className='py-1 hover:no-underline'
+                    >
                       <MyexTooltip title={showMini ? subMenu.title : ''} placement='right'>
                         <ListItemIcon>
                           <AwesomeIcon icon={subMenu.icon} size='lg' contrast={exactSelect} />

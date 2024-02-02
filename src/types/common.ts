@@ -36,6 +36,7 @@ export type IMenu = {
   href: string;
   subMenus?: IMenu[];
   protected?: boolean;
+  adminOnly?: boolean;
 };
 
 export const enum StyleVariant {
@@ -60,6 +61,7 @@ export const enum ValueFormat {
   Coin = 'coin',
   Volume = 'volume',
   UserActions = 'userActions',
+  Image = 'image',
 }
 
 export type Value = string | number | boolean | Date | null | undefined;

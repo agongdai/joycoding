@@ -2,11 +2,29 @@
 import React from 'react';
 import { ThemeProvider } from 'next-themes';
 import _debounce from 'lodash/debounce';
+import { MaterialDesignContent, SnackbarProvider } from 'notistack';
 import { Provider as ReduxProvider } from 'react-redux';
 
+import styled from '@emotion/styled';
 import store from '@myex/store';
 import { saveState } from '@myex/store/localStorage';
 import { MyexTheme } from '@myex/theme';
+import colors from '@myex/theme/colors';
+
+const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
+  '&.notistack-MuiContent-success': {
+    backgroundColor: colors.successMain,
+  },
+  '&.notistack-MuiContent-error': {
+    backgroundColor: colors.errorMain,
+  },
+  '&.notistack-MuiContent-info': {
+    backgroundColor: colors.infoMain,
+  },
+  '&.notistack-MuiContent-warning': {
+    backgroundColor: colors.warningMain,
+  },
+}));
 
 // here we subscribe to the store changes
 store.subscribe(
@@ -20,9 +38,19 @@ store.subscribe(
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ReduxProvider store={store}>
-      <ThemeProvider defaultTheme={MyexTheme.Dark} attribute='class'>
-        {children}
-      </ThemeProvider>
+      <SnackbarProvider
+        dense
+        className='text-base'
+        autoHideDuration={3000}
+        Components={{
+          success: StyledMaterialDesignContent,
+          error: StyledMaterialDesignContent,
+        }}
+      >
+        <ThemeProvider defaultTheme={MyexTheme.Dark} attribute='class'>
+          {children}
+        </ThemeProvider>
+      </SnackbarProvider>
     </ReduxProvider>
   );
 }

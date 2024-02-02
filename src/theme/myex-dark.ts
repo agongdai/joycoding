@@ -120,13 +120,6 @@ const theme = createTheme({
         },
       },
     },
-    MuiBadge: {
-      styleOverrides: {
-        badge: {
-          whiteSpace: 'nowrap',
-        },
-      },
-    },
     MuiButton: {
       styleOverrides: {
         root: {
@@ -163,35 +156,19 @@ const theme = createTheme({
         },
       },
     },
-    MuiButtonGroup: {
-      styleOverrides: {
-        grouped: {
-          fontWeight: 500,
-        },
-      },
-    },
-    MuiCard: {
-      styleOverrides: {
-        root: {
-          boxShadow: 'rgba(58, 53, 65, 0.1) 0px 2px 10px 0px',
-          backgroundColor: palette.bgDarkLight,
-          color: palette.textPrimary1,
-        },
-      },
-    },
-    MuiDialog: {
-      styleOverrides: {
-        paper: {
-          backgroundColor: palette.bgDarkLight,
-          color: palette.textPrimary1,
-        },
-      },
-    },
     MuiDivider: {
       styleOverrides: {
         root: {
           margin: '2.4rem 0',
           borderColor: palette.borderDark,
+        },
+      },
+    },
+    MuiFilledInput: {
+      styleOverrides: {
+        input: {
+          paddingTop: '1.7rem',
+          paddingBottom: '1.7rem',
         },
       },
     },
@@ -238,13 +215,6 @@ const theme = createTheme({
         },
       },
     },
-    MuiSkeleton: {
-      styleOverrides: {
-        root: {
-          backgroundColor: palette.bgPrimary10,
-        },
-      },
-    },
     MuiSvgIcon: {
       styleOverrides: {
         root: {
@@ -282,22 +252,6 @@ const theme = createTheme({
         },
       },
     },
-    MuiToggleButton: {
-      styleOverrides: {
-        root: {
-          textTransform: 'capitalize',
-
-          '&.Mui-selected': {
-            backgroundColor: palette.primaryMain,
-            color: palette.textPrimary1,
-            fontWeight: 'bold',
-            '&:hover': {
-              backgroundColor: palette.primaryDark,
-            },
-          },
-        },
-      },
-    },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
@@ -311,29 +265,6 @@ const theme = createTheme({
         multiline: {
           height: 'auto',
           padding: '10px 14px',
-        },
-      },
-    },
-    MuiPaper: {
-      styleOverrides: {
-        elevation8: {
-          boxShadow:
-            'rgba(19, 17, 32, 0.2) 0px 5px 6px -3px, rgba(19, 17, 32, 0.14) 0px 9px 12px 1px, rgba(19, 17, 32, 0.12) 0px 3px 16px 2px',
-        },
-      },
-    },
-    MuiTabs: {
-      styleOverrides: {
-        root: {
-          borderBottom: `1px solid ${palette.borderLight}`,
-        },
-      },
-    },
-    MuiTab: {
-      styleOverrides: {
-        root: {
-          minHeight: 0,
-          textTransform: 'none',
         },
       },
     },

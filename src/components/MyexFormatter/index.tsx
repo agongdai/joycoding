@@ -1,5 +1,6 @@
 import React from 'react';
 
+import MyexImage from '@myex/components/MyexImage';
 import { Value, ValueFormat } from '@myex/types/common';
 
 import Coin from './Coin';
@@ -38,6 +39,10 @@ export default function MyexFormatter({
 
   if (ValueFormat.UserActions === format) {
     return <UserActions symbol={String(value)} />;
+  }
+
+  if (ValueFormat.Image === format) {
+    return <MyexImage src={String(value)} alt='' width={32} height={32} className='rounded-full' />;
   }
 
   return <div>{String(value)}</div>;

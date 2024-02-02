@@ -17,12 +17,7 @@ export default function Coin({ value }: { value: Value }) {
       href={`https://coinmarketcap.com/currencies/${name.toLowerCase().replaceAll(/[ .]/g, '-')}`}
       className='inline-flex hover:no-underline'
     >
-      <MyexImage
-        src={icon}
-        alt=''
-        width={28}
-        height={28}
-      />
+      <MyexImage src={icon} alt='' width={28} height={28} />
       <div className='flex flex-col ml-4 justify-center text-left'>
         <span className='text-lg font-semibold'>{currency}</span>
         <Typography color='secondary' variant='caption' classes={{ root: 'leading-none' }}>

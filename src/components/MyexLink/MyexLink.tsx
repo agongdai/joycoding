@@ -43,7 +43,7 @@ export default function MyexLink({
       : `/${localeForLink}`;
 
   if (disabled) {
-    return <span className='inline-flex items-center'>{children}</span>;
+    return <span className={`inline-flex items-center ${className}`}>{children}</span>;
   }
 
   return (
