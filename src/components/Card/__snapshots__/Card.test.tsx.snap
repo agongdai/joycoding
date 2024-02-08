@@ -2,12 +2,20 @@
 
 exports[`Home renders a heading 1`] = `
 <div>
-  <div>
-    <h4>
+  <div
+    class="shadow rounded-2xl bg-bg-light-light dark:bg-bg-dark-light relative min-h-[16rem]"
+  >
+    <div
+      aria-level="5"
+      class="absolute left-0 top-0 bg-primary-main text-white text-sm font-semibold py-1 px-2 rounded-ss-2xl rounded-ee-2xl"
+      role="heading"
+    >
       Card Header
-    </h4>
-    <div>
-      Card Body
+    </div>
+    <div
+      class="text-6xl font-medium justify-center flex items-center h-full w-full flex-wrap"
+    >
+      whatever
     </div>
   </div>
 </div>

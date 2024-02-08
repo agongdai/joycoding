@@ -34,9 +34,10 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "./jest-setup.ts",
+    "./jest.setup.ts",
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "./cypress.config.ts"
   ]
 }

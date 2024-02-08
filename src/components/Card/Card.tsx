@@ -15,7 +15,7 @@ export default function Card({ label, children, className = '' }: Props) {
         className,
       )}
     >
-      <div className='absolute left-0 top-0 bg-primary-main text-white text-sm font-semibold py-1 px-2 rounded-ss-2xl rounded-ee-2xl'>
+      <div role='heading' aria-level={5} className='absolute left-0 top-0 bg-primary-main text-white text-sm font-semibold py-1 px-2 rounded-ss-2xl rounded-ee-2xl'>
         {label}
       </div>
       <div className='text-6xl font-medium justify-center flex items-center h-full w-full flex-wrap'>
