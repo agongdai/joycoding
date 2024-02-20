@@ -29,6 +29,14 @@ export function symbolToPair(symbol: string) {
 }
 
 /**
+ * `LUNA2:USD` => `LUNA2USD`
+ * @param pair
+ */
+export function pairToTradingViewSymbol(pair: string) {
+  return pair.replace(':', '');
+}
+
+/**
  * Get USD balance from wallets
  * @param wallets
  */
@@ -59,6 +67,13 @@ export function composeAssetsInfo(
         (pair: BfxTradingPair) => pair._currency === asset.currency,
       );
 
+      if (!tradingPair) {
+        return {
+          ...asset,
+          _balanceUsd: 0,
+        } as MyexAsset;
+      }
+
       return {
         ...asset,
         ..._pick(tradingPair, ['dailyChangePerc', 'lastPrice']),
@@ -66,5 +81,6 @@ export function composeAssetsInfo(
           .multipliedBy(tradingPair?.lastPrice || 0)
           .toNumber(),
       } as MyexAsset;
-    });
+    })
+    .filter((asset: MyexAsset) => asset._balanceUsd > 0);
 }

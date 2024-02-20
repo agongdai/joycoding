@@ -9,6 +9,7 @@ import { Collapse } from '@mui/material';
 import useMyexTheme from '@myex/hooks/useMyexTheme';
 import { useMyexSelector } from '@myex/store';
 import { selectCurrentPair, selectShowTradingView } from '@myex/store/trading/selectors';
+import { pairToTradingViewSymbol } from '@myex/utils/trading';
 
 export default function TradingView() {
   const { theme } = useMyexTheme();
@@ -21,7 +22,7 @@ export default function TradingView() {
         <TradingViewWidget
           theme={_upperFirst(theme || 'Dark')}
           autosize
-          symbol={`Bitfinex:${currentPair}`}
+          symbol={`Bitfinex:${pairToTradingViewSymbol(currentPair)}`}
         />
       </div>
     </Collapse>
