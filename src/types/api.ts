@@ -46,3 +46,9 @@ export type ApiResponse<T> = {
   headers?: HttpHeaders;
   data?: T;
 };
+
+export type ResponseError = {
+  status: HttpStatusCode;
+  message: string;
+  success?: boolean;
+};

@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import { User } from 'next-auth';
 
 import MyexTable from '@myex/components/MyexTable';
 import { ColumnData } from '@myex/components/MyexTable/types';
 import { ValueFormat } from '@myex/types/common';
+import { User } from '@prisma/client';
 
 interface Props {
   users: User[];

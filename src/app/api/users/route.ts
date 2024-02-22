@@ -3,23 +3,31 @@ import { NextAuthRequest } from 'next-auth/lib';
 
 import { auth } from '@myex/auth';
 import { prisma } from '@myex/db';
+import { HttpStatusCode, ResponseError } from '@myex/types/api';
+import { User } from '@prisma/client';
 
-export const GET = auth(async (req: NextAuthRequest) => {
+export const GET = async (req: NextRequest, res: NextResponse) => {
   // @todo limit to admin
   // if (!req.auth?.user?.isAdmin) {
   //   return NextResponse.json({ message: 'Not authorized' }, { status: 401 });
   // }
 
-  const users = await prisma.user.findMany({});
+  const users: User[] = await prisma.user.findMany({});
   return NextResponse.json(users);
-});
+};
 
-export const POST = auth(async (req: NextAuthRequest) => {
+export const POST = async (req: NextAuthRequest): Promise<Response> => {
   const { username } = await req.json();
   const user = req.auth?.user;
 
   if (!user || !user.email) {
-    return Response.json({ message: 'Not authenticated' }, { status: 401 });
+    return Response.json(
+      {
+        message: 'Not authenticated',
+        status: HttpStatusCode.Unauthorized,
+      },
+      { status: HttpStatusCode.Unauthorized },
+    );
   }
 
   const existingUserWithEmail = await prisma.user.findFirst({
@@ -29,7 +37,13 @@ export const POST = auth(async (req: NextAuthRequest) => {
   });
 
   if (existingUserWithEmail) {
-    return Response.json({ message: `Email ${user.email} has been registered.` }, { status: 422 });
+    return Response.json(
+      {
+        message: `Email ${user.email} has been registered.`,
+        status: HttpStatusCode.UnprocessableEntity,
+      },
+      { status: HttpStatusCode.UnprocessableEntity },
+    );
   }
 
   const newUser = await prisma.user.create({
@@ -43,7 +57,7 @@ export const POST = auth(async (req: NextAuthRequest) => {
     },
   });
 
-  return NextResponse.json({
-    user: newUser,
+  return Response.json({
+    ...newUser,
   });
-});
+};

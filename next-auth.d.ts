@@ -1,7 +1,5 @@
 import 'next-auth';
 
-declare module 'react-tradingview-widget';
-
 declare module 'next-auth' {
   interface User {
     id: string | number;

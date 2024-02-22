@@ -1,5 +1,5 @@
 'use server';
-import { User } from 'next-auth';
+import { User } from '@prisma/client';
 
 export async function fetchUsers(): Promise<User[]> {
   try {
