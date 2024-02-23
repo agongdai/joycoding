@@ -1,9 +1,11 @@
+import { apiFailure, apiSuccess } from '@myex/api/utils';
 import { auth } from '@myex/auth';
+import { ApiHandler, HttpStatusCode } from '@myex/types/api';
 
 export const GET = auth((req) => {
   if (req.auth) {
-    return Response.json({ data: 'Protected data' });
+    return apiSuccess('Protected data');
   }
 
-  return Response.json({ message: 'Not authenticated' }, { status: 401 });
-}) as any; // TODO: Fix `auth()` return type
+  return apiFailure(HttpStatusCode.Unauthorized);
+}) as ApiHandler<string>;

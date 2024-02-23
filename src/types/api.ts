@@ -1,3 +1,5 @@
+import { NextResponse } from 'next/server';
+
 export enum HttpMethod {
   Get = 'get',
   Post = 'post',
@@ -40,15 +42,11 @@ export type ApiRequest = {
 };
 
 export type ApiResponse<T> = {
-  status: number;
+  status?: number;
   message?: string;
-  success?: boolean;
+  success: boolean;
   headers?: HttpHeaders;
   data?: T;
 };
 
-export type ResponseError = {
-  status: HttpStatusCode;
-  message: string;
-  success?: boolean;
-};
+export type ApiHandler<T> = (req: Request) => Promise<NextResponse<ApiResponse<T>>>;

@@ -1,35 +1,29 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { NextAuthRequest } from 'next-auth/lib';
 
+import { apiFailure, apiSuccess } from '@myex/api/utils';
 import { auth } from '@myex/auth';
 import { prisma } from '@myex/db';
-import { HttpStatusCode, ResponseError } from '@myex/types/api';
+import { ApiHandler, HttpStatusCode } from '@myex/types/api';
 import { User } from '@prisma/client';
 
-export const GET = async (req: NextRequest, res: NextResponse) => {
-  // @todo limit to admin
+export const GET = auth(async (req: NextAuthRequest) => {
+  // @todo still need to figure out how to check if user is authenticated
   // if (!req.auth?.user?.isAdmin) {
-  //   return NextResponse.json({ message: 'Not authorized' }, { status: 401 });
+  //   return apiFailure(HttpStatusCode.Unauthorized);
   // }
 
   const users: User[] = await prisma.user.findMany({});
-  return NextResponse.json(users);
-};
+  return apiSuccess<User[]>(users);
+}) as ApiHandler<User[]>;
 
-export const POST = async (req: NextAuthRequest): Promise<Response> => {
-  const { username } = await req.json();
+export const POST = auth(async (req: NextAuthRequest) => {
   const user = req.auth?.user;
 
   if (!user || !user.email) {
-    return Response.json(
-      {
-        message: 'Not authenticated',
-        status: HttpStatusCode.Unauthorized,
-      },
-      { status: HttpStatusCode.Unauthorized },
-    );
+    return apiFailure(HttpStatusCode.Unauthorized);
   }
 
+  const { username } = await req.json();
   const existingUserWithEmail = await prisma.user.findFirst({
     where: {
       email: user.email || '',
@@ -37,12 +31,9 @@ export const POST = async (req: NextAuthRequest): Promise<Response> => {
   });
 
   if (existingUserWithEmail) {
-    return Response.json(
-      {
-        message: `Email ${user.email} has been registered.`,
-        status: HttpStatusCode.UnprocessableEntity,
-      },
-      { status: HttpStatusCode.UnprocessableEntity },
+    return apiFailure(
+      HttpStatusCode.UnprocessableEntity,
+      `Email ${user.email} has been registered.`,
     );
   }
 
@@ -57,7 +48,5 @@ export const POST = async (req: NextAuthRequest): Promise<Response> => {
     },
   });
 
-  return Response.json({
-    ...newUser,
-  });
-};
+  return apiSuccess<User>(newUser);
+}) as ApiHandler<User>;
