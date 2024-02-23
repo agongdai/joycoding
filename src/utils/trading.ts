@@ -52,6 +52,22 @@ export function getUsdBalance(wallets: BfxWallet[]): Balance {
 }
 
 /**
+ * Get USD balance from wallets
+ * @param wallets
+ */
+export function getUstBalance(wallets: BfxWallet[]): Balance {
+  console.log('wallets', wallets);
+  const usdWallet = wallets.find((wallet) => wallet.currency === 'UST');
+  const total = usdWallet?.balance || 0;
+  const available = usdWallet?.availableBalance || 0;
+
+  return {
+    total,
+    available,
+  };
+}
+
+/**
  * Compose assets info from wallet and trading pairs
  * @param assets
  * @param tradingPairs

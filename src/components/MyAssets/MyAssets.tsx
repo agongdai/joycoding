@@ -2,6 +2,7 @@
 
 import React, { useMemo } from 'react';
 
+import Money from '@myex/components/MyexFormatter/Money';
 import MyexTable from '@myex/components/MyexTable';
 import { ColumnData } from '@myex/components/MyexTable/types';
 import TradingView from '@myex/components/TradingView';
@@ -12,7 +13,12 @@ import { selectShowTradingView } from '@myex/store/trading/selectors';
 import { BfxTradingPair, BfxWallet } from '@myex/types/bitfinex';
 import { ValueFormat } from '@myex/types/common';
 import { MyexAsset } from '@myex/types/trading';
-import { composeAssetsInfo, currencyToSymbol, getUsdBalance } from '@myex/utils/trading';
+import {
+  composeAssetsInfo,
+  currencyToSymbol,
+  getUsdBalance,
+  getUstBalance,
+} from '@myex/utils/trading';
 
 import AssetsSummary from './AssetsSummary';
 
@@ -65,15 +71,20 @@ export default function MyAssets({ bfxWallets, tradingPairs }: Props) {
   const realTimeData = useWsTradingPairs(tradingPairsForAssets);
   const myexAssets = composeAssetsInfo(bfxWallets, realTimeData);
   const usdBalance = getUsdBalance(bfxWallets);
+  const ustBalance = getUstBalance(bfxWallets);
 
   const onSetCurrentPair = (row: MyexAsset) => {
     dispatch(setCurrentPair(currencyToSymbol(row.currency)));
   };
 
+  const totalBalance = myexAssets.reduce((acc, asset) => acc + asset._balanceUsd, 0);
+
   return (
     <>
-      <h1>Assets</h1>
-      <AssetsSummary assets={myexAssets} usdBalance={usdBalance} />
+      <h1 className='mb-12'>
+        Assets &#8776; <Money value={totalBalance + ustBalance.total + usdBalance.total} flash />
+      </h1>
+      <AssetsSummary assets={myexAssets} usdBalance={usdBalance} ustBalance={ustBalance} />
       <TradingView />
       <MyexTable<MyexAsset>
         data={myexAssets}
