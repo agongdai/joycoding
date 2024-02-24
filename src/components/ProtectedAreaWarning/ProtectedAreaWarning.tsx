@@ -5,7 +5,7 @@ import SignIn from '@myex/components/SignIn';
 
 export default function ProtectedAreaWarning({ adminOnly = false }: { adminOnly?: boolean }) {
   return (
-    <Alert severity='error' classes={{ root: 'py-4 my-20 max-w-[48rem] mx-auto' }}>
+    <Alert severity='error' classes={{ root: 'py-8 px-6 my-20 max-w-[48rem] mx-auto' }}>
       <h5 className='mb-4'>
         {adminOnly
           ? 'You need to sign in as an admin to visit this page'

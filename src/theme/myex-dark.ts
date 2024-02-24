@@ -107,7 +107,7 @@ const theme = createTheme({
           backgroundColor: palette.warningDark,
         },
         standardError: {
-          backgroundColor: palette.error50,
+          backgroundColor: palette.error25,
         },
       },
     },

@@ -7,10 +7,9 @@ import { ApiHandler, HttpStatusCode } from '@myex/types/api';
 import { User } from '@prisma/client';
 
 export const GET = auth(async (req: NextAuthRequest) => {
-  // @todo still need to figure out how to check if user is authenticated
-  // if (!req.auth?.user?.isAdmin) {
-  //   return apiFailure(HttpStatusCode.Unauthorized);
-  // }
+  if (!req.auth?.user?.isAdmin) {
+    return apiFailure(HttpStatusCode.Unauthorized);
+  }
 
   const users: User[] = await prisma.user.findMany({});
   return apiSuccess<User[]>(users);

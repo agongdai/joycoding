@@ -43,7 +43,9 @@ export default function RegisterUserForm() {
       });
       if (res.status === HttpStatusCode.Ok) {
         enqueueSnackbar('User registered successfully', { variant: 'success' });
-        router.push(`${window.location.origin}/`);
+        setTimeout(() => {
+          window.location.href = `${window.location.origin}/`;
+        }, 1000);
         return;
       } else {
         const json = await res.json();

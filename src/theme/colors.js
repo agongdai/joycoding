@@ -40,6 +40,7 @@ const paletteBase = {
   errorMain: 'rgba(240, 83, 89, 1)',
   errorDark: 'rgba(219, 63, 63, 1)',
   error50: 'rgba(240, 84, 84, 0.5)',
+  error25: 'rgba(240, 84, 84, 0.25)',
 
   infoMain: 'rgba(104, 129, 255, 0.75)',
   infoDark: 'rgba(104, 129, 255, 1)',
