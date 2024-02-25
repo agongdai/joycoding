@@ -14,7 +14,8 @@
     "build-storybook": "storybook build",
     "cypress": "cypress open",
     "e2e": "start-server-and-test start http://localhost:3000 cypress",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "db": "npx prisma generate"
   },
   "resolutions": {
     "jackspeak": "2.1.1"
@@ -42,9 +43,8 @@
     "@mui/lab": "^5.0.0-alpha.146",
     "@mui/material": "^5.14.11",
     "@next/mdx": "^14.0.1",
-    "@prisma/client": "^5.8.1",
+    "@prisma/client": "^5.10.2",
     "@reduxjs/toolkit": "^1.9.6",
-    "@sentry/nextjs": "^7.79.0",
     "@vercel/analytics": "^1.1.1",
     "@vercel/og": "^0.5.20",
     "autoprefixer": "10.4.15",
@@ -111,7 +111,7 @@
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.4",
-    "prisma": "^5.8.1",
+    "prisma": "^5.10.2",
     "start-server-and-test": "^2.0.0",
     "storybook": "^7.4.1",
     "ts-node": "^10.9.2"
