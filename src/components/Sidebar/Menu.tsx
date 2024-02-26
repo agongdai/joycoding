@@ -85,7 +85,8 @@ export default function Menu({ menu, showMini }: Props) {
         <Collapse in={open} timeout='auto' unmountOnExit>
           <List component='ul' classes={{ root: 'py-0' }}>
             {(menu.subMenus || []).map((subMenu) => {
-              const exactSelect = `${menu.href}${subMenu.href}` === pathName;
+              const subMenuHref = (menu.protected ? '/@me' : '') + menu.href + subMenu.href;
+              const exactSelect = subMenuHref === pathName;
               return (
                 <ListItem key={subMenu.title} classes={{ root: 'block p-0' }}>
                   <ListItemButton
@@ -93,10 +94,7 @@ export default function Menu({ menu, showMini }: Props) {
                     classes={{ root: cx('py-0 my-1', { 'pl-4': showMini }) }}
                     onClick={hideMobileSidebar}
                   >
-                    <MyexLink
-                      href={`${menu.href}${subMenu.href}`}
-                      className='py-1 hover:no-underline'
-                    >
+                    <MyexLink href={subMenuHref} className='py-1 hover:no-underline'>
                       <MyexTooltip title={showMini ? subMenu.title : ''} placement='right'>
                         <ListItemIcon>
                           <AwesomeIcon icon={subMenu.icon} size='lg' contrast={exactSelect} />

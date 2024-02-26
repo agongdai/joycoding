@@ -1,6 +1,11 @@
+/**
+ * @note Restful endpoints are not used right now. Replaced by server actions.
+ * Keep this file for reference only.
+ */
+
 import { NextAuthRequest } from 'next-auth/lib';
 
-import { apiFailure, apiSuccess } from '@myex/api/utils';
+import { restApiFailure, restApiSuccess } from '@myex/api/utils';
 import { auth } from '@myex/auth';
 import { prisma } from '@myex/db';
 import { ApiHandler, HttpStatusCode } from '@myex/types/api';
@@ -8,18 +13,18 @@ import { User } from '@prisma/client';
 
 export const GET = auth(async (req: NextAuthRequest) => {
   if (!req.auth?.user?.isAdmin) {
-    return apiFailure(HttpStatusCode.Unauthorized);
+    return restApiFailure(HttpStatusCode.Unauthorized);
   }
 
   const users: User[] = await prisma.user.findMany({});
-  return apiSuccess<User[]>(users);
+  return restApiSuccess<User[]>(users);
 }) as ApiHandler<User[]>;
 
 export const POST = auth(async (req: NextAuthRequest) => {
   const user = req.auth?.user;
 
   if (!user || !user.email) {
-    return apiFailure(HttpStatusCode.Unauthorized);
+    return restApiFailure(HttpStatusCode.Unauthorized);
   }
 
   const { username } = await req.json();
@@ -30,7 +35,7 @@ export const POST = auth(async (req: NextAuthRequest) => {
   });
 
   if (existingUserWithEmail) {
-    return apiFailure(
+    return restApiFailure(
       HttpStatusCode.UnprocessableEntity,
       `Email ${user.email} has been registered.`,
     );
@@ -47,5 +52,5 @@ export const POST = auth(async (req: NextAuthRequest) => {
     },
   });
 
-  return apiSuccess<User>(newUser);
+  return restApiSuccess<User>(newUser);
 }) as ApiHandler<User>;

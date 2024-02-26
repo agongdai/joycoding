@@ -8,6 +8,7 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { faSave } from '@fortawesome/pro-duotone-svg-icons';
 import { LoadingButton } from '@mui/lab';
+import { createUser } from '@myex/app/serverActions';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
 import TextField from '@myex/components/MyexForm/TextField';
 import { HttpStatusCode } from '@myex/types/api';
@@ -34,22 +35,15 @@ export default function RegisterUserForm() {
 
   const onSubmit = async (data: IFormNewUser) => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      if (res.status === HttpStatusCode.Ok) {
+      const res = await createUser(data);
+      if (res.success) {
         enqueueSnackbar('User registered successfully', { variant: 'success' });
         setTimeout(() => {
           window.location.href = `${window.location.origin}/`;
         }, 1000);
         return;
       } else {
-        const json = await res.json();
-        enqueueSnackbar(`Error: ${json.message}`, { variant: 'error' });
+        enqueueSnackbar(`Error: ${res.message}`, { variant: 'error' });
       }
     } catch (e) {
       enqueueSnackbar('Error: failed to register user', { variant: 'error' });
