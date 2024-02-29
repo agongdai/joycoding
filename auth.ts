@@ -147,7 +147,7 @@ export const config = {
         if (user) {
           session.user = {
             ...sessionUser,
-            myexId: user.myexId,
+            myexId: user?.myexId || 0,
             isAdmin: user?.isAdmin || false,
             username: user?.username || '',
           };

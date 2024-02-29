@@ -14,7 +14,7 @@ interface Props {
 const columns: ColumnData<User>[] = [
   {
     label: 'ID',
-    dataKey: 'id',
+    dataKey: 'myexId',
     sortable: true,
     widthRem: 7,
   },
@@ -55,7 +55,7 @@ export default function UsersList({ users = [] }: Props) {
       <MyexTable<User>
         data={users}
         columns={columns}
-        defaultSortingField='id'
+        defaultSortingField='myexId'
         defaultSortingDirection='-'
       />
     </>
