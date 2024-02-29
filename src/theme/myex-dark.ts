@@ -89,6 +89,50 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          backgroundColor: palette.bgDarkDark,
+          boxShadow: 'none',
+          borderRadius: 0,
+          border: `1px solid ${palette.borderDark}`,
+          borderBottom: 0,
+          '&.Mui-expanded': {
+            margin: 0,
+          },
+          '&:last-child': {
+            borderBottom: `1px solid ${palette.borderDark}`,
+          },
+        },
+      },
+    },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          padding: '1.6rem 2rem',
+          '&:hover': {
+            backgroundColor: palette.bgDarkMain,
+          },
+          '&.Mui-expanded': {
+            minHeight: '4.8rem',
+            backgroundColor: palette.bgDarkMain,
+          },
+        },
+        content: {
+          margin: 0,
+          '&.Mui-expanded': {
+            margin: 0,
+          },
+        },
+      },
+    },
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: {
+          padding: '1rem 3rem 3rem',
+        },
+      },
+    },
     MuiAlert: {
       styleOverrides: {
         message: {

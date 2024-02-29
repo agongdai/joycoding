@@ -6,7 +6,7 @@ import { HttpStatusCode } from '@myex/types/api';
 import { IFormNewUser } from '@myex/types/user';
 import { User } from '@prisma/client';
 
-export async function fetchUsers(): Promise<User[]> {
+export async function myexFetchUsers(): Promise<User[]> {
   const session = await auth();
   if (!session?.user?.isAdmin) {
     return [];
@@ -15,31 +15,32 @@ export async function fetchUsers(): Promise<User[]> {
   return prisma.user.findMany({});
 }
 
-export async function createUser({ username }: IFormNewUser) {
+export async function myexCreateUser({ username }: IFormNewUser) {
   const session = await auth();
-  if (!session?.user?.email) {
+  const sessionUser = session?.user;
+  if (!sessionUser?.email) {
     return apiFailure(HttpStatusCode.Unauthorized);
   }
 
   const existingUserWithEmail = await prisma.user.findFirst({
     where: {
-      email: session.user.email,
+      email: sessionUser.email,
     },
   });
 
   if (existingUserWithEmail) {
-    return apiFailure(HttpStatusCode.Conflict, `Email ${session.user.email} has been registered.`);
+    return apiFailure(HttpStatusCode.Conflict, `Email ${sessionUser.email} has been registered.`);
   }
 
   const newUser = await prisma.user.create({
     data: {
       username,
-      name: session.user.name || '',
-      email: session.user.email || '',
-      image: session.user.image || '',
-      isAdmin: session.user.email === process.env.ADMIN_EMAIL,
-      provider: session.user.image
-        ? session.user.image.includes('googleusercontent')
+      name: sessionUser.name || '',
+      email: sessionUser.email || '',
+      image: sessionUser.image || '',
+      isAdmin: sessionUser.email === process.env.ADMIN_EMAIL,
+      provider: sessionUser.image
+        ? sessionUser.image.includes('googleusercontent')
           ? 'google'
           : 'github'
         : '',

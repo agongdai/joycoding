@@ -56,7 +56,6 @@ export function getUsdBalance(wallets: BfxWallet[]): Balance {
  * @param wallets
  */
 export function getUstBalance(wallets: BfxWallet[]): Balance {
-  console.log('wallets', wallets);
   const usdWallet = wallets.find((wallet) => wallet.currency === 'UST');
   const total = usdWallet?.balance || 0;
   const available = usdWallet?.availableBalance || 0;

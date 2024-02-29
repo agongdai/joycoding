@@ -6,12 +6,9 @@ import { useSession } from 'next-auth/react';
 import { enqueueSnackbar } from 'notistack';
 import { Controller, useForm } from 'react-hook-form';
 
-import { faSave } from '@fortawesome/pro-duotone-svg-icons';
-import { LoadingButton } from '@mui/lab';
-import { createUser } from '@myex/app/serverActions';
-import AwesomeIcon from '@myex/components/AwesomeIcon';
+import { myexCreateUser } from '@myex/app/serverActions/myexUser';
 import TextField from '@myex/components/MyexForm/TextField';
-import { HttpStatusCode } from '@myex/types/api';
+import MyexLoadingButton from '@myex/components/ui/MyexLoadingButton';
 import { IFormNewUser } from '@myex/types/user';
 
 export default function RegisterUserForm() {
@@ -35,7 +32,7 @@ export default function RegisterUserForm() {
 
   const onSubmit = async (data: IFormNewUser) => {
     try {
-      const res = await createUser(data);
+      const res = await myexCreateUser(data);
       if (res.success) {
         enqueueSnackbar('User registered successfully', { variant: 'success' });
         setTimeout(() => {
@@ -80,17 +77,7 @@ export default function RegisterUserForm() {
         <TextField label='Email' value={session?.user?.email} disabled />
       </div>
       <div className='mt-6'>
-        <LoadingButton
-          loadingPosition='start'
-          variant='contained'
-          color='primary'
-          type='submit'
-          size='large'
-          loading={isSubmitting}
-          startIcon={<AwesomeIcon icon={faSave} />}
-        >
-          Save
-        </LoadingButton>
+        <MyexLoadingButton loading={isSubmitting} />
       </div>
     </form>
   );

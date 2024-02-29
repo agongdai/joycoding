@@ -15,7 +15,8 @@
     "cypress": "cypress open",
     "e2e": "start-server-and-test start http://localhost:3000 cypress",
     "test": "jest --watch",
-    "db": "npx prisma generate"
+    "db": "npx prisma generate",
+    "migrate": "npx prisma migrate dev --name init"
   },
   "resolutions": {
     "jackspeak": "2.1.1"

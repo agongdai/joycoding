@@ -3,11 +3,22 @@ import BigNumber from 'bignumber.js';
 import crypto from 'crypto';
 
 import { BfxEndpoints } from '@myex/api/endpoints';
+import { auth } from '@myex/auth';
 import { BfxWallet } from '@myex/types/bitfinex';
+import { Exchange } from '@myex/types/exchange';
 
-const apiKey = process.env.BITFINEX_API_KEY || '';
-const apiSecret = process.env.BITFINEX_API_SECRET || ''; // const apiSecret = 'paste secret here'
 export async function fetchWallets(): Promise<BfxWallet[]> {
+  const session = await auth();
+  const bitfinexKey = (session?.user?.exchanges || []).find(
+    (exchange) => exchange.name === Exchange.Bitfinex,
+  );
+  if (!session?.user || !bitfinexKey) {
+    return [];
+  }
+
+  const apiKey = bitfinexKey.apiKey;
+  const apiSecret = bitfinexKey.apiSecret;
+
   const nonce = (Date.now() * 1000).toString();
   const signaturePayload = `/api/${BfxEndpoints.wallets.apiPath}${nonce}`;
   const signature = crypto.createHmac('sha384', apiSecret).update(signaturePayload).digest('hex');

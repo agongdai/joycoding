@@ -11,6 +11,8 @@ export const FIAT_CURRENCY_SYMBOL: string = '$';
 export const PRICE_MAX_DECIMAL_PLACES: number = 8;
 export const PRICE_DEFAULT_DECIMAL_PLACES: number = 3;
 
+export const IGNORED_USD_THRESHOLD: number = 1;
+
 export const HttpStatusMessage: Record<HttpStatusCode, string> = {
   [HttpStatusCode.Ok]: 'Ok',
   [HttpStatusCode.Created]: 'Created',

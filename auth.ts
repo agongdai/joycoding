@@ -143,12 +143,30 @@ export const config = {
             email: sessionUser.email || '',
           },
         });
+
+        if (user) {
+          session.user = {
+            ...sessionUser,
+            myexId: user.myexId,
+            isAdmin: user?.isAdmin || false,
+            username: user?.username || '',
+          };
+        }
+      }
+
+      const partialUser = session?.user;
+      if (partialUser?.myexId) {
+        const exchanges = await prisma.exchange.findMany({
+          where: {
+            userMyexId: partialUser.myexId,
+          },
+        }) || [];
         session.user = {
-          ...sessionUser,
-          isAdmin: user?.isAdmin || false,
-          username: user?.username || '',
+          ...partialUser,
+          exchanges,
         };
       }
+
       return session as Session;
     },
   },

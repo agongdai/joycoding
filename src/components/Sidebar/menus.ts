@@ -4,12 +4,13 @@ import {
   faDisplayChartUpCircleDollar,
   faGauge,
   faHammerBrush,
+  faLandmarkDome,
   faPalette,
   faScrewdriverWrench,
   faSliders,
   faUserRobotXmarks,
   faUsers,
-  faUsersGear,
+  faWallet,
 } from '@fortawesome/pro-duotone-svg-icons';
 import { IMenu } from '@myex/types/common';
 
@@ -48,7 +49,8 @@ const menus: IMenu[] = [
     href: '/settings',
     protected: true,
     subMenus: [
-      { title: 'Accounts', icon: faUsersGear, href: '/accounts' },
+      { title: 'Exchanges', icon: faLandmarkDome, href: '/exchanges' },
+      { title: 'Wallets', icon: faWallet, href: '/wallets' },
       { title: 'Parameters', icon: faSliders, href: '/parameters' },
       { title: 'Theme', icon: faPalette, href: '/theme' },
     ],

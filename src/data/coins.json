@@ -79,5 +79,9 @@
     "name": "Bonk",
     "currency": "BONK",
     "icon": "https://static.bitfinex.com/images/icons/BONK.png"
+  },
+  {
+    "name": "Monero",
+    "currency": "XMR"
   }
 ]

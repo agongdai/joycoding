@@ -1,3 +1,4 @@
 export * from './bfxRestAuth';
 export * from './bfxRestPublic';
-export * from './local';
+export * from './myexExchange';
+export * from './myexUser';

@@ -5,6 +5,7 @@ import MyexTooltip from '@myex/components/@mui/material/Tooltip';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
 import Card from '@myex/components/Card';
 import Money from '@myex/components/MyexFormatter/Money';
+import { IGNORED_USD_THRESHOLD } from '@myex/config';
 import { Balance } from '@myex/types/trading';
 
 interface Props {
@@ -13,6 +14,8 @@ interface Props {
 }
 
 export default function BalanceCard({ label, balance }: Props) {
+  if (balance.total < IGNORED_USD_THRESHOLD) return null;
+
   return (
     <Card label={label}>
       <div>
