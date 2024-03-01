@@ -4,6 +4,7 @@ import MyexImage from '@myex/components/MyexImage';
 import { Value, ValueFormat } from '@myex/types/common';
 
 import Coin from './Coin';
+import Exchange from './Exchange';
 import Money from './Money';
 import Number from './Number';
 import Percentage from './Percentage';
@@ -43,6 +44,10 @@ export default function MyexFormatter({
 
   if (ValueFormat.Image === format) {
     return <MyexImage src={String(value)} alt='' width={32} height={32} className='rounded-full' />;
+  }
+
+  if (ValueFormat.Exchange === format) {
+    return <Exchange value={value} />;
   }
 
   return <div>{String(value)}</div>;

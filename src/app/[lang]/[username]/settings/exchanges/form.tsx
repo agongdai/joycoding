@@ -10,9 +10,9 @@ import TextField from '@myex/components/MyexForm/TextField';
 import MyexLoadingButton from '@myex/components/ui/MyexLoadingButton';
 import { IFormNewExchange } from '@myex/types/exchange';
 
-export default function AccountsForm({ exchangeName }: { exchangeName: string }) {
+export default function AccountsForm({ exchangeId }: { exchangeId: string }) {
   const { data: session, update: updateSession } = useSession();
-  const exchange = session?.user?.exchanges?.find((e) => e.name === exchangeName);
+  const exchange = session?.user?.exchanges?.find((e) => e.exchangeId === exchangeId);
   const {
     control,
     handleSubmit,
@@ -20,7 +20,7 @@ export default function AccountsForm({ exchangeName }: { exchangeName: string })
     reset,
   } = useForm<IFormNewExchange>({
     defaultValues: {
-      name: exchangeName || '',
+      exchangeId: exchangeId || '',
       apiKey: exchange?.apiKey || '',
       apiSecret: exchange?.apiSecret || '',
     },
@@ -28,11 +28,11 @@ export default function AccountsForm({ exchangeName }: { exchangeName: string })
 
   useEffect(() => {
     reset({
-      name: exchangeName || '',
+      exchangeId: exchangeId || '',
       apiKey: exchange?.apiKey || '',
       apiSecret: exchange?.apiSecret || '',
     });
-  }, [exchange?.apiKey, exchange?.apiSecret, exchangeName, reset]);
+  }, [exchange?.apiKey, exchange?.apiSecret, exchangeId, reset]);
 
   const onSubmit = async (data: IFormNewExchange) => {
     const res = await myexCreateExchange(data);

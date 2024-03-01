@@ -5161,6 +5161,13 @@ ccount@^2.0.0:
   resolved "https://registry.yarnpkg.com/ccount/-/ccount-2.0.1.tgz#17a3bf82302e0870d6da43a01311a8bc02a3ecf5"
   integrity sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==
 
+ccxt@^4.2.56:
+  version "4.2.56"
+  resolved "https://registry.yarnpkg.com/ccxt/-/ccxt-4.2.56.tgz#67df56f9d58893db15938b98edc5c0d873cafbd7"
+  integrity sha512-tu4pb+bO09bT6h+r2o5h3HW0Yx8SJY13LECfzXY7hI32+2avs47QGI35pUvhXlKoADH/E/kc5ERKNBVsa6qcTA==
+  dependencies:
+    ws "^8.8.1"
+
 chalk@5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-5.3.0.tgz#67c20a7ebef70e7f3970a01f90fa210cb6860385"
@@ -13950,7 +13957,7 @@ ws@^6.1.0:
   dependencies:
     async-limiter "~1.0.0"
 
-ws@^8.11.0, ws@^8.2.3:
+ws@^8.11.0, ws@^8.2.3, ws@^8.8.1:
   version "8.16.0"
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.16.0.tgz#d1cd774f36fbc07165066a60e40323eab6446fd4"
   integrity sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==

@@ -21,22 +21,24 @@ export default async function ExchangesPage() {
       <SessionProvider session={session}>
         <div className='max-w-[80rem] my-6 shadow-lg'>
           {exchanges.map((exchange) => {
-            const hasExchange = session?.user?.exchanges?.find((e) => e.name === exchange.name);
+            const hasConnected = session?.user?.exchanges?.find(
+              (e) => e.exchangeId === exchange.exchangeId,
+            );
             return (
               <Accordion key={exchange.name}>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
-                  aria-controls={`exchange-${exchange.name}-content`}
-                  id={`exchange-${exchange.name}-header`}
+                  aria-controls={`exchange-${exchange.exchangeId}-content`}
+                  id={`exchange-${exchange.exchangeId}-header`}
                 >
-                  <MyexImage src={exchange.icon} alt={exchange.name} width={28} height={28} />
+                  <MyexImage src={exchange.icon} alt={exchange.exchangeId} width={28} height={28} />
                   <span className='inline-block mx-3'>{exchange.name}</span>
-                  {hasExchange && (
+                  {hasConnected && (
                     <AwesomeIcon icon={faLink} variant={StyleVariant.Success} size='lg' />
                   )}
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Form exchangeName={exchange.name} />
+                  <Form exchangeId={exchange.exchangeId} />
                 </AccordionDetails>
               </Accordion>
             );

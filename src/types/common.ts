@@ -62,6 +62,7 @@ export const enum ValueFormat {
   Volume = 'volume',
   UserActions = 'userActions',
   Image = 'image',
+  Exchange = 'exchange',
 }
 
 export type Value = string | number | boolean | Date | null | undefined;

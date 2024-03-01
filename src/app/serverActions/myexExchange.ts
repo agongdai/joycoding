@@ -5,7 +5,7 @@ import { prisma } from '@myex/db';
 import { HttpStatusCode } from '@myex/types/api';
 import { IFormNewExchange } from '@myex/types/exchange';
 
-export async function myexCreateExchange({ name, apiKey, apiSecret }: IFormNewExchange) {
+export async function myexCreateExchange({ exchangeId, apiKey, apiSecret }: IFormNewExchange) {
   const session = await auth();
   const userMyexId = Number(session?.user?.myexId);
   if (!userMyexId) {
@@ -14,7 +14,7 @@ export async function myexCreateExchange({ name, apiKey, apiSecret }: IFormNewEx
 
   const existingExchange = await prisma.exchange.findFirst({
     where: {
-      name,
+      exchangeId,
       userMyexId,
     },
   });
@@ -28,7 +28,7 @@ export async function myexCreateExchange({ name, apiKey, apiSecret }: IFormNewEx
       apiSecret,
     },
     create: {
-      name,
+      exchangeId,
       apiKey,
       apiSecret,
       userMyexId,

@@ -58,6 +58,11 @@ const columns: ColumnData<MyexAsset>[] = [
     format: ValueFormat.Percentage,
     sortable: true,
   },
+  {
+    label: 'Exchange',
+    dataKey: '_exchange',
+    format: ValueFormat.Exchange,
+  },
 ];
 
 export default function MyAssets({ bfxWallets, tradingPairs }: Props) {

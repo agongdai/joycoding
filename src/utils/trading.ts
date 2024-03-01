@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import _pick from 'lodash/pick';
 
 import { BfxTradingPair, BfxWallet } from '@myex/types/bitfinex';
+import { Exchange } from '@myex/types/exchange';
 import { Balance, MyexAsset } from '@myex/types/trading';
 
 /**
@@ -9,7 +10,7 @@ import { Balance, MyexAsset } from '@myex/types/trading';
  * @param currency
  */
 export function currencyToSymbol(currency: string) {
-  return `t${currency}${currency.length === 3 ? '' : ':'}USD`;
+  return `t${currency}${currency.length === 3 ? '' : ':'}UST`;
 }
 
 /**
@@ -95,6 +96,7 @@ export function composeAssetsInfo(
         _balanceUsd: BigNumber(asset.balance)
           .multipliedBy(tradingPair?.lastPrice || 0)
           .toNumber(),
+        _exchange: Exchange.Bitfinex,
       } as MyexAsset;
     })
     .filter((asset: MyexAsset) => asset._balanceUsd > 0);

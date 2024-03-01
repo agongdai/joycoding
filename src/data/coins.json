@@ -83,5 +83,13 @@
   {
     "name": "Monero",
     "currency": "XMR"
+  },
+  {
+    "name": "Polkadot New",
+    "currency": "DOT"
+  },
+  {
+    "name": "Filecoin",
+    "currency": "FIL"
   }
 ]

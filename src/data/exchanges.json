@@ -1,29 +1,34 @@
 [
   {
+    "exchangeId": "bitfinex",
     "name": "Bitfinex",
     "url": "https://www.bitfinex.com/",
     "logo": "/exchanges/bitfinex-logo.svg",
     "icon": "/exchanges/bitfinex-icon.svg"
   },
   {
+    "exchangeId": "binance",
     "name": "Binance",
     "url": "https://www.binance.com/",
     "logo": "/exchanges/binance-logo.svg",
     "icon": "/exchanges/binance-icon.svg"
   },
   {
+    "exchangeId": "gateio",
     "name": "Gate.io",
     "url": "https://www.gate.io/",
     "logo": "/exchanges/gate-io-logo.png",
     "icon": "/exchanges/gate-io-icon.svg"
   },
   {
+    "exchangeId": "okx",
     "name": "OKX",
     "url": "https://www.okx.com/",
     "logo": "/exchanges/okx-logo.png",
     "icon": "/exchanges/okx-icon.svg"
   },
   {
+    "exchangeId": "bitget",
     "name": "Bitget",
     "url": "https://www.bitget.com/",
     "logo": "/exchanges/bitget-logo.svg",
