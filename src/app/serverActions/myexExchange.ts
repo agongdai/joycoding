@@ -21,7 +21,7 @@ export async function myexCreateExchange({ name, apiKey, apiSecret }: IFormNewEx
 
   const updatedExchange = await prisma.exchange.upsert({
     where: {
-      myexId: existingExchange?.myexId,
+      myexId: existingExchange?.myexId || 0,
     },
     update: {
       apiKey,
