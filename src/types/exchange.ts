@@ -1,4 +1,4 @@
-export interface IFormNewExchange {
+export interface IFormNewExchangeApi {
   exchangeId: string;
   apiKey: string;
   apiSecret: string;

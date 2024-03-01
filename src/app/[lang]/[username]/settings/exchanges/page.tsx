@@ -21,7 +21,7 @@ export default async function ExchangesPage() {
       <SessionProvider session={session}>
         <div className='max-w-[80rem] my-6 shadow-lg'>
           {exchanges.map((exchange) => {
-            const hasConnected = session?.user?.exchanges?.find(
+            const hasConnected = session?.user?.exchangeApis?.find(
               (e) => e.exchangeId === exchange.exchangeId,
             );
             return (

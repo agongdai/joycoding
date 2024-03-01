@@ -1,4 +1,4 @@
-import { Exchange } from '@prisma/client';
+import { ExchangeApi } from '@prisma/client';
 
 import 'next-auth';
 
@@ -12,6 +12,6 @@ declare module 'next-auth' {
     image: string;
     name?: string | null;
     email?: string | null;
-    exchanges?: Exchange[];
+    exchangeApis?: ExchangeApi[];
   }
 }

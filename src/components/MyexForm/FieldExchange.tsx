@@ -11,12 +11,12 @@ import {
 } from '@mui/material';
 import MyexImage from '@myex/components/MyexImage';
 import exchanges from '@myex/data/exchanges.json';
-import { IFormNewExchange } from '@myex/types/exchange';
+import { IFormNewExchangeApi } from '@myex/types/exchange';
 
 import Select from './Select';
 
 interface Props {
-  control: Control<IFormNewExchange>;
+  control: Control<IFormNewExchangeApi>;
   error: string | undefined;
 }
 

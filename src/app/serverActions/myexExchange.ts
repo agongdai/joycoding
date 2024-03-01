@@ -3,23 +3,27 @@ import { apiFailure, apiSuccess } from '@myex/api/utils';
 import { auth } from '@myex/auth';
 import { prisma } from '@myex/db';
 import { HttpStatusCode } from '@myex/types/api';
-import { IFormNewExchange } from '@myex/types/exchange';
+import { IFormNewExchangeApi } from '@myex/types/exchange';
 
-export async function myexCreateExchange({ exchangeId, apiKey, apiSecret }: IFormNewExchange) {
+export async function myexCreateExchangeApi({
+  exchangeId,
+  apiKey,
+  apiSecret,
+}: IFormNewExchangeApi) {
   const session = await auth();
   const userMyexId = Number(session?.user?.myexId);
   if (!userMyexId) {
     return apiFailure(HttpStatusCode.Unauthorized);
   }
 
-  const existingExchange = await prisma.exchange.findFirst({
+  const existingExchange = await prisma.exchangeApi.findFirst({
     where: {
       exchangeId,
       userMyexId,
     },
   });
 
-  const updatedExchange = await prisma.exchange.upsert({
+  const updatedExchange = await prisma.exchangeApi.upsert({
     where: {
       myexId: existingExchange?.myexId || 0,
     },

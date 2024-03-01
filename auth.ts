@@ -156,14 +156,14 @@ export const config = {
 
       const partialUser = session?.user;
       if (partialUser?.myexId) {
-        const exchanges = await prisma.exchange.findMany({
+        const exchangeApis = await prisma.exchangeApi.findMany({
           where: {
             userMyexId: partialUser.myexId,
           },
         }) || [];
         session.user = {
           ...partialUser,
-          exchanges,
+          exchangeApis,
         };
       }
 

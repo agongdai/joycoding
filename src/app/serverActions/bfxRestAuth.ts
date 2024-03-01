@@ -9,7 +9,7 @@ import { Exchange } from '@myex/types/exchange';
 
 export async function fetchWallets(): Promise<BfxWallet[]> {
   const session = await auth();
-  const bitfinexKey = (session?.user?.exchanges || []).find(
+  const bitfinexKey = (session?.user?.exchangeApis || []).find(
     (exchange) => exchange.exchangeId === Exchange.Bitfinex,
   );
   if (!session?.user || !bitfinexKey) {
