@@ -10,7 +10,7 @@ import TextField from '@myex/components/MyexForm/TextField';
 import MyexLoadingButton from '@myex/components/ui/MyexLoadingButton';
 import { IFormNewExchangeApi } from '@myex/types/exchange';
 
-export default function AccountsForm({ exchangeId }: { exchangeId: string }) {
+export default function ExchangesForm({ exchangeId }: { exchangeId: string }) {
   const { data: session, update: updateSession } = useSession();
   const exchange = session?.user?.exchangeApis?.find((e) => e.exchangeId === exchangeId);
   const {

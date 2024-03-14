@@ -7,17 +7,18 @@ import AwesomeIcon from '@myex/components/AwesomeIcon';
 interface Props {
   label?: string;
   loading: boolean;
+  formId?: string;
 }
 
-function MyexLoadingButton({ label = 'Save', loading }: Props) {
+function MyexLoadingButton({ label = 'Save', loading, formId }: Props) {
   return (
     <LoadingButton
       loadingPosition='start'
       variant='contained'
       color='primary'
       type='submit'
-      size='large'
       loading={loading}
+      form={formId}
       startIcon={<AwesomeIcon icon={faSave} />}
     >
       {label}

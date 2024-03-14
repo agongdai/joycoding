@@ -200,6 +200,21 @@ const theme = createTheme({
         },
       },
     },
+    MuiDialogActions: {
+      styleOverrides: {
+        root: {
+          borderTop: `1px solid ${palette.borderDark}`,
+          padding: '1rem',
+        },
+      },
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          borderBottom: `1px solid ${palette.borderDark}`,
+        },
+      },
+    },
     MuiDivider: {
       styleOverrides: {
         root: {
@@ -309,6 +324,13 @@ const theme = createTheme({
         multiline: {
           height: 'auto',
           padding: '10px 14px',
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: palette.bgDarkDark,
         },
       },
     },

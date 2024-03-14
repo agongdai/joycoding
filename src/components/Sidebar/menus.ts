@@ -61,7 +61,10 @@ const menus: IMenu[] = [
     href: '/admin',
     protected: true,
     adminOnly: true,
-    subMenus: [{ title: 'Users', icon: faUsers, href: '/users' }],
+    subMenus: [
+      { title: 'Users', icon: faUsers, href: '/users' },
+      { title: 'Coins', icon: faCoins, href: '/coins' },
+    ],
   },
 ];
 

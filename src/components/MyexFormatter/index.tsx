@@ -5,6 +5,7 @@ import { Value, ValueFormat } from '@myex/types/common';
 
 import Coin from './Coin';
 import Exchange from './Exchange';
+import Link from './Link';
 import Money from './Money';
 import Number from './Number';
 import Percentage from './Percentage';
@@ -30,12 +31,16 @@ export default function MyexFormatter({
     return <Percentage value={value} />;
   }
 
+  if (ValueFormat.Link === format) {
+    return <Link href={String(value)} />;
+  }
+
   if (ValueFormat.Volume === format) {
     return <Volume value={value} />;
   }
 
   if (ValueFormat.Coin === format) {
-    return <Coin value={value} />;
+    return <Coin myexId={value as number} />;
   }
 
   if (ValueFormat.UserActions === format) {

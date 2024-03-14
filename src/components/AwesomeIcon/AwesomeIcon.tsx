@@ -15,7 +15,7 @@ interface Props {
   contrast?: boolean;
   tooltip?: string;
   variant?: StyleVariant;
-  onClick?: () => void;
+  onClick?: (_e: any) => void;
 }
 
 export default function AwesomeIcon({
@@ -38,6 +38,7 @@ export default function AwesomeIcon({
       style={{ color: variantColor || color }}
       className={cx(`text-tertiary-main dark:text-tertiary-dark ${className}`, {
         'text-text-highlight dark:text-text-highlight': contrast,
+        'cursor-pointer': onClick,
       })}
     />
   );

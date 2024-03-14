@@ -7,8 +7,10 @@ import _sortBy from 'lodash/sortBy';
 import { faSortDown, faSortUp } from '@fortawesome/pro-duotone-svg-icons';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
 import MyexFormatter from '@myex/components/MyexFormatter';
+import CoinIcon from '@myex/components/MyexFormatter/CoinIcon';
 import { ColumnData } from '@myex/components/MyexTable/types';
 import { Value, ValueFormat } from '@myex/types/common';
+import { Coin } from '@prisma/client';
 
 type Props<T> = {
   data: T[];
@@ -82,13 +84,17 @@ export default function MyexTable<T>({
             }}
           >
             <div>
-              {column.label}
-              {column.sortable && sortingField === column.dataKey && (
-                <AwesomeIcon
-                  size='sm'
-                  icon={sortingDirection === '-' ? faSortUp : faSortDown}
-                  className={`ml-1`}
-                />
+              {column.sortable && sortingField === column.dataKey ? (
+                <>
+                  <span className='text-text-highlight'>{column.label}</span>
+                  <AwesomeIcon
+                    size='sm'
+                    icon={sortingDirection === '-' ? faSortUp : faSortDown}
+                    className={`ml-1`}
+                  />
+                </>
+              ) : (
+                column.label
               )}
             </div>
           </div>
@@ -119,10 +125,16 @@ export default function MyexTable<T>({
                     : 0,
               }}
             >
-              <MyexFormatter
-                value={item[column.dataKey] as Value}
-                format={column.format || ValueFormat.String}
-              />
+              {column.renderComponent ? (
+                column.renderComponent(item[column.dataKey], item)
+              ) : column.format === ValueFormat.CoinIcon ? (
+                <CoinIcon coin={item as Coin} />
+              ) : (
+                <MyexFormatter
+                  value={item[column.dataKey] as Value}
+                  format={column.format || ValueFormat.String}
+                />
+              )}
             </div>
           ))}
         </div>

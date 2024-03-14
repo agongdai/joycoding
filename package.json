@@ -24,6 +24,8 @@
   "dependencies": {
     "@auth/core": "0.18.4",
     "@auth/prisma-adapter": "1.0.9",
+    "@binance/connector": "^3.2.0",
+    "@binance/connector-typescript": "^0.3.6",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@formatjs/intl-localematcher": "^0.4.2",
@@ -52,7 +54,6 @@
     "@vercel/og": "^0.5.20",
     "autoprefixer": "10.4.15",
     "bignumber.js": "^9.1.2",
-    "ccxt": "^4.2.56",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.10",
     "eslint": "8.48.0",

@@ -192,6 +192,20 @@ const theme = createTheme({
         },
       },
     },
+    MuiDialogActions: {
+      styleOverrides: {
+        root: {
+          borderTop: `1px solid ${palette.borderLight}`,
+        },
+      },
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          borderBottom: `1px solid ${palette.borderLight}`,
+        },
+      },
+    },
     MuiDivider: {
       styleOverrides: {
         root: {

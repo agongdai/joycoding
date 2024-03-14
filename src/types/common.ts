@@ -63,12 +63,8 @@ export const enum ValueFormat {
   UserActions = 'userActions',
   Image = 'image',
   Exchange = 'exchange',
+  Link = 'link',
+  CoinIcon = 'coinIcon',
 }
 
 export type Value = string | number | boolean | Date | null | undefined;
-
-export type Coin = {
-  name: string;
-  currency: string;
-  detailsUrl?: string;
-};

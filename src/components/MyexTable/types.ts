@@ -10,4 +10,5 @@ export interface ColumnData<T> {
   format?: ValueFormat;
   sortable?: boolean;
   className?: string;
+  renderComponent?: (value: T[keyof T], row: T) => React.ReactNode;
 }

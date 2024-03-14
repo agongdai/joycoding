@@ -3,6 +3,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
 import domReducer from './dom/slice';
+import flagsReducer from './flags/slice';
 import tradingReducer from './trading/slice';
 import { loadState } from './localStorage';
 
@@ -10,6 +11,7 @@ const store = configureStore({
   reducer: {
     dom: domReducer,
     trading: tradingReducer,
+    flags: flagsReducer,
   },
   preloadedState: loadState(),
 });

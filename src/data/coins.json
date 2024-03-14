@@ -91,5 +91,9 @@
   {
     "name": "Filecoin",
     "currency": "FIL"
+  },
+  {
+    "name": "Cosmos",
+    "currency": "ATO"
   }
 ]
