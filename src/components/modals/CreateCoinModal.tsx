@@ -26,6 +26,7 @@ export default function CreateCoinModal() {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm<IFormNewCoin>({
     defaultValues: {
       name: '',
@@ -41,6 +42,7 @@ export default function CreateCoinModal() {
   const onSubmit = async (data: IFormNewCoin) => {
     const res = await myexCreateCoin(data);
     if (res.success) {
+      reset();
       onClose();
       enqueueSnackbar('The coin has been added to MyEx.AI successfully.', { variant: 'success' });
       router.refresh();

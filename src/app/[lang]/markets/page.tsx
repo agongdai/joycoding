@@ -20,6 +20,12 @@ const columns: ColumnData<BfxTradingPair>[] = [
     sortable: true,
   },
   {
+    label: 'Rating',
+    dataKey: '_rating',
+    format: ValueFormat.Number,
+    sortable: true,
+  },
+  {
     label: 'Price',
     dataKey: 'lastPrice',
     format: ValueFormat.Money,

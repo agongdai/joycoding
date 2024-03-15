@@ -3,7 +3,6 @@ import React from 'react';
 import MyexImage from '@myex/components/MyexImage';
 import { Value, ValueFormat } from '@myex/types/common';
 
-import Coin from './Coin';
 import Exchange from './Exchange';
 import Link from './Link';
 import Money from './Money';
@@ -37,10 +36,6 @@ export default function MyexFormatter({
 
   if (ValueFormat.Volume === format) {
     return <Volume value={value} />;
-  }
-
-  if (ValueFormat.Coin === format) {
-    return <Coin myexId={value as number} />;
   }
 
   if (ValueFormat.UserActions === format) {

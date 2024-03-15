@@ -21,7 +21,7 @@ interface Props {
 }
 
 export default function MyexLink({
-  href,
+  href = '',
   children,
   target = '_self',
   isActive = false,

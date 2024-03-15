@@ -6,11 +6,9 @@ import _sortBy from 'lodash/sortBy';
 
 import { faSortDown, faSortUp } from '@fortawesome/pro-duotone-svg-icons';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
-import MyexFormatter from '@myex/components/MyexFormatter';
-import CoinIcon from '@myex/components/MyexFormatter/CoinIcon';
 import { ColumnData } from '@myex/components/MyexTable/types';
-import { Value, ValueFormat } from '@myex/types/common';
-import { Coin } from '@prisma/client';
+
+import CellRenderer from './CellRenderer';
 
 type Props<T> = {
   data: T[];
@@ -113,7 +111,7 @@ export default function MyexTable<T>({
         >
           {columns.map((column, index) => (
             <div
-              key={index}
+              key={((column.dataKey as string) + column.label) as string}
               className={cx('grow shrink flex items-center py-2 px-4', column.className || '', {
                 'grow-0 shrink-0': column.widthPercentage || column.widthRem,
               })}
@@ -125,16 +123,7 @@ export default function MyexTable<T>({
                     : 0,
               }}
             >
-              {column.renderComponent ? (
-                column.renderComponent(item[column.dataKey], item)
-              ) : column.format === ValueFormat.CoinIcon ? (
-                <CoinIcon coin={item as Coin} />
-              ) : (
-                <MyexFormatter
-                  value={item[column.dataKey] as Value}
-                  format={column.format || ValueFormat.String}
-                />
-              )}
+              <CellRenderer<T> column={column} item={item} />
             </div>
           ))}
         </div>

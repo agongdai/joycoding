@@ -1,4 +1,6 @@
 // @doc https://docs.bitfinex.com/reference/rest-public-tickers#response-fields
+import { Coin } from '@prisma/client';
+
 export type BfxTradingPair = {
   symbol: string;
   _currency: string; // derived coin name
@@ -11,8 +13,10 @@ export type BfxTradingPair = {
   lastPrice: number;
   volume: number;
   _volumeAmount: number;
+  _rating: number;
   high: number;
   low: number;
+  myexCoin?: Coin | null;
 };
 
 // @doc https://docs.bitfinex.com/reference/rest-auth-wallets#wallet-arrays
