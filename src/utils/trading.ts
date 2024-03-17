@@ -85,7 +85,6 @@ export function composeAssetsInfo(
     ..._map(bitfinexWallets, 'currency'),
     ..._map(binanceWallets, 'asset'),
   ]);
-  console.log('currencies', currencies);
 
   return _compact(
     currencies.map((currency) => {
@@ -127,6 +126,7 @@ export function composeAssetsInfo(
         lastPrice: tradingPair.lastPrice,
         _balanceUst: walletTotalAmount.multipliedBy(BigNumber(tradingPair.lastPrice)), // @composed balance in USDt
         wallets: walletsOfCurrency,
+        myexCoin: tradingPair.myexCoin,
       } as MyexAsset;
     }),
   );

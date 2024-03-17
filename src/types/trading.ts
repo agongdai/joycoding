@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { BfxTradingPair, BfxWallet } from '@myex/types/bitfinex';
 import { Exchange } from '@myex/types/exchange';
+import { Coin } from '@prisma/client';
 
 export type Balance = {
   total: number;
@@ -20,4 +21,5 @@ export type MyexAsset = {
   amount: BigNumber;
   _balanceUst: BigNumber; // @composed balance in USDt
   wallets: MyexWallet[];
+  myexCoin?: Coin | null;
 } & Pick<BfxTradingPair, 'dailyChangePerc' | 'lastPrice'>;
