@@ -1,12 +1,19 @@
 import BigNumber from 'bignumber.js';
 
-import { BfxTradingPair, BfxWallet } from '@myex/types/bitfinex';
+import { BfxTradingPair } from '@myex/types/bitfinex';
 import { Exchange } from '@myex/types/exchange';
 import { Coin } from '@prisma/client';
 
+export type BalanceBreakdown = {
+  total: BigNumber;
+  available: BigNumber;
+  exchange: Exchange;
+};
+
 export type Balance = {
-  total: number;
-  available?: number;
+  total: BigNumber;
+  available: BigNumber;
+  breakdown?: BalanceBreakdown[];
 };
 
 export type MyexWallet = {
@@ -19,7 +26,9 @@ export type MyexWallet = {
 export type MyexAsset = {
   currency: string;
   amount: BigNumber;
+  price: BigNumber;
+  priceChangePercentage24h: BigNumber;
   _balanceUst: BigNumber; // @composed balance in USDt
   wallets: MyexWallet[];
   myexCoin?: Coin | null;
-} & Pick<BfxTradingPair, 'dailyChangePerc' | 'lastPrice'>;
+};

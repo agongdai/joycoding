@@ -1,76 +1,76 @@
 import React from 'react';
 
-import { fetchTradingPairs } from '@myex/app/serverActions';
+import { fetchMarketCoins } from '@myex/app/serverActions/market';
 import MarketsTable from '@myex/components/MarketsTable';
 import MyexFavorite from '@myex/components/MyexFavorite';
 import MyexLink from '@myex/components/MyexLink';
 import { MyexStyledPageWrapper } from '@myex/components/MyexStyled';
 import { ColumnData } from '@myex/components/MyexTable/types';
 import TradingView from '@myex/components/TradingView';
-import { BfxTradingPair } from '@myex/types/bitfinex';
+import { CoinInMarket } from '@myex/types/coin';
 import { ValueFormat } from '@myex/types/common';
 
 export const revalidate = 10;
 
-const columns: ColumnData<BfxTradingPair>[] = [
+const columns: ColumnData<CoinInMarket>[] = [
   {
     label: 'Coin',
-    dataKey: '_currency',
+    dataKey: 'currency',
     format: ValueFormat.Coin,
     sortable: true,
+    widthRem: 25,
   },
   {
     label: 'Rating',
-    dataKey: '_rating',
+    dataKey: 'rating',
     format: ValueFormat.Number,
     sortable: true,
   },
   {
     label: 'Price',
-    dataKey: 'lastPrice',
+    dataKey: 'price',
     format: ValueFormat.Money,
     sortable: true,
-  },
-  {
-    label: '24H Change',
-    dataKey: 'dailyChange',
-    format: ValueFormat.Money,
   },
   {
     label: '24H Change %',
-    dataKey: 'dailyChangePerc',
+    dataKey: 'priceChangePercentage24h',
     format: ValueFormat.Percentage,
-    sortable: true,
   },
   {
     label: 'Daily Volume',
-    dataKey: '_volumeAmount',
+    dataKey: 'volume24h',
     format: ValueFormat.Volume,
+    sortable: true,
+  },
+  {
+    label: 'Market Cap',
+    dataKey: 'marketCap',
+    format: ValueFormat.Volume,
+    sortable: true,
+  },
+  {
+    label: 'Market Cap Rank',
+    dataKey: 'marketCapRank',
+    format: ValueFormat.Number,
     sortable: true,
   },
   {
     widthRem: 2,
     label: <MyexFavorite toToggleShowFavorites />,
-    dataKey: 'symbol',
+    dataKey: 'currency',
     format: ValueFormat.UserActions,
     sortable: false,
   },
 ];
 
 export default async function MarketsPage() {
-  const tradingPairs = await fetchTradingPairs();
+  const marketCoins = await fetchMarketCoins();
   return (
     <MyexStyledPageWrapper>
       <h1>Markets</h1>
-      <p>
-        Only{' '}
-        <MyexLink href='https://github.com/agongdai/myex.ai/blob/main/src/data/coins.json'>
-          some coins
-        </MyexLink>{' '}
-        are listed.
-      </p>
       <TradingView />
-      <MarketsTable tradingPairs={tradingPairs} columns={columns} />
+      <MarketsTable marketCoins={marketCoins} columns={columns} />
     </MyexStyledPageWrapper>
   );
 }

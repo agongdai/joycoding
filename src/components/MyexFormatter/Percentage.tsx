@@ -15,7 +15,7 @@ export default function Percentage({ value }: { value: Value }) {
         },
       )}
     >
-      {(num * 100).toFixed(2)}
+      {num.toFixed(2)}
       <span className='inline-block w-[0.2rem]' />%
     </span>
   );

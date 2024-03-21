@@ -3,10 +3,12 @@ import _compact from 'lodash/compact';
 import _map from 'lodash/map';
 import _uniq from 'lodash/uniq';
 
+import { IGNORED_USD_THRESHOLD } from '@myex/config';
 import { BinanceWallet } from '@myex/types/binance';
-import { BfxTradingPair, BfxWallet } from '@myex/types/bitfinex';
+import { BfxWallet } from '@myex/types/bitfinex';
+import { CoinInMarket } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
-import { Balance, MyexAsset, MyexWallet } from '@myex/types/trading';
+import { Balance, BalanceBreakdown, MyexAsset, MyexWallet } from '@myex/types/trading';
 
 /**
  * `BTC` => `tBTCUSD`
@@ -41,75 +43,123 @@ export function pairToTradingViewSymbol(pair: string) {
 }
 
 /**
- * Get USD balance from wallets
- * @param wallets
+ * Get UST balance from wallets
+ * @param bfxWallets
+ * @param binanceWallets
  */
-export function getUsdBalance(wallets: BfxWallet[]): Balance {
-  const usdWallet = wallets.find((wallet) => wallet.currency === 'USD');
-  const total = usdWallet?.balance || 0;
-  const available = usdWallet?.availableBalance || 0;
+export function getUstBalance(bfxWallets: BfxWallet[], binanceWallets: BinanceWallet[]): Balance {
+  const ustWallet = bfxWallets.find((wallet) => wallet.currency === 'UST');
+  const total = ustWallet?.balance || 0;
+  const available = ustWallet?.availableBalance || 0;
+
+  const bfxBalance: BalanceBreakdown = {
+    total: BigNumber(total),
+    available: BigNumber(available),
+    exchange: Exchange.Bitfinex,
+  };
+
+  const binanceUstWallet = binanceWallets.find((wallet) => wallet.asset === 'USDT');
+  const free = BigNumber(binanceUstWallet?.free || 0);
+  const locked = BigNumber(binanceUstWallet?.locked || 0);
+
+  const binanceBalance: BalanceBreakdown = {
+    total: free.plus(locked),
+    available: free,
+    exchange: Exchange.Binance,
+  };
 
   return {
-    total,
-    available,
+    total: bfxBalance.total.plus(binanceBalance.total),
+    available: bfxBalance.available.plus(binanceBalance.available),
+    breakdown: [bfxBalance, binanceBalance],
   };
 }
 
 /**
- * Get USD balance from wallets
- * @param wallets
+ * Bitfinex coins might have different coin symbol, sync them.
+ * @param bitfinexWallets
+ * @param marketCoins
  */
-export function getUstBalance(wallets: BfxWallet[]): Balance {
-  const usdWallet = wallets.find((wallet) => wallet.currency === 'UST');
-  const total = usdWallet?.balance || 0;
-  const available = usdWallet?.availableBalance || 0;
+export function syncBitfinexCurrencies(bitfinexWallets: BfxWallet[], marketCoins: CoinInMarket[]) {
+  let syned = bitfinexWallets;
+  marketCoins.forEach((marketCoin) => {
+    const exchangeSymbols = marketCoin?.myexCoin?.exchangeSymbols;
+    if (!exchangeSymbols) {
+      return;
+    }
 
-  return {
-    total,
-    available,
-  };
+    const exchangeWithSymbols = exchangeSymbols.split(',');
+    const bitfinexSymbol = exchangeWithSymbols.find((s) => s.includes(Exchange.Bitfinex));
+    if (bitfinexSymbol) {
+      const bitfinexCurrency = bitfinexSymbol.split(':')[1];
+      if (bitfinexCurrency) {
+        syned = syned.map((wallet) => {
+          if (wallet.currency === bitfinexCurrency) {
+            wallet.currency = marketCoin.currency;
+          }
+          return wallet;
+        });
+      }
+    }
+  });
+
+  return syned;
 }
 
 /**
  * Compose assets info from wallet and trading pairs
  * @param binanceWallets
  * @param bitfinexWallets
- * @param tradingPairs
+ * @param marketCoins
  */
 export function composeAssetsInfo(
   binanceWallets: BinanceWallet[],
   bitfinexWallets: BfxWallet[],
-  tradingPairs: BfxTradingPair[],
+  marketCoins: CoinInMarket[],
 ): MyexAsset[] {
+  const bitfinexWalletsWithAmount = bitfinexWallets.filter((wallet) => wallet.balance > 0);
+  const synedBitfinexWallets = syncBitfinexCurrencies(bitfinexWalletsWithAmount, marketCoins);
+
+  const binanceWalletsWithAmount = binanceWallets.filter(
+    (wallet) => Number(wallet.free) + Number(wallet.locked) > 0,
+  );
+
   const currencies = _uniq([
-    ..._map(bitfinexWallets, 'currency'),
-    ..._map(binanceWallets, 'asset'),
+    ..._map(synedBitfinexWallets, 'currency'),
+    ..._map(binanceWalletsWithAmount, 'asset'),
   ]);
 
   return _compact(
     currencies.map((currency) => {
-      const tradingPair = tradingPairs.find((pair: BfxTradingPair) => pair._currency === currency);
+      const marketCoin = marketCoins.find(
+        (marketCoin: CoinInMarket) => marketCoin.currency.toLowerCase() === currency.toLowerCase(),
+      );
 
-      if (!tradingPair) {
+      if (!marketCoin) {
         return null;
       }
 
-      const bfxAsset = bitfinexWallets.find((wallet) => wallet.currency === currency);
-      const binanceAsset = binanceWallets.find((wallet) => wallet.asset === currency);
+      const bfxAsset = synedBitfinexWallets.find((wallet) => wallet.currency === currency);
+      const binanceAsset = binanceWalletsWithAmount.find((wallet) => wallet.asset === currency);
 
       const walletsOfCurrency: MyexWallet[] = _compact([
-        bfxAsset
+        bfxAsset &&
+        BigNumber(bfxAsset.balance).multipliedBy(marketCoin.price).gt(IGNORED_USD_THRESHOLD)
           ? {
               totalAmount: BigNumber(bfxAsset.balance),
               availableAmount: BigNumber(bfxAsset.availableBalance),
               exchange: Exchange.Bitfinex,
             }
           : null,
-        binanceAsset
+        binanceAsset &&
+        BigNumber(binanceAsset.free)
+          .plus(BigNumber(binanceAsset.locked))
+          .multipliedBy(marketCoin.price)
+          .gt(IGNORED_USD_THRESHOLD)
           ? {
               totalAmount: BigNumber(binanceAsset.free).plus(BigNumber(binanceAsset.locked)),
               availableAmount: BigNumber(binanceAsset.free),
-              exchange: Exchange.Bitfinex,
+              exchange: Exchange.Binance,
             }
           : null,
       ]);
@@ -119,14 +169,18 @@ export function composeAssetsInfo(
         BigNumber(0),
       );
 
+      if (walletTotalAmount.lt(BigNumber(IGNORED_USD_THRESHOLD))) {
+        return null;
+      }
+
       return {
         currency,
         amount: walletTotalAmount,
-        dailyChangePerc: tradingPair.dailyChangePerc,
-        lastPrice: tradingPair.lastPrice,
-        _balanceUst: walletTotalAmount.multipliedBy(BigNumber(tradingPair.lastPrice)), // @composed balance in USDt
+        priceChangePercentage24h: marketCoin.priceChangePercentage24h,
+        price: marketCoin.price,
+        _balanceUst: walletTotalAmount.multipliedBy(BigNumber(marketCoin.price)), // @composed balance in USDt
         wallets: walletsOfCurrency,
-        myexCoin: tradingPair.myexCoin,
+        myexCoin: marketCoin.myexCoin,
       } as MyexAsset;
     }),
   );

@@ -3,31 +3,28 @@
 import React, { useMemo } from 'react';
 import BigNumber from 'bignumber.js';
 
+import ExchangeIcon from '@myex/components/ExchangeIcon';
 import Money from '@myex/components/MyexFormatter/Money';
 import MyexTable from '@myex/components/MyexTable';
 import { ColumnData } from '@myex/components/MyexTable/types';
 import TradingView from '@myex/components/TradingView';
 import useWsTradingPairs from '@myex/hooks/useWsTradingPairs';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
-import { setCurrentPair } from '@myex/store/trading/actions';
+import { setCurrentCurrency } from '@myex/store/trading/actions';
 import { selectShowTradingView } from '@myex/store/trading/selectors';
 import { BinanceWallet } from '@myex/types/binance';
 import { BfxTradingPair, BfxWallet } from '@myex/types/bitfinex';
+import { CoinInMarket } from '@myex/types/coin';
 import { ValueFormat } from '@myex/types/common';
 import { MyexAsset } from '@myex/types/trading';
-import {
-  composeAssetsInfo,
-  currencyToSymbol,
-  getUsdBalance,
-  getUstBalance,
-} from '@myex/utils/trading';
+import { composeAssetsInfo, getUstBalance } from '@myex/utils/trading';
 
 import AssetsSummary from './AssetsSummary';
 
 interface Props {
   binanceWallets: BinanceWallet[];
   bfxWallets: BfxWallet[];
-  tradingPairs: BfxTradingPair[];
+  marketCoins: CoinInMarket[];
 }
 
 const columns: ColumnData<MyexAsset>[] = [
@@ -36,10 +33,11 @@ const columns: ColumnData<MyexAsset>[] = [
     dataKey: 'currency',
     format: ValueFormat.Coin,
     sortable: true,
+    widthRem: 25,
   },
   {
     label: 'Price',
-    dataKey: 'lastPrice',
+    dataKey: 'price',
     format: ValueFormat.Money,
     sortable: true,
   },
@@ -49,7 +47,7 @@ const columns: ColumnData<MyexAsset>[] = [
     format: ValueFormat.Number,
   },
   {
-    label: 'Worth (USD)',
+    label: 'Worth (UST)',
     dataKey: '_balanceUst',
     format: ValueFormat.Money,
     sortable: true,
@@ -57,27 +55,46 @@ const columns: ColumnData<MyexAsset>[] = [
   },
   {
     label: '24H Change %',
-    dataKey: 'dailyChangePerc',
+    dataKey: 'priceChangePercentage24h',
     format: ValueFormat.Percentage,
     sortable: true,
   },
+  {
+    label: 'Location',
+    dataKey: 'wallets',
+    renderComponent: (value, row) => {
+      return value ? (
+        <div className='flex'>
+          {(value as MyexAsset['wallets']).map((wallet) => (
+            <ExchangeIcon
+              key={wallet.exchange}
+              exchange={wallet.exchange}
+              tooltip={`${wallet.availableAmount.multipliedBy(row.price).toFixed(0).toString()} USDT`}
+            />
+          ))}
+        </div>
+      ) : null;
+    },
+  },
 ];
 
-export default function MyAssets({ binanceWallets, bfxWallets, tradingPairs }: Props) {
+export default function MyAssets({ binanceWallets, bfxWallets, marketCoins }: Props) {
   const dispatch = useMyexDispatch();
   const showTradingView = useMyexSelector(selectShowTradingView);
   const tradingPairsForAssets = useMemo(
-    () => tradingPairs.filter((pair) => bfxWallets.find((w) => w.currency === pair._currency)),
-    [bfxWallets, tradingPairs],
+    () =>
+      marketCoins.filter((marketCoin) =>
+        bfxWallets.find((w) => w.currency === marketCoin.currency),
+      ),
+    [bfxWallets, marketCoins],
   );
 
-  const realTimeData = useWsTradingPairs(tradingPairsForAssets);
-  const myexAssets = composeAssetsInfo(binanceWallets, bfxWallets, realTimeData);
-  const usdBalance = getUsdBalance(bfxWallets);
-  const ustBalance = getUstBalance(bfxWallets);
+  // const realTimeData = useWsTradingPairs(tradingPairsForAssets);
+  const myexAssets = composeAssetsInfo(binanceWallets, bfxWallets, marketCoins);
+  const ustBalance = getUstBalance(bfxWallets, binanceWallets);
 
-  const onSetCurrentPair = (row: MyexAsset) => {
-    dispatch(setCurrentPair(currencyToSymbol(row.currency)));
+  const onSetCurrentCurrency = (row: MyexAsset) => {
+    dispatch(setCurrentCurrency(row.currency));
   };
 
   const totalBalance = myexAssets.reduce((acc, asset) => acc.plus(asset._balanceUst), BigNumber(0));
@@ -85,17 +102,16 @@ export default function MyAssets({ binanceWallets, bfxWallets, tradingPairs }: P
   return (
     <>
       <h1 className='mb-12'>
-        Assets &#8776;{' '}
-        <Money value={totalBalance.toNumber() + ustBalance.total + usdBalance.total} flash />
+        Assets &#8776; <Money value={totalBalance.plus(ustBalance.total).toNumber()} flash />
       </h1>
-      <AssetsSummary assets={myexAssets} usdBalance={usdBalance} ustBalance={ustBalance} />
+      <AssetsSummary assets={myexAssets} ustBalance={ustBalance} />
       <TradingView />
       <MyexTable<MyexAsset>
         data={myexAssets}
         columns={columns}
         defaultSortingField='_balanceUst'
         defaultSortingDirection='-'
-        onRowClick={showTradingView ? onSetCurrentPair : undefined}
+        onRowClick={showTradingView ? onSetCurrentCurrency : undefined}
       />
     </>
   );

@@ -4,6 +4,7 @@ import React from 'react';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 
 import TextField from '@myex/components/MyexForm/TextField';
+import MyexLink from '@myex/components/MyexLink';
 import { IFormNewCoin } from '@myex/types/coin';
 
 interface Props {
@@ -53,6 +54,30 @@ export default function CreateCoinForm({ control, errors, update }: Props) {
           }}
           disabled={update}
           name='currency'
+          control={control}
+        />
+      </div>
+
+      <div className='mb-6'>
+        <Controller
+          render={({ field }) => (
+            <TextField
+              error={!!errors.coinGeckoId}
+              helperText={errors.coinGeckoId?.message}
+              label={
+                <MyexLink href='https://docs.google.com/spreadsheets/d/1wTTuxXt8n9q7C4NDXqQpI3wpKu1_5bGVmP9Xz0XGSyU/edit#gid=0'>
+                  CoinGecko ID
+                </MyexLink>
+              }
+              placeholder='CoinGecko ID'
+              {...field}
+              ref={null}
+            />
+          )}
+          rules={{
+            required: 'Please provide a CoinGeckoId.',
+          }}
+          name='coinGeckoId'
           control={control}
         />
       </div>

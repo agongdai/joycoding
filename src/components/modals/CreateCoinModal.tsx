@@ -36,6 +36,7 @@ export default function CreateCoinModal() {
       rating: 0,
       icon: '',
       exchangeSymbols: '',
+      coinGeckoId: '',
     },
   });
 

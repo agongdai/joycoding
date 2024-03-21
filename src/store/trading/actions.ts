@@ -7,5 +7,5 @@ export const {
   toggleShowFavorites,
   toggleLive,
   toggleShowTradingView,
-  setCurrentPair,
+  setCurrentCurrency,
 } = tradingSlice.actions;

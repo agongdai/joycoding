@@ -84,6 +84,22 @@ export default function ExchangesForm({ exchangeId }: { exchangeId: string }) {
           control={control}
         />
       </div>
+      <div className='my-6'>
+        <Controller
+          render={({ field }) => (
+            <TextField
+              error={!!errors.url}
+              helperText={errors.url?.message}
+              label='Exchange URL'
+              placeholder='URL to go to the exchange'
+              {...field}
+              ref={null}
+            />
+          )}
+          name='url'
+          control={control}
+        />
+      </div>
       <div className='mt-6'>
         <MyexLoadingButton loading={isSubmitting} />
       </div>

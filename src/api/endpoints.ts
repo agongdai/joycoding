@@ -19,3 +19,5 @@ export const BfxEndpoints: Record<string, Endpoint> = {
     apiPath: 'v2/auth/r/wallets', // for signature
   },
 };
+
+export const CoinGeokoApiBaseUrl = 'https://api.coingecko.com/api/v3';

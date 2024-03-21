@@ -7,7 +7,7 @@ export interface TradingState {
   showFavorites: boolean;
   live: boolean;
   showTradingView: boolean;
-  currentPair?: string;
+  currentCurrency?: string;
 }
 
 // Define the initial state using that type
@@ -16,7 +16,7 @@ const initialState: TradingState = {
   showFavorites: false,
   live: true,
   showTradingView: true,
-  currentPair: 'BTCUSD',
+  currentCurrency: 'BTC',
 };
 
 export const tradingSlice = createSlice({
@@ -45,10 +45,8 @@ export const tradingSlice = createSlice({
     toggleShowTradingView: (state) => {
       state.showTradingView = !state.showTradingView;
     },
-    setCurrentPair: (state, action: PayloadAction<string>) => {
-      state.currentPair = action.payload.startsWith('t')
-        ? symbolToPair(action.payload)
-        : action.payload;
+    setCurrentCurrency: (state, action: PayloadAction<string>) => {
+      state.currentCurrency = action.payload;
     },
   },
 });

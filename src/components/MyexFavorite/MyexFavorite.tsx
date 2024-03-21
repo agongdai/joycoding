@@ -9,21 +9,21 @@ import { selectFavorites, selectShowFavorites } from '@myex/store/trading/select
 import { StyleVariant } from '@myex/types/common';
 
 interface Props {
-  symbol?: string;
+  currency?: string;
   toToggleShowFavorites?: boolean;
 }
 
-export default function MyexFavorite({ symbol = '', toToggleShowFavorites = false }: Props) {
+export default function MyexFavorite({ currency = '', toToggleShowFavorites = false }: Props) {
   const dispatch = useMyexDispatch();
   const favoritesState = useMyexSelector(selectFavorites);
   const showFavoritesState = useMyexSelector(selectShowFavorites);
-  const isFavorite = toToggleShowFavorites ? showFavoritesState : favoritesState.includes(symbol);
+  const isFavorite = toToggleShowFavorites ? showFavoritesState : favoritesState.includes(currency);
 
   const onClick = () => {
     if (toToggleShowFavorites) {
       dispatch(toggleShowFavorites());
     } else {
-      dispatch(toggleFavorite(symbol));
+      dispatch(toggleFavorite(currency));
     }
   };
 

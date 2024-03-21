@@ -17,10 +17,13 @@ export default function Coin({ coin = null }: { coin?: MyexCoin | null }) {
   const cmcUrl =
     coin?.cmcUrl ||
     `https://coinmarketcap.com/currencies/${name.toLowerCase().replaceAll(/[ .]/g, '-')}`;
+  const geokoUrl = `https://www.coingecko.com/en/coins/${coin?.coinGeckoId}`;
 
   return (
-    <div className='flex'>
-      <MyexImage src={icon} alt='' width={28} height={28} />
+    <div className='flex items-center'>
+      <div className='flex-shrink-0'>
+        <MyexImage src={icon} alt='' width={28} height={28} className='rounded-full' />
+      </div>
       <div className='flex flex-col ml-4 justify-center text-left'>
         <MyexLink href={coin.projectUrl} className='inline-flex hover:no-underline'>
           <span className='text-lg font-semibold'>{currency}</span>
@@ -29,8 +32,11 @@ export default function Coin({ coin = null }: { coin?: MyexCoin | null }) {
           <Typography color='secondary' variant='caption' classes={{ root: 'leading-none mr-1' }}>
             {name}
           </Typography>
-          <MyexWindowOpenLink url={cmcUrl}>
+          <MyexWindowOpenLink url={cmcUrl} className='flex-shrink-0 mr-1'>
             <MyexImage src='/images/cmc.svg' alt='' width={16} height={16} />
+          </MyexWindowOpenLink>
+          <MyexWindowOpenLink url={geokoUrl} className='flex-shrink-0'>
+            <MyexImage src='/images/geoko.png' alt='' width={16} height={16} />
           </MyexWindowOpenLink>
         </div>
       </div>

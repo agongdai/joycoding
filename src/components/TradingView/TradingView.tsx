@@ -22,7 +22,7 @@ export default function TradingView() {
         <TradingViewWidget
           theme={_upperFirst(theme || 'Dark')}
           autosize
-          symbol={`Bitfinex:${pairToTradingViewSymbol(currentPair)}`}
+          symbol={`Bitfinex:${pairToTradingViewSymbol(currentPair)}UST`}
         />
       </div>
     </Collapse>

@@ -39,7 +39,7 @@ export default function MyexFormatter({
   }
 
   if (ValueFormat.UserActions === format) {
-    return <UserActions symbol={String(value)} />;
+    return <UserActions currency={String(value)} />;
   }
 
   if (ValueFormat.Image === format) {

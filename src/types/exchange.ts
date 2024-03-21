@@ -2,6 +2,7 @@ export interface IFormNewExchangeApi {
   exchangeId: string;
   apiKey: string;
   apiSecret: string;
+  url?: string;
 }
 
 export enum Exchange {

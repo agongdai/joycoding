@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import MyexLink from '@myex/components/MyexLink';
 import MyexTable from '@myex/components/MyexTable';
 import { ColumnData } from '@myex/components/MyexTable/types';
 import { ValueFormat } from '@myex/types/common';
@@ -31,6 +32,7 @@ const columns: ColumnData<Coin>[] = [
     label: 'Name',
     dataKey: 'name',
     sortable: true,
+    widthRem: 20,
   },
   {
     label: 'Currency',
@@ -48,11 +50,21 @@ const columns: ColumnData<Coin>[] = [
     label: 'Project URL',
     dataKey: 'projectUrl',
     format: ValueFormat.Link,
+    widthRem: 10,
   },
   {
     label: 'CMC URL',
     dataKey: 'cmcUrl',
     format: ValueFormat.Link,
+    widthRem: 10,
+  },
+  {
+    label: 'CoinGecko URL',
+    dataKey: 'coinGeckoId',
+    renderComponent: (value) => (
+      <MyexLink href={`https://www.coingecko.com/en/coins/${String(value)}`}>{value}</MyexLink>
+    ),
+    widthRem: 20,
   },
   {
     label: 'Exchange Symbols',
@@ -67,6 +79,7 @@ const columns: ColumnData<Coin>[] = [
         <RemoveCoinButton coin={row} />
       </div>
     ),
+    widthRem: 8,
   },
 ];
 

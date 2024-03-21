@@ -5,46 +5,46 @@ import MyexTable from '@myex/components/MyexTable';
 import { ColumnData } from '@myex/components/MyexTable/types';
 import useWsTradingPairs from '@myex/hooks/useWsTradingPairs';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
-import { setCurrentPair } from '@myex/store/trading/actions';
+import { setCurrentCurrency } from '@myex/store/trading/actions';
 import {
   selectFavorites,
   selectShowFavorites,
   selectShowTradingView,
 } from '@myex/store/trading/selectors';
-import { BfxTradingPair } from '@myex/types/bitfinex';
+import { CoinInMarket } from '@myex/types/coin';
 
 interface Props {
-  tradingPairs: BfxTradingPair[];
-  columns: ColumnData<BfxTradingPair>[];
+  marketCoins: CoinInMarket[];
+  columns: ColumnData<CoinInMarket>[];
 }
 
-export default function MarketsTable({ tradingPairs, columns }: Props) {
+export default function MarketsTable({ marketCoins, columns }: Props) {
   const showFavoritesState = useMyexSelector(selectShowFavorites);
   const favoritesState = useMyexSelector(selectFavorites);
   const dispatch = useMyexDispatch();
   const showTradingView = useMyexSelector(selectShowTradingView);
 
-  const onSetCurrentPair = (row: BfxTradingPair) => {
-    dispatch(setCurrentPair(row.symbol));
+  const onSetCurrentCurrency = (row: CoinInMarket) => {
+    dispatch(setCurrentCurrency(row.currency));
   };
 
   const tableData = useMemo(
     () =>
       showFavoritesState
-        ? tradingPairs.filter((pair) => favoritesState.includes(pair.symbol))
-        : tradingPairs,
-    [favoritesState, showFavoritesState, tradingPairs],
+        ? marketCoins.filter((pair) => favoritesState.includes(pair.currency))
+        : marketCoins,
+    [favoritesState, showFavoritesState, marketCoins],
   );
 
-  const realTimeData = useWsTradingPairs(tableData);
+  // const realTimeData = useWsTradingPairs(tableData);
 
   return (
-    <MyexTable<BfxTradingPair>
-      data={realTimeData}
+    <MyexTable<CoinInMarket>
+      data={tableData}
       columns={columns}
-      defaultSortingField='dailyChangePerc'
+      defaultSortingField='priceChangePercentage24h'
       defaultSortingDirection='-'
-      onRowClick={showTradingView ? onSetCurrentPair : undefined}
+      onRowClick={showTradingView ? onSetCurrentCurrency : undefined}
     />
   );
 }
