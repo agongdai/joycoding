@@ -1,6 +1,5 @@
 import BigNumber from 'bignumber.js';
 
-import { BfxTradingPair } from '@myex/types/bitfinex';
 import { Exchange } from '@myex/types/exchange';
 import { Coin } from '@prisma/client';
 
@@ -28,7 +27,7 @@ export type MyexAsset = {
   amount: BigNumber;
   price: BigNumber;
   priceChangePercentage24h: BigNumber;
-  _balanceUst: BigNumber; // @composed balance in USDt
+  _balanceUst: number; // @composed balance in USDt
   wallets: MyexWallet[];
   myexCoin?: Coin | null;
 };

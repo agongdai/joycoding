@@ -4,7 +4,7 @@ import MyexFormatter from '@myex/components/MyexFormatter';
 import Coin from '@myex/components/MyexFormatter/Coin';
 import CoinIcon from '@myex/components/MyexFormatter/CoinIcon';
 import { ColumnData } from '@myex/components/MyexTable/types';
-import { BfxTradingPair } from '@myex/types/bitfinex';
+import { CoinInMarket } from '@myex/types/coin';
 import { Value, ValueFormat } from '@myex/types/common';
 import { Coin as DbCoin } from '@prisma/client';
 
@@ -18,7 +18,7 @@ export default function CellRenderer<T>({ column, item }: { column: ColumnData<T
   }
 
   if (column.format === ValueFormat.Coin) {
-    return <Coin coin={(item as BfxTradingPair).myexCoin} />;
+    return <Coin coin={(item as CoinInMarket).myexCoin} />;
   }
 
   return (

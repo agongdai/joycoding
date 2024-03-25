@@ -7,7 +7,7 @@ import { auth } from '@myex/auth';
 import { BfxWallet } from '@myex/types/bitfinex';
 import { Exchange } from '@myex/types/exchange';
 
-export async function fetchWallets(): Promise<BfxWallet[]> {
+export async function fetchBitfinexWallets(): Promise<BfxWallet[]> {
   const session = await auth();
   const bitfinexKey = (session?.user?.exchangeApis || []).find(
     (exchange) => exchange.exchangeId === Exchange.Bitfinex,

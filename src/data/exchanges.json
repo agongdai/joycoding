@@ -14,11 +14,11 @@
     "icon": "/exchanges/binance-icon.svg"
   },
   {
-    "exchangeId": "gateio",
+    "exchangeId": "gate",
     "name": "Gate.io",
     "url": "https://www.gate.io/",
-    "logo": "/exchanges/gate-io-logo.png",
-    "icon": "/exchanges/gate-io-icon.svg"
+    "logo": "/exchanges/gate-logo.png",
+    "icon": "/exchanges/gate-icon.svg"
   },
   {
     "exchangeId": "okx",

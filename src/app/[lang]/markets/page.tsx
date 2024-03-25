@@ -3,7 +3,6 @@ import React from 'react';
 import { fetchMarketCoins } from '@myex/app/serverActions/market';
 import MarketsTable from '@myex/components/MarketsTable';
 import MyexFavorite from '@myex/components/MyexFavorite';
-import MyexLink from '@myex/components/MyexLink';
 import { MyexStyledPageWrapper } from '@myex/components/MyexStyled';
 import { ColumnData } from '@myex/components/MyexTable/types';
 import TradingView from '@myex/components/TradingView';
@@ -25,6 +24,7 @@ const columns: ColumnData<CoinInMarket>[] = [
     dataKey: 'rating',
     format: ValueFormat.Number,
     sortable: true,
+    widthRem: 8,
   },
   {
     label: 'Price',
@@ -36,6 +36,8 @@ const columns: ColumnData<CoinInMarket>[] = [
     label: '24H Change %',
     dataKey: 'priceChangePercentage24h',
     format: ValueFormat.Percentage,
+    widthRem: 14,
+    sortable: true,
   },
   {
     label: 'Daily Volume',

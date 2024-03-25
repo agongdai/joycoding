@@ -25,6 +25,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'assets.coingecko.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.gate.io',
       }
     ],
   },

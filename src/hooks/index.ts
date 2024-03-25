@@ -6,4 +6,3 @@ export * from './usePrevious';
 export * from './useScrollDirection';
 export * from './useSidebar';
 export * from './useWindowSize';
-export * from './useWsTradingPairs';

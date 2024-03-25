@@ -10,5 +10,5 @@ export enum Exchange {
   Binance = 'binance',
   OKX = 'okx',
   Bitget = 'bitget',
-  GateIo = 'gateio',
+  Gate = 'gate',
 }

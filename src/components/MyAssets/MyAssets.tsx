@@ -8,14 +8,14 @@ import Money from '@myex/components/MyexFormatter/Money';
 import MyexTable from '@myex/components/MyexTable';
 import { ColumnData } from '@myex/components/MyexTable/types';
 import TradingView from '@myex/components/TradingView';
-import useWsTradingPairs from '@myex/hooks/useWsTradingPairs';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
 import { setCurrentCurrency } from '@myex/store/trading/actions';
 import { selectShowTradingView } from '@myex/store/trading/selectors';
 import { BinanceWallet } from '@myex/types/binance';
-import { BfxTradingPair, BfxWallet } from '@myex/types/bitfinex';
+import { BfxWallet } from '@myex/types/bitfinex';
 import { CoinInMarket } from '@myex/types/coin';
 import { ValueFormat } from '@myex/types/common';
+import { GateWallet } from '@myex/types/gate';
 import { MyexAsset } from '@myex/types/trading';
 import { composeAssetsInfo, getUstBalance } from '@myex/utils/trading';
 
@@ -25,6 +25,7 @@ interface Props {
   binanceWallets: BinanceWallet[];
   bfxWallets: BfxWallet[];
   marketCoins: CoinInMarket[];
+  gateWallets: GateWallet[];
 }
 
 const columns: ColumnData<MyexAsset>[] = [
@@ -78,19 +79,26 @@ const columns: ColumnData<MyexAsset>[] = [
   },
 ];
 
-export default function MyAssets({ binanceWallets, bfxWallets, marketCoins }: Props) {
+export default function MyAssets({ binanceWallets, bfxWallets, marketCoins, gateWallets }: Props) {
   const dispatch = useMyexDispatch();
   const showTradingView = useMyexSelector(selectShowTradingView);
-  const tradingPairsForAssets = useMemo(
+  const marketCoinsForAssets = useMemo(
     () =>
-      marketCoins.filter((marketCoin) =>
-        bfxWallets.find((w) => w.currency === marketCoin.currency),
+      marketCoins.filter(
+        (marketCoin) =>
+          bfxWallets.find((w) => w.currency.toLowerCase() === marketCoin.currency.toLowerCase()) ||
+          binanceWallets.find((w) => w.asset.toLowerCase() === marketCoin.currency.toLowerCase()) ||
+          gateWallets.find((w) => w.currency.toLowerCase() === marketCoin.currency.toLowerCase()),
       ),
-    [bfxWallets, marketCoins],
+    [bfxWallets, binanceWallets, gateWallets, marketCoins],
   );
 
-  // const realTimeData = useWsTradingPairs(tradingPairsForAssets);
-  const myexAssets = composeAssetsInfo(binanceWallets, bfxWallets, marketCoins);
+  const myexAssets = composeAssetsInfo(
+    marketCoinsForAssets,
+    binanceWallets,
+    bfxWallets,
+    gateWallets,
+  );
   const ustBalance = getUstBalance(bfxWallets, binanceWallets);
 
   const onSetCurrentCurrency = (row: MyexAsset) => {
@@ -101,6 +109,7 @@ export default function MyAssets({ binanceWallets, bfxWallets, marketCoins }: Pr
 
   return (
     <>
+      <pre>{JSON.stringify(myexAssets, null, 2)}</pre>
       <h1 className='mb-12'>
         Assets &#8776; <Money value={totalBalance.plus(ustBalance.total).toNumber()} flash />
       </h1>

@@ -8,6 +8,7 @@ import { BinanceWallet } from '@myex/types/binance';
 import { BfxWallet } from '@myex/types/bitfinex';
 import { CoinInMarket } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
+import { GateWallet } from '@myex/types/gate';
 import { Balance, BalanceBreakdown, MyexAsset, MyexWallet } from '@myex/types/trading';
 
 /**
@@ -108,14 +109,16 @@ export function syncBitfinexCurrencies(bitfinexWallets: BfxWallet[], marketCoins
 
 /**
  * Compose assets info from wallet and trading pairs
+ * @param marketCoins
  * @param binanceWallets
  * @param bitfinexWallets
- * @param marketCoins
+ * @param gateWallets
  */
 export function composeAssetsInfo(
+  marketCoins: CoinInMarket[],
   binanceWallets: BinanceWallet[],
   bitfinexWallets: BfxWallet[],
-  marketCoins: CoinInMarket[],
+  gateWallets: GateWallet[],
 ): MyexAsset[] {
   const bitfinexWalletsWithAmount = bitfinexWallets.filter((wallet) => wallet.balance > 0);
   const synedBitfinexWallets = syncBitfinexCurrencies(bitfinexWalletsWithAmount, marketCoins);
@@ -124,9 +127,14 @@ export function composeAssetsInfo(
     (wallet) => Number(wallet.free) + Number(wallet.locked) > 0,
   );
 
+  const gateWalletsWithAmount = gateWallets.filter(
+    (wallet) => Number(wallet.available) + Number(wallet.locked) > 0,
+  );
+
   const currencies = _uniq([
     ..._map(synedBitfinexWallets, 'currency'),
     ..._map(binanceWalletsWithAmount, 'asset'),
+    ..._map(gateWalletsWithAmount, 'currency'),
   ]);
 
   return _compact(
@@ -141,6 +149,7 @@ export function composeAssetsInfo(
 
       const bfxAsset = synedBitfinexWallets.find((wallet) => wallet.currency === currency);
       const binanceAsset = binanceWalletsWithAmount.find((wallet) => wallet.asset === currency);
+      const gateAsset = gateWalletsWithAmount.find((wallet) => wallet.currency === currency);
 
       const walletsOfCurrency: MyexWallet[] = _compact([
         bfxAsset &&
@@ -162,6 +171,17 @@ export function composeAssetsInfo(
               exchange: Exchange.Binance,
             }
           : null,
+        gateAsset &&
+        BigNumber(gateAsset.available)
+          .plus(BigNumber(gateAsset.locked))
+          .multipliedBy(marketCoin.price)
+          .gt(IGNORED_USD_THRESHOLD)
+          ? {
+              totalAmount: BigNumber(gateAsset.available).plus(BigNumber(gateAsset.locked)),
+              availableAmount: BigNumber(gateAsset.available),
+              exchange: Exchange.Gate,
+            }
+          : null,
       ]);
 
       const walletTotalAmount = walletsOfCurrency.reduce(
@@ -178,7 +198,7 @@ export function composeAssetsInfo(
         amount: walletTotalAmount,
         priceChangePercentage24h: marketCoin.priceChangePercentage24h,
         price: marketCoin.price,
-        _balanceUst: walletTotalAmount.multipliedBy(BigNumber(marketCoin.price)), // @composed balance in USDt
+        _balanceUst: walletTotalAmount.multipliedBy(BigNumber(marketCoin.price)).toNumber(), // @composed balance in USDt
         wallets: walletsOfCurrency,
         myexCoin: marketCoin.myexCoin,
       } as MyexAsset;

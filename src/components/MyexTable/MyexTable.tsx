@@ -109,7 +109,7 @@ export default function MyexTable<T>({
           key={index}
           onClick={() => onRowClick && onRowClick(item)}
         >
-          {columns.map((column, index) => (
+          {columns.map((column) => (
             <div
               key={((column.dataKey as string) + column.label) as string}
               className={cx('grow shrink flex items-center py-2 px-4', column.className || '', {

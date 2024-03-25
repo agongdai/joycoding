@@ -3,7 +3,6 @@ import React, { useMemo } from 'react';
 
 import MyexTable from '@myex/components/MyexTable';
 import { ColumnData } from '@myex/components/MyexTable/types';
-import useWsTradingPairs from '@myex/hooks/useWsTradingPairs';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
 import { setCurrentCurrency } from '@myex/store/trading/actions';
 import {
@@ -35,8 +34,6 @@ export default function MarketsTable({ marketCoins, columns }: Props) {
         : marketCoins,
     [favoritesState, showFavoritesState, marketCoins],
   );
-
-  // const realTimeData = useWsTradingPairs(tableData);
 
   return (
     <MyexTable<CoinInMarket>

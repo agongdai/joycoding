@@ -1,9 +1,17 @@
+'use server';
+
 import { Spot } from '@binance/connector-typescript';
 import { auth } from '@myex/auth';
 import { BinanceWallet } from '@myex/types/binance';
 import { Exchange } from '@myex/types/exchange';
 
+let client: Spot | null = null;
+
 const getBinanceClient = async () => {
+  if (client) {
+    return client;
+  }
+
   const session = await auth();
   const binanceKey = (session?.user?.exchangeApis || []).find(
     (exchange) => exchange.exchangeId === Exchange.Binance,
@@ -12,10 +20,11 @@ const getBinanceClient = async () => {
     return null;
   }
 
-  return new Spot(binanceKey.apiKey, binanceKey.apiSecret);
+  client = new Spot(binanceKey.apiKey, binanceKey.apiSecret);
+  return client;
 };
 
-export const getBalances = async (): Promise<BinanceWallet[]> => {
+export const getBinanceBalances = async (): Promise<BinanceWallet[]> => {
   const client = await getBinanceClient();
   if (!client) {
     return [];
