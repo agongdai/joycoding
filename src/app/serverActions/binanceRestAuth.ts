@@ -1,8 +1,5 @@
-import _maxBy from 'lodash/maxBy';
-
-import { AccountSnapshotType, Spot } from '@binance/connector-typescript';
+import { Spot } from '@binance/connector-typescript';
 import { auth } from '@myex/auth';
-import { HttpStatusCode } from '@myex/types/api';
 import { BinanceWallet } from '@myex/types/binance';
 import { Exchange } from '@myex/types/exchange';
 

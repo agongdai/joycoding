@@ -23,6 +23,7 @@ export default function ExchangesForm({ exchangeId }: { exchangeId: string }) {
       exchangeId: exchangeId || '',
       apiKey: exchange?.apiKey || '',
       apiSecret: exchange?.apiSecret || '',
+      url: '',
     },
   });
 
@@ -31,8 +32,9 @@ export default function ExchangesForm({ exchangeId }: { exchangeId: string }) {
       exchangeId: exchangeId || '',
       apiKey: exchange?.apiKey || '',
       apiSecret: exchange?.apiSecret || '',
+      url: exchange?.url || '',
     });
-  }, [exchange?.apiKey, exchange?.apiSecret, exchangeId, reset]);
+  }, [exchange?.apiKey, exchange?.apiSecret, exchange?.url, exchangeId, reset]);
 
   const onSubmit = async (data: IFormNewExchangeApi) => {
     const res = await myexCreateExchangeApi(data);
