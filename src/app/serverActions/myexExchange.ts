@@ -9,6 +9,7 @@ export async function myexCreateExchangeApi({
   exchangeId,
   apiKey,
   apiSecret,
+  apiPassphrase,
   url,
 }: IFormNewExchangeApi) {
   const session = await auth();
@@ -31,12 +32,14 @@ export async function myexCreateExchangeApi({
     update: {
       apiKey,
       apiSecret,
+      apiPassphrase,
       url,
     },
     create: {
       exchangeId,
       apiKey,
       apiSecret,
+      apiPassphrase,
       userMyexId,
       url,
     },

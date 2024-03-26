@@ -35,15 +35,21 @@ export const getGateSpotAccounts = async (): Promise<GateWallet[]> => {
     return [];
   }
 
-  // @doc https://github.com/gateio/gateapi-nodejs/blob/master/docs/SpotApi.md#listSpotAccounts
-  const res = await client.listSpotAccounts({});
-  const body = res.body;
-  return body.map(
-    (account: SpotAccount) =>
-      ({
-        currency: account.currency,
-        available: account.available,
-        locked: account.locked,
-      }) as GateWallet,
-  );
+  try {
+    console.debug('fetching gate spot accounts ...');
+    // @doc https://github.com/gateio/gateapi-nodejs/blob/master/docs/SpotApi.md#listSpotAccounts
+    const res = await client.listSpotAccounts({});
+    const body = res.body;
+    return body.map(
+      (account: SpotAccount) =>
+        ({
+          currency: account.currency,
+          available: account.available,
+          locked: account.locked,
+        }) as GateWallet,
+    );
+  } catch (error) {
+    console.error('gate error', error);
+    return [];
+  }
 };

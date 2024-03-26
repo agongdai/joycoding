@@ -16,6 +16,7 @@ import { BfxWallet } from '@myex/types/bitfinex';
 import { CoinInMarket } from '@myex/types/coin';
 import { ValueFormat } from '@myex/types/common';
 import { GateWallet } from '@myex/types/gate';
+import { OkxWallet } from '@myex/types/okx';
 import { MyexAsset } from '@myex/types/trading';
 import { composeAssetsInfo, getUstBalance } from '@myex/utils/trading';
 
@@ -26,6 +27,7 @@ interface Props {
   bfxWallets: BfxWallet[];
   marketCoins: CoinInMarket[];
   gateWallets: GateWallet[];
+  okxWallets: OkxWallet[];
 }
 
 const columns: ColumnData<MyexAsset>[] = [
@@ -70,7 +72,7 @@ const columns: ColumnData<MyexAsset>[] = [
             <ExchangeIcon
               key={wallet.exchange}
               exchange={wallet.exchange}
-              tooltip={`${wallet.availableAmount.multipliedBy(row.price).toFixed(0).toString()} USDT`}
+              tooltip={`${wallet.totalAmount.multipliedBy(row.price).toFixed(0).toString()} USDT`}
             />
           ))}
         </div>
@@ -79,7 +81,13 @@ const columns: ColumnData<MyexAsset>[] = [
   },
 ];
 
-export default function MyAssets({ binanceWallets, bfxWallets, marketCoins, gateWallets }: Props) {
+export default function MyAssets({
+  binanceWallets,
+  bfxWallets,
+  marketCoins,
+  gateWallets,
+  okxWallets,
+}: Props) {
   const dispatch = useMyexDispatch();
   const showTradingView = useMyexSelector(selectShowTradingView);
   const marketCoinsForAssets = useMemo(
@@ -88,9 +96,10 @@ export default function MyAssets({ binanceWallets, bfxWallets, marketCoins, gate
         (marketCoin) =>
           bfxWallets.find((w) => w.currency.toLowerCase() === marketCoin.currency.toLowerCase()) ||
           binanceWallets.find((w) => w.asset.toLowerCase() === marketCoin.currency.toLowerCase()) ||
-          gateWallets.find((w) => w.currency.toLowerCase() === marketCoin.currency.toLowerCase()),
+          gateWallets.find((w) => w.currency.toLowerCase() === marketCoin.currency.toLowerCase()) ||
+          okxWallets.find((w) => w.ccy.toLowerCase() === marketCoin.currency.toLowerCase()),
       ),
-    [bfxWallets, binanceWallets, gateWallets, marketCoins],
+    [bfxWallets, binanceWallets, gateWallets, marketCoins, okxWallets],
   );
 
   const myexAssets = composeAssetsInfo(
@@ -98,8 +107,9 @@ export default function MyAssets({ binanceWallets, bfxWallets, marketCoins, gate
     binanceWallets,
     bfxWallets,
     gateWallets,
+    okxWallets,
   );
-  const ustBalance = getUstBalance(bfxWallets, binanceWallets);
+  const ustBalance = getUstBalance(bfxWallets, binanceWallets, gateWallets, okxWallets);
 
   const onSetCurrentCurrency = (row: MyexAsset) => {
     dispatch(setCurrentCurrency(row.currency));
@@ -109,7 +119,6 @@ export default function MyAssets({ binanceWallets, bfxWallets, marketCoins, gate
 
   return (
     <>
-      <pre>{JSON.stringify(myexAssets, null, 2)}</pre>
       <h1 className='mb-12'>
         Assets &#8776; <Money value={totalBalance.plus(ustBalance.total).toNumber()} flash />
       </h1>

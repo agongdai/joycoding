@@ -15,6 +15,7 @@ export async function fetchMarketCoins(): Promise<CoinInMarket[]> {
         // @ts-ignore
         headers: {
           'x-cg-api-key': process.env.COIN_GEOKO_API_KEY,
+          'cache-control': 'no-store',
         },
       },
     );

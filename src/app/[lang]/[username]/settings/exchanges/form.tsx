@@ -23,7 +23,8 @@ export default function ExchangesForm({ exchangeId }: { exchangeId: string }) {
       exchangeId: exchangeId || '',
       apiKey: exchange?.apiKey || '',
       apiSecret: exchange?.apiSecret || '',
-      url: '',
+      apiPassphrase: exchange?.apiPassphrase || '',
+      url: exchange?.url || '',
     },
   });
 
@@ -32,9 +33,17 @@ export default function ExchangesForm({ exchangeId }: { exchangeId: string }) {
       exchangeId: exchangeId || '',
       apiKey: exchange?.apiKey || '',
       apiSecret: exchange?.apiSecret || '',
+      apiPassphrase: exchange?.apiPassphrase || '',
       url: exchange?.url || '',
     });
-  }, [exchange?.apiKey, exchange?.apiSecret, exchange?.url, exchangeId, reset]);
+  }, [
+    exchange?.apiKey,
+    exchange?.apiPassphrase,
+    exchange?.apiSecret,
+    exchange?.url,
+    exchangeId,
+    reset,
+  ]);
 
   const onSubmit = async (data: IFormNewExchangeApi) => {
     const res = await myexCreateExchangeApi(data);
@@ -83,6 +92,23 @@ export default function ExchangesForm({ exchangeId }: { exchangeId: string }) {
             required: 'Please provide a API Secret.',
           }}
           name='apiSecret'
+          control={control}
+        />
+      </div>
+      <div className='my-6'>
+        <Controller
+          render={({ field }) => (
+            <TextField
+              error={!!errors.apiPassphrase}
+              helperText={errors.apiPassphrase?.message}
+              label='API Passphrase (optional)'
+              placeholder='Some exchanges like OKX require this field'
+              type='password'
+              {...field}
+              ref={null}
+            />
+          )}
+          name='apiPassphrase'
           control={control}
         />
       </div>

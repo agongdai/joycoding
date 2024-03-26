@@ -30,10 +30,17 @@ export const getBinanceBalances = async (): Promise<BinanceWallet[]> => {
     return [];
   }
 
-  // @doc https://binance.github.io/binance-connector-node/module-Wallet.html
-  const res = await client.accountInformation();
-  if (res?.canTrade) {
-    return res?.balances || [];
+  try {
+    console.debug('fetching binance balances ...');
+    // @doc https://binance.github.io/binance-connector-node/module-Wallet.html
+    const res = await client.accountInformation();
+    if (res?.canTrade) {
+      return res?.balances || [];
+    }
+  } catch (error) {
+    console.error('binance error', error);
+    return [];
   }
+
   return [];
 };
