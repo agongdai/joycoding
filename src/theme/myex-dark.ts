@@ -251,6 +251,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           minWidth: '4rem',
+          alignItems: 'center',
         },
       },
     },

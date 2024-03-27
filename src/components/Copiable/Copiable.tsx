@@ -39,7 +39,11 @@ export default function Copiable({
 
   return (
     <Tooltip title={copied ? 'Copied' : tipText} placement={tipPlacement}>
-      <div role='presentation' onClick={copy} className={cx('inline-block', className)}>
+      <div
+        role='presentation'
+        onClick={copy}
+        className={cx('inline-block cursor-pointer', className)}
+      >
         {children || text}
       </div>
     </Tooltip>

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import DateTime from '@myex/components/MyexFormatter/DateTime';
 
 export interface PropsWithChildren {
   children: React.ReactNode;
@@ -65,6 +66,8 @@ export const enum ValueFormat {
   Exchange = 'exchange',
   Link = 'link',
   CoinIcon = 'coinIcon',
+  WalletAddress = 'walletAddress',
+  DateTime = 'dateTime',
 }
 
 export type Value = string | number | boolean | Date | null | undefined;

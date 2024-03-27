@@ -3,6 +3,7 @@ import React from 'react';
 import MyexImage from '@myex/components/MyexImage';
 import { Value, ValueFormat } from '@myex/types/common';
 
+import DateTime from './DateTime';
 import Exchange from './Exchange';
 import Link from './Link';
 import Money from './Money';
@@ -10,6 +11,7 @@ import Number from './Number';
 import Percentage from './Percentage';
 import UserActions from './UserActions';
 import Volume from './Volume';
+import WalletAddress from './WalletAddress';
 
 export default function MyexFormatter({
   value,
@@ -48,6 +50,14 @@ export default function MyexFormatter({
 
   if (ValueFormat.Exchange === format) {
     return <Exchange value={value} />;
+  }
+
+  if (ValueFormat.WalletAddress === format) {
+    return <WalletAddress value={value} />;
+  }
+
+  if (ValueFormat.DateTime === format) {
+    return <DateTime value={value} />;
   }
 
   return <div>{String(value)}</div>;

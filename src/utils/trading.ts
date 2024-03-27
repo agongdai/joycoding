@@ -77,7 +77,7 @@ export function getUstBalance(
     exchange: Exchange.Binance,
   };
 
-  const gateUstWallet = gateWallets.find((wallet) => wallet.currency === 'UST');
+  const gateUstWallet = gateWallets.find((wallet) => wallet.currency === 'USDT');
   const gateAvailable = gateUstWallet?.available || 0;
   const gateLocked = gateUstWallet?.locked || 0;
 
@@ -87,7 +87,7 @@ export function getUstBalance(
     exchange: Exchange.Gate,
   };
 
-  const okxUstWallet = okxWallets.find((wallet) => wallet.ccy === 'UST');
+  const okxUstWallet = okxWallets.find((wallet) => wallet.ccy === 'USDT');
   const okxAvailable = okxUstWallet?.availBal || 0;
   const okxLocked = okxUstWallet?.frozenBal || 0;
 

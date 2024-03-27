@@ -31,3 +31,10 @@ export type MyexAsset = {
   wallets: MyexWallet[];
   myexCoin?: Coin | null;
 };
+
+export enum WalletProvider {
+  Ledger = 'Ledger',
+  BitGetWallet = 'BitGetWallet',
+  MetaMask = 'MetaMask',
+  Unknown = '',
+}

@@ -1,0 +1,58 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  myexId          Int      @id @default(autoincrement())
+  username        String
+  name            String
+  email           String   @unique
+  image           String?
+  isAdmin         Boolean?
+  provider        String?
+  exchangeApis    ExchangeApi[]
+  onChainWallets  OnChainWallet[]
+}
+
+model ExchangeApi {
+  myexId          Int    @id @default(autoincrement())
+  exchangeId      String
+  apiKey          String
+  apiSecret       String
+  apiPassphrase   String?
+  url             String?
+  user            User   @relation(fields: [userMyexId], references: [myexId])
+  userMyexId      Int
+}
+
+model Coin {
+  myexId            Int    @id @default(autoincrement())
+  name              String   @unique
+  currency          String
+  projectUrl        String
+  cmcUrl            String
+  rating            Float
+  coinGeckoId       String?
+  icon              String?
+  exchangeSymbols   String? // e.g.: binance:ATOM;bitfinex:ATO
+  onChainWallets    OnChainWallet[]
+}
+
+model OnChainWallet {
+  myexId          Int    @id @default(autoincrement())
+  name            String
+  address         String
+  protocol        String
+  network         String
+  addedTimestamp  String
+  provider        String?
+  coin            Coin    @relation(fields: [coinMyexId], references: [myexId])
+  coinMyexId      Int
+  user            User    @relation(fields: [userMyexId], references: [myexId])
+  userMyexId      Int
+}
+
+generator client {
+  provider = "prisma-client-js"
+}

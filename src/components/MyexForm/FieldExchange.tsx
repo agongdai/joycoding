@@ -52,7 +52,7 @@ export default function FieldExchange({ control, error }: Props) {
           {error && <FormHelperText error>{error}</FormHelperText>}
         </FormControl>
       )}
-      name='name'
+      name='exchangeId'
       defaultValue=''
       rules={{ required: 'Please select an exchange' }}
       control={control}

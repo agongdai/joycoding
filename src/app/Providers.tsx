@@ -10,6 +10,9 @@ import store from '@myex/store';
 import { saveState } from '@myex/store/localStorage';
 import { MyexTheme } from '@myex/theme';
 import colors from '@myex/theme/colors';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
   '&.notistack-MuiContent-success': {
@@ -47,9 +50,11 @@ export default function Providers({ children }: { children: React.ReactNode }) {
           error: StyledMaterialDesignContent,
         }}
       >
-        <ThemeProvider defaultTheme={MyexTheme.Dark} attribute='class'>
-          {children}
-        </ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider defaultTheme={MyexTheme.Dark} attribute='class'>
+            {children}
+          </ThemeProvider>
+        </QueryClientProvider>
       </SnackbarProvider>
     </ReduxProvider>
   );
