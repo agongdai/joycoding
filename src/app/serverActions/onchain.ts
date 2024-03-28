@@ -4,6 +4,7 @@ import BigNumber from 'bignumber.js';
 import _compact from 'lodash/compact';
 
 import { BLOCK_DAEMON_API_BASE } from '@myex/config';
+import { prisma } from '@myex/db';
 import { BlockDaemonWallet, Wallet } from '@myex/types/wallet';
 
 export async function fetchOnChainBalances(): Promise<Wallet[]> {
