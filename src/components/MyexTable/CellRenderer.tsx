@@ -18,7 +18,8 @@ export default function CellRenderer<T>({ column, item }: { column: ColumnData<T
   }
 
   if (column.format === ValueFormat.Coin) {
-    return <Coin coin={(item as CoinInMarket).myexCoin} />;
+    // @ts-ignore
+    return <Coin coin={item?.myexCoin} />;
   }
 
   return (

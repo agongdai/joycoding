@@ -5,26 +5,27 @@ import React from 'react';
 import MyexTable from '@myex/components/MyexTable';
 import { ColumnData } from '@myex/components/MyexTable/types';
 import { ValueFormat } from '@myex/types/common';
-import { OnChainWallet } from '@prisma/client';
+import { WalletWithCoin } from '@myex/types/wallet';
 
 import RemoveWalletButton from './RemoveWalletButton';
 import UpdateWalletButton from './UpdateWalletButton';
 
 interface Props {
-  wallets: OnChainWallet[];
+  wallets: WalletWithCoin[];
 }
 
-const columns: ColumnData<OnChainWallet>[] = [
+const columns: ColumnData<WalletWithCoin>[] = [
   {
     label: 'ID',
     dataKey: 'myexId',
     sortable: true,
-    widthRem: 5,
+    widthRem: 4,
   },
   {
     label: 'Coin',
     dataKey: 'coinMyexId',
-    widthRem: 7,
+    format: ValueFormat.Coin,
+    widthRem: 20,
   },
   {
     label: 'Name',
@@ -57,7 +58,7 @@ const columns: ColumnData<OnChainWallet>[] = [
   {
     label: 'Provider',
     dataKey: 'provider',
-    widthRem: 16,
+    widthRem: 10,
   },
   {
     label: 'Actions',
@@ -74,7 +75,7 @@ const columns: ColumnData<OnChainWallet>[] = [
 
 export default function WalletsList({ wallets = [] }: Props) {
   return (
-    <MyexTable<OnChainWallet>
+    <MyexTable<WalletWithCoin>
       data={wallets}
       columns={columns}
       defaultSortingField='name'

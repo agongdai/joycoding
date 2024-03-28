@@ -10,7 +10,26 @@ import { CoinInMarket } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
 import { GateWallet } from '@myex/types/gate';
 import { OkxWallet } from '@myex/types/okx';
-import { Balance, BalanceBreakdown, MyexAsset, MyexWallet } from '@myex/types/trading';
+import {
+  Balance,
+  BalanceBreakdown,
+  MyexAsset,
+  MyexWallet,
+  WalletProvider,
+} from '@myex/types/trading';
+
+export function getWalletProviderImageUrl(provider: WalletProvider) {
+  switch (provider) {
+    case WalletProvider.MetaMask:
+      return '/images/metamask.svg';
+    case WalletProvider.Ledger:
+      return '/images/ledger.svg';
+    case WalletProvider.BitGetWallet:
+      return '/images/bitget-wallet.png';
+    default:
+      return '/images/ledger.svg';
+  }
+}
 
 /**
  * `BTC` => `tBTCUSD`

@@ -29,3 +29,5 @@ export const HttpStatusMessage: Record<HttpStatusCode, string> = {
   [HttpStatusCode.NotAcceptable]: 'Not acceptable',
   [HttpStatusCode.Forbidden]: 'Forbidden',
 };
+
+export const BLOCK_DAEMON_API_BASE = 'https://svc.blockdaemon.com/universal/v1';

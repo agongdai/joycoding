@@ -3,18 +3,25 @@ import { apiFailure, apiSuccess } from '@myex/api/utils';
 import { auth } from '@myex/auth';
 import { prisma } from '@myex/db';
 import { HttpStatusCode } from '@myex/types/api';
-import { IFormNewCoin } from '@myex/types/coin';
 import { WalletProvider } from '@myex/types/trading';
-import { IFormOnChainWallet } from '@myex/types/wallet';
-import { Coin, OnChainWallet } from '@prisma/client';
+import { IFormOnChainWallet, WalletWithCoin } from '@myex/types/wallet';
+import { OnChainWallet } from '@prisma/client';
 
-export async function myexFetchOnChainWallets(): Promise<OnChainWallet[]> {
+export async function myexFetchOnChainWallets(): Promise<WalletWithCoin[]> {
   const session = await auth();
   if (!session?.user) {
     return [];
   }
 
-  return prisma.onChainWallet.findMany({});
+  const wallets = await prisma.onChainWallet.findMany({});
+  const coins = await prisma.coin.findMany({});
+  return wallets.map(
+    (wallet) =>
+      ({
+        ...wallet,
+        myexCoin: coins.find((c) => c.myexId === wallet.coinMyexId),
+      }) as WalletWithCoin,
+  );
 }
 
 export async function myexRemoveWallet(myexId: number) {

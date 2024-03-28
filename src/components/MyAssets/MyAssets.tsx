@@ -18,6 +18,7 @@ import { ValueFormat } from '@myex/types/common';
 import { GateWallet } from '@myex/types/gate';
 import { OkxWallet } from '@myex/types/okx';
 import { MyexAsset } from '@myex/types/trading';
+import { Wallet } from '@myex/types/wallet';
 import { composeAssetsInfo, getUstBalance } from '@myex/utils/trading';
 
 import AssetsSummary from './AssetsSummary';
@@ -28,6 +29,7 @@ interface Props {
   marketCoins: CoinInMarket[];
   gateWallets: GateWallet[];
   okxWallets: OkxWallet[];
+  onChainBalances: Wallet[];
 }
 
 const columns: ColumnData<MyexAsset>[] = [
@@ -63,7 +65,7 @@ const columns: ColumnData<MyexAsset>[] = [
     sortable: true,
   },
   {
-    label: 'Location',
+    label: 'Exchanges',
     dataKey: 'wallets',
     renderComponent: (value, row) => {
       return value ? (
@@ -87,6 +89,7 @@ export default function MyAssets({
   marketCoins,
   gateWallets,
   okxWallets,
+  onChainBalances,
 }: Props) {
   const dispatch = useMyexDispatch();
   const showTradingView = useMyexSelector(selectShowTradingView);
@@ -117,12 +120,35 @@ export default function MyAssets({
 
   const totalBalance = myexAssets.reduce((acc, asset) => acc.plus(asset._balanceUst), BigNumber(0));
 
+  const walletsWithBalance = onChainBalances.map((wallet) => ({
+    ...wallet,
+    _balanceUst: BigNumber(wallet.amount).multipliedBy(
+      BigNumber(
+        marketCoins.find((coin) => coin.currency.toLowerCase() === wallet.currency.toLowerCase())
+          ?.price || 0,
+      ),
+    ),
+  }));
+
+  const onChainTotalBalance = walletsWithBalance.reduce(
+    (acc, asset) => BigNumber(acc).plus(asset?._balanceUst || 0),
+    BigNumber(0),
+  );
+
   return (
     <>
       <h1 className='mb-12'>
-        Assets &#8776; <Money value={totalBalance.plus(ustBalance.total).toNumber()} flash />
+        Assets &#8776;{' '}
+        <Money
+          value={totalBalance.plus(ustBalance.total).plus(onChainTotalBalance).toNumber()}
+          flash
+        />
       </h1>
-      <AssetsSummary assets={myexAssets} ustBalance={ustBalance} />
+      <AssetsSummary
+        assets={myexAssets}
+        ustBalance={ustBalance}
+        onChainWallets={walletsWithBalance}
+      />
       <TradingView />
       <MyexTable<MyexAsset>
         data={myexAssets}
