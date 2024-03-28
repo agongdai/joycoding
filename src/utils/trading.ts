@@ -171,19 +171,21 @@ export function composeAssetsInfo(
   gateWallets: GateWallet[],
   okxWallets: OkxWallet[],
 ): MyexAsset[] {
-  const bitfinexWalletsWithAmount = bitfinexWallets.filter((wallet) => wallet.balance > 0);
+  const bitfinexWalletsWithAmount = bitfinexWallets.filter(
+    (wallet) => wallet.currency !== 'UST' && wallet.balance > 0,
+  );
   const synedBitfinexWallets = syncBitfinexCurrencies(bitfinexWalletsWithAmount, marketCoins);
 
   const binanceWalletsWithAmount = binanceWallets.filter(
-    (wallet) => Number(wallet.free) + Number(wallet.locked) > 0,
+    (wallet) => wallet.asset !== 'USDT' && Number(wallet.free) + Number(wallet.locked) > 0,
   );
 
   const gateWalletsWithAmount = gateWallets.filter(
-    (wallet) => Number(wallet.available) + Number(wallet.locked) > 0,
+    (wallet) => wallet.currency !== 'USDT' && Number(wallet.available) + Number(wallet.locked) > 0,
   );
 
   const okxWalletsWithAmount = okxWallets.filter(
-    (wallet) => Number(wallet.availBal) + Number(wallet.frozenBal) > 0,
+    (wallet) => wallet.ccy !== 'USDT' && Number(wallet.availBal) + Number(wallet.frozenBal) > 0,
   );
 
   const currencies = _uniq([
