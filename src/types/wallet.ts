@@ -7,6 +7,7 @@ export interface IFormOnChainWallet {
   myexId?: number;
   name: string;
   address: string;
+  amount?: string;
   protocol: string;
   network: string;
   addedTimestamp: string;

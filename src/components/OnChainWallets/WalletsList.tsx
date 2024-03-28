@@ -19,18 +19,19 @@ const columns: ColumnData<WalletWithCoin>[] = [
     label: 'ID',
     dataKey: 'myexId',
     sortable: true,
-    widthRem: 4,
+    widthRem: 3,
   },
   {
     label: 'Coin',
     dataKey: 'coinMyexId',
     format: ValueFormat.Coin,
-    widthRem: 20,
+    widthRem: 16,
   },
   {
     label: 'Name',
     dataKey: 'name',
     sortable: true,
+    widthRem: 18,
   },
   {
     label: 'Address',
@@ -38,27 +39,32 @@ const columns: ColumnData<WalletWithCoin>[] = [
     format: ValueFormat.WalletAddress,
   },
   {
+    label: 'Amount',
+    dataKey: 'amount',
+    format: ValueFormat.Number,
+  },
+  {
     label: 'Protocol',
     dataKey: 'protocol',
     sortable: true,
-    widthRem: 12,
+    widthRem: 10,
   },
   {
     label: 'Network',
     dataKey: 'network',
     sortable: true,
-    widthRem: 12,
+    widthRem: 10,
   },
   {
     label: 'Added Time',
     dataKey: 'addedTimestamp',
     format: ValueFormat.DateTime,
-    widthRem: 16,
+    widthRem: 14,
   },
   {
     label: 'Provider',
     dataKey: 'provider',
-    widthRem: 10,
+    widthRem: 14,
   },
   {
     label: 'Actions',

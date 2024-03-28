@@ -1,5 +1,6 @@
 'use server';
 import crypto from 'crypto';
+import _get from 'lodash/get';
 
 import { auth } from '@myex/auth';
 import { Exchange } from '@myex/types/exchange';
@@ -42,7 +43,7 @@ export async function fetchOkxWallets() {
       },
     });
     const resJson = await res.json();
-    return (resJson?.data[0]?.details || []).map(
+    return _get(resJson, 'data.0.details', []).map(
       (wallet: any) =>
         ({
           ccy: wallet?.ccy,

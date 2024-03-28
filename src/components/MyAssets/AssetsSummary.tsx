@@ -39,13 +39,13 @@ export default function AssetsSummary({ assets, ustBalance, onChainWallets }: Pr
           'Cold Assets: ' + FIAT_CURRENCY_SYMBOL + ' ' + onChainTotalBalance.toNumber().toFixed(2)
         }
       >
-        <div className='flex'>
+        <div className='flex flex-wrap justify-center'>
           {onChainWallets.map((wallet) => (
             <MyexTooltip
               key={wallet.address}
-              title={`${wallet.currency} in ${wallet.provider}: ${FIAT_CURRENCY_SYMBOL} ${wallet._balanceUst?.toFixed(2)}`}
+              title={`${wallet.name}: ${FIAT_CURRENCY_SYMBOL} ${wallet._balanceUst?.toFixed(2)}`}
             >
-              <div className='mx-2'>
+              <div className='mx-2 my-1'>
                 <Badge
                   anchorOrigin={{
                     vertical: 'bottom',
@@ -55,12 +55,12 @@ export default function AssetsSummary({ assets, ustBalance, onChainWallets }: Pr
                     <MyexImage
                       alt=''
                       src={getWalletProviderImageUrl(wallet.provider)}
-                      width={20}
-                      height={20}
+                      width={16}
+                      height={16}
                     />
                   }
                 >
-                  <CoinIcon coin={wallet?.myexCoin} size={40} />
+                  <CoinIcon coin={wallet?.myexCoin} size={36} />
                 </Badge>
               </div>
             </MyexTooltip>

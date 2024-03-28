@@ -64,7 +64,12 @@ export async function myexUpdateWallet(myexId: number, wallet: IFormOnChainWalle
   const updatedWallet = await prisma.onChainWallet.update({
     where: { myexId },
     data: {
-      ...wallet,
+      name: wallet.name,
+      provider: wallet.provider || WalletProvider.Unknown,
+      coinMyexId: wallet.coinMyexId,
+      protocol: wallet.protocol,
+      network: wallet.network,
+      amount: Number(wallet.amount),
     },
   });
 
@@ -74,6 +79,7 @@ export async function myexUpdateWallet(myexId: number, wallet: IFormOnChainWalle
 export async function myexCreateOnChainWallet({
   name,
   address,
+  amount,
   provider,
   protocol,
   network,
@@ -100,6 +106,7 @@ export async function myexCreateOnChainWallet({
     data: {
       name,
       address,
+      amount: Number(amount) || 0,
       protocol,
       network,
       provider: provider || WalletProvider.Unknown,

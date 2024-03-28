@@ -70,6 +70,24 @@ export default function UpsertWalletForm({ control, errors, update }: Props) {
         <Controller
           render={({ field }) => (
             <TextField
+              error={!!errors.amount}
+              helperText={errors.amount?.message}
+              label='Amount (if given, will not check on-chain balance)'
+              placeholder='Amount like 0.1'
+              type='number'
+              {...field}
+              ref={null}
+            />
+          )}
+          name='amount'
+          control={control}
+        />
+      </div>
+
+      <div className='mb-6'>
+        <Controller
+          render={({ field }) => (
+            <TextField
               error={!!errors.protocol}
               helperText={errors.protocol?.message}
               label='Protocol'

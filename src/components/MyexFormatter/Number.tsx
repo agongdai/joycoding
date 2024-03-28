@@ -16,6 +16,10 @@ const priceFormat = {
 };
 
 export default function Number({ value, nDecimals = 0 }: { value: Value; nDecimals?: number }) {
+  if (BigNumber(String(value)).isNaN()) {
+    return <span>N.A.</span>;
+  }
+
   const displayedDecimals = BigNumber(String(value)).isLessThan(BigNumber(10))
     ? PRICE_MAX_DECIMAL_PLACES
     : PRICE_DEFAULT_DECIMAL_PLACES;

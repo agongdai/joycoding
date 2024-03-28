@@ -47,6 +47,7 @@ model OnChainWallet {
   network         String
   addedTimestamp  String
   provider        String?
+  amount          Float?
   coin            Coin    @relation(fields: [coinMyexId], references: [myexId])
   coinMyexId      Int
   user            User    @relation(fields: [userMyexId], references: [myexId])

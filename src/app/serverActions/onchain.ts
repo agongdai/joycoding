@@ -15,6 +15,29 @@ export async function fetchOnChainBalances(): Promise<Wallet[]> {
 
   const myexWallets = await Promise.all(
     wallets.map(async (wallet) => {
+      const myexCoin = await prisma?.coin.findUnique({
+        where: {
+          myexId: wallet.coinMyexId,
+        },
+      });
+
+      if (!myexCoin) {
+        return null;
+      }
+
+      // @note If the wallet has preset amount, do not check on-chain balance
+      if (wallet.amount) {
+        return {
+          currency: myexCoin.currency,
+          address: wallet.address,
+          name: wallet.name,
+          provider: wallet.provider,
+          amount: String(wallet.amount),
+          pendingAmount: '0',
+          myexCoin,
+        } as Wallet;
+      }
+
       const blockDaemonUrl = `${BLOCK_DAEMON_API_BASE}/${wallet.protocol}/${wallet.network}/account/${wallet.address}`;
       try {
         const res = await fetch(blockDaemonUrl, {
@@ -28,12 +51,6 @@ export async function fetchOnChainBalances(): Promise<Wallet[]> {
         if (!chain) {
           return null;
         }
-
-        const myexCoin = await prisma?.coin.findUnique({
-          where: {
-            myexId: wallet.coinMyexId,
-          },
-        });
 
         return {
           currency: chain.currency.symbol,

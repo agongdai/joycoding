@@ -137,7 +137,7 @@ export default function MyAssets({
 
   return (
     <>
-      <h1 className='mb-12'>
+      <h1 className='mb-8'>
         Assets &#8776;{' '}
         <Money
           value={totalBalance.plus(ustBalance.total).plus(onChainTotalBalance).toNumber()}
