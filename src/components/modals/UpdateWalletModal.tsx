@@ -30,12 +30,16 @@ export default function UpdateWalletModal() {
   } = useForm<IFormOnChainWallet>({
     defaultValues: {
       ...walletToUpdate,
+      amount: String(walletToUpdate?.amount),
     },
   });
 
   useEffect(() => {
     if (walletToUpdate) {
-      reset({ ...walletToUpdate });
+      reset({
+        ...walletToUpdate,
+        amount: String(walletToUpdate?.amount),
+      });
     }
   }, [walletToUpdate, reset]);
 
