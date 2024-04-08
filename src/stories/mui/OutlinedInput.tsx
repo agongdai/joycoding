@@ -1,13 +1,12 @@
 import React from 'react';
 
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import {
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  OutlinedInput as MuiOutlinedInput,
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import InputLabel from '@mui/material/InputLabel';
+import MuiOutlinedInput, {
   OutlinedInputProps as MuiOutlinedInputProps,
-} from '@mui/material';
+} from '@mui/material/OutlinedInput';
 
 type OutlinedInputBaseProps = Pick<
   MuiOutlinedInputProps,

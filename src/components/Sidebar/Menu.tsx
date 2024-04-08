@@ -3,15 +3,14 @@
 import React from 'react';
 import cx from 'classnames';
 
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import {
-  Collapse,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from '@mui/material';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import Collapse from '@mui/material/Collapse';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import MyexTooltip from '@myex/components/@mui/material/Tooltip';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
 import MyexLink from '@myex/components/MyexLink';

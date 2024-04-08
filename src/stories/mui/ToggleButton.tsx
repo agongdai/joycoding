@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { ToggleButton, ToggleButtonGroup, ToggleButtonGroupProps } from '@mui/material';
 import Button from '@mui/material/Button';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup, { ToggleButtonGroupProps } from '@mui/material/ToggleButtonGroup';
 
 type ToggleButtonCompProps = Pick<ToggleButtonGroupProps, 'orientation' | 'color' | 'disabled'>;
 

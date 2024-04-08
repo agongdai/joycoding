@@ -1,7 +1,8 @@
 import React from 'react';
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Tab, Tabs as MuiTabs, TabsProps as MuiTabsProps } from '@mui/material';
+import Tab from '@mui/material/Tab';
+import MuiTabs, { TabsProps as MuiTabsProps } from '@mui/material/Tabs';
 
 type TabsBaseProps = Pick<MuiTabsProps, 'orientation'>;
 

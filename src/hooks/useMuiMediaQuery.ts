@@ -1,4 +1,4 @@
-import { useTheme as useMuiTheme } from '@mui/material/styles';
+import useMuiTheme from '@mui/material/styles/useTheme';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function useMuiMediaQuery() {

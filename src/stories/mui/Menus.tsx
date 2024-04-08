@@ -3,12 +3,14 @@ import React from 'react';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
 import TranslateIcon from '@mui/icons-material/Translate';
-import { IconButton, Menu, Tooltip } from '@mui/material';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import Tooltip from '@mui/material/Tooltip';
 import { defaultLocale, languages } from '@myex/i18n/config';
 
 interface Menus {

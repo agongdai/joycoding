@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Tooltip as MuiTooltip, TooltipProps as MuiTooltipProps } from '@mui/material';
 import Button from '@mui/material/Button';
+import MuiTooltip, { TooltipProps as MuiTooltipProps } from '@mui/material/Tooltip';
 
 type TooltipBaseProps = Pick<MuiTooltipProps, 'placement' | 'arrow'>;
 

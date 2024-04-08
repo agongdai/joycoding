@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { Box, CssBaseline, Theme, ThemeProvider } from '@mui/material';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import ThemeProvider from '@mui/material/styles/ThemeProvider';
 
 import { DEFAULT_THEME, MyexTheme, themes } from '../src/theme';
 
@@ -9,7 +11,7 @@ export const withMuiTheme = (Story: React.FC, context: Record<string, any>) => {
   const { theme: themeKey = DEFAULT_THEME } = context.globals;
 
   // only recompute the theme if the themeKey changes
-  const theme: Theme = React.useMemo(
+  const theme = React.useMemo(
     () => themes[themeKey as MyexTheme] || themes[MyexTheme.Light],
     [themeKey],
   );

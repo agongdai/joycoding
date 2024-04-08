@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { faPersonToDoor } from '@fortawesome/pro-duotone-svg-icons';
-import { Button } from '@mui/material';
+import Button from '@mui/material/Button';
 import { authSignOut } from '@myex/app/serverActions/auth';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Pagination as MuiPagination, PaginationProps as MuiPaginationProps } from '@mui/material';
+import MuiPagination, { PaginationProps as MuiPaginationProps } from '@mui/material/Pagination';
 
 type PaginationBaseProps = Pick<MuiPaginationProps, 'count' | 'shape'>;
 

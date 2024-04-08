@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconButton as MuiIconButton, IconButtonProps as MuiIconButtonProps } from '@mui/material';
+import MuiIconButton, { IconButtonProps as MuiIconButtonProps } from '@mui/material/IconButton';
 
 // Only include variant, size, color from MuiButtonProps
 type IconButtonBaseProps = Pick<MuiIconButtonProps, 'size' | 'color' | 'disabled' | 'children'>;

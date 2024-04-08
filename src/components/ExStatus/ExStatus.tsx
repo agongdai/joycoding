@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button } from '@mui/material';
+import Button from '@mui/material/Button';
 import MyexTooltip from '@myex/components/@mui/material/Tooltip';
 import MyexLink from '@myex/components/MyexLink';
 import { ExchangeStatus } from '@myex/types/common';

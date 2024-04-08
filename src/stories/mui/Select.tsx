@@ -1,12 +1,9 @@
 import React from 'react';
 
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select as MuiSelect,
-  SelectProps as MuiSelectProps,
-} from '@mui/material';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import MuiSelect, { SelectProps as MuiSelectProps } from '@mui/material/Select';
 
 type SelectBaseProps = Pick<MuiSelectProps, 'label' | 'error'>;
 

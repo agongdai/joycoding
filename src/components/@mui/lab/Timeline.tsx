@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
 
-import { useMediaQuery } from '@mui/material';
-import { useTheme as useMuiTheme } from '@mui/material/styles';
+import useMuiTheme from '@mui/material/styles/useTheme';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { Timeline } from './index';
 

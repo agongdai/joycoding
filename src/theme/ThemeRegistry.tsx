@@ -4,9 +4,8 @@ import { useServerInsertedHTML } from 'next/navigation';
 
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
-import { Theme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider } from '@mui/material/styles';
+import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import useMyexTheme from '@myex/hooks/useMyexTheme';
 import { MyexTheme } from '@myex/theme/index';
 import DarkTheme from '@myex/theme/myex-dark';
@@ -22,7 +21,7 @@ export default function ThemeRegistry({
   children: React.ReactNode;
 }) {
   const { theme } = useMyexTheme();
-  const appTheme: Theme = theme === MyexTheme.Dark ? DarkTheme : LightTheme;
+  const appTheme = theme === MyexTheme.Dark ? DarkTheme : LightTheme;
 
   const [{ cache, flush }] = React.useState(() => {
     const cache = createCache(options);

@@ -1,10 +1,7 @@
 import React from 'react';
 
-import {
-  ButtonGroup as MuiButtonGroup,
-  ButtonGroupProps as MuiButtonGroupProps,
-} from '@mui/material';
 import Button from '@mui/material/Button';
+import MuiButtonGroup, { ButtonGroupProps as MuiButtonGroupProps } from '@mui/material/ButtonGroup';
 
 type ButtonGroupProps = Pick<MuiButtonGroupProps, 'variant' | 'size' | 'color' | 'disabled'>;
 

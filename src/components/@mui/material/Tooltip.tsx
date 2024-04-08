@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Tooltip, TooltipProps, Zoom } from '@mui/material';
+import Tooltip, { TooltipProps } from '@mui/material/Tooltip';
+import Zoom from '@mui/material/Zoom';
 
 type Props = TooltipProps & {
   children: React.ReactNode;

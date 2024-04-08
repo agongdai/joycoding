@@ -5,7 +5,10 @@ import cx from 'classnames';
 
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { Divider, Drawer, List, Toolbar } from '@mui/material';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import Toolbar from '@mui/material/Toolbar';
 import MyexTooltip from '@myex/components/@mui/material/Tooltip';
 import MyexImage from '@myex/components/MyexImage';
 import MyexLink from '@myex/components/MyexLink';

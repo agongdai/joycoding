@@ -1,4 +1,4 @@
-import { Theme } from '@mui/material';
+import { Theme } from '@mui/material/styles/createTheme';
 
 import darkTheme from './myex-dark';
 import lightTheme from './myex-light';

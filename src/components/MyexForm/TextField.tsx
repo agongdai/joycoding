@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TextField as MuiTextField, TextFieldProps } from '@mui/material';
+import MuiTextField, { TextFieldProps } from '@mui/material/TextField';
 
 export default function TextField(props: TextFieldProps) {
   return (

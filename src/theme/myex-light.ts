@@ -1,4 +1,5 @@
-import { createTheme, Shadows } from '@mui/material/styles';
+import createTheme from '@mui/material/styles/createTheme';
+import { Shadows } from '@mui/material/styles/shadows';
 import fonts from '@myex/theme/font';
 
 import breakpoints from './breakpoints';

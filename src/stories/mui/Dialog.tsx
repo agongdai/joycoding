@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 
 import CloseIcon from '@mui/icons-material/Close';
-import { Dialog as MuiDialog, DialogProps as MuiDialogProps } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import MuiDialog, { DialogProps as MuiDialogProps } from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
