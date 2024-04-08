@@ -36,7 +36,7 @@ export default function Sidebar() {
         <div>
           <Toolbar classes={{ root: cx('flex justify-between', { 'px-0': showMini }) }}>
             <MyexLink href='/'>
-              <MyexImage src='/joytrading.png' alt='Joy Trading' width={48} height={48} />
+              <MyexImage src='/myex.png' alt='Joy Trading' width={48} height={48} />
             </MyexLink>
             {!xlDown && (
               <MyexTooltip title='Toggle Mini Sidebar' placement={showMini ? 'right' : 'bottom'}>
@@ -56,7 +56,7 @@ export default function Sidebar() {
           </List>
         </div>
         <div>
-          <MyexImage src='/joytrading.png' alt='Joy Trading' width={500} height={500} />
+          <MyexImage src='/myex.png' alt='Joy Trading' width={500} height={500} />
         </div>
       </div>
     </aside>

@@ -68,7 +68,7 @@ import { prisma } from '@myex/db';
 export const config = {
   trustHost: true, // @github https://github.com/nextauthjs/next-auth/issues/6113
   theme: {
-    logo: '/joytrading.png',
+    logo: '/myex.png',
   },
   providers: [
     // Apple,
@@ -156,11 +156,12 @@ export const config = {
 
       const partialUser = session?.user;
       if (partialUser?.myexId) {
-        const exchangeApis = await prisma.exchangeApi.findMany({
-          where: {
-            userMyexId: partialUser.myexId,
-          },
-        }) || [];
+        const exchangeApis =
+          (await prisma.exchangeApi.findMany({
+            where: {
+              userMyexId: partialUser.myexId,
+            },
+          })) || [];
         session.user = {
           ...partialUser,
           exchangeApis,
