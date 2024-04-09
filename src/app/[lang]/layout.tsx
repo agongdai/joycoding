@@ -2,7 +2,6 @@ import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { SessionProvider } from 'next-auth/react';
 import NextTopLoader from 'nextjs-toploader';
-import { dir } from 'i18next';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import { BfxEndpoints } from '@myex/api/endpoints';
@@ -67,7 +66,7 @@ export default async function RootLayout({
   const bfxApiStatus = await checkBfxApiStatus();
   const session = await auth();
   return (
-    <html lang={lang} dir={dir(lang)} suppressHydrationWarning className={fonts.spaceMono.variable}>
+    <html lang={lang} suppressHydrationWarning className={fonts.spaceMono.variable}>
       <body className={fonts.default.className} id='root'>
         <NextTopLoader color={colors.primaryMain} shadow='none' />
         <Providers>
