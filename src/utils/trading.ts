@@ -13,6 +13,7 @@ import { OkxWallet } from '@myex/types/okx';
 import {
   Balance,
   BalanceBreakdown,
+  BalanceBreakdownFromExchange,
   MyexAsset,
   MyexWallet,
   WalletProvider,
@@ -64,64 +65,22 @@ export function pairToTradingViewSymbol(pair: string) {
 }
 
 /**
- * Get UST balance from wallets
- * @param bfxWallets
- * @param binanceWallets
- * @param gateWallets
- * @param okxWallets
+ *
+ * @param exchangeWallets
  */
-export function getUstBalance(
-  bfxWallets: BfxWallet[],
-  binanceWallets: BinanceWallet[],
-  gateWallets: GateWallet[],
-  okxWallets: OkxWallet[],
-): Balance {
-  const ustWallet = bfxWallets.find((wallet) => wallet.currency === 'UST');
-  const total = ustWallet?.balance || 0;
-  const available = ustWallet?.availableBalance || 0;
-
-  const bfxBalance: BalanceBreakdown = {
-    total: BigNumber(total),
-    available: BigNumber(available),
-    exchange: Exchange.Bitfinex,
-  };
-
-  const binanceUstWallet = binanceWallets.find((wallet) => wallet.asset === 'USDT');
-  const binanceFree = BigNumber(binanceUstWallet?.free || 0);
-  const binanceLocked = BigNumber(binanceUstWallet?.locked || 0);
-
-  const binanceBalance: BalanceBreakdown = {
-    total: binanceFree.plus(binanceLocked),
-    available: binanceFree,
-    exchange: Exchange.Binance,
-  };
-
-  const gateUstWallet = gateWallets.find((wallet) => wallet.currency === 'USDT');
-  const gateAvailable = gateUstWallet?.available || 0;
-  const gateLocked = gateUstWallet?.locked || 0;
-
-  const gateBalance: BalanceBreakdown = {
-    total: BigNumber(gateAvailable).plus(gateLocked),
-    available: BigNumber(gateAvailable),
-    exchange: Exchange.Gate,
-  };
-
-  const okxUstWallet = okxWallets.find((wallet) => wallet.ccy === 'USDT');
-  const okxAvailable = okxUstWallet?.availBal || 0;
-  const okxLocked = okxUstWallet?.frozenBal || 0;
-
-  const okxBalance: BalanceBreakdown = {
-    total: BigNumber(okxAvailable).plus(okxLocked),
-    available: BigNumber(okxAvailable),
-    exchange: Exchange.OKX,
-  };
-
-  const breakdown = _compact([bfxBalance, binanceBalance, gateBalance, okxBalance]);
+export function getUstBalance(exchangeWallets: BalanceBreakdownFromExchange[]): Balance {
+  const ustWallets = exchangeWallets.filter((wallet) => wallet.currency === 'USDT');
 
   return {
-    total: breakdown.reduce((sum, exchange) => exchange.total.plus(sum), BigNumber(0)),
-    available: breakdown.reduce((sum, exchange) => exchange.available.plus(sum), BigNumber(0)),
-    breakdown,
+    totalAmount: ustWallets.reduce(
+      (sum, exchange) => BigNumber(exchange.totalAmount).plus(sum),
+      BigNumber(0),
+    ),
+    availableAmount: ustWallets.reduce(
+      (sum, exchange) => BigNumber(exchange.availableAmount).plus(sum),
+      BigNumber(0),
+    ),
+    breakdown: ustWallets,
   };
 }
 
@@ -157,43 +116,38 @@ export function syncBitfinexCurrencies(bitfinexWallets: BfxWallet[], marketCoins
 }
 
 /**
- * Compose assets info from wallet and trading pairs
+ * Filter wallets with value
+ * @param wallets
  * @param marketCoins
- * @param binanceWallets
- * @param bitfinexWallets
- * @param gateWallets
- * @param okxWallets
+ */
+export function filterWalletsWithValue(
+  wallets: BalanceBreakdownFromExchange[],
+  marketCoins: CoinInMarket[],
+) {
+  return wallets
+    .filter((wallet) => !BigNumber(wallet.totalAmount).isZero())
+    .filter((wallet) => {
+      const marketCoin = marketCoins.find(
+        (marketCoin) => marketCoin.currency.toLowerCase() === wallet.currency.toLowerCase(),
+      );
+      return BigNumber(wallet.totalAmount)
+        .multipliedBy(marketCoin?.price || 0)
+        .gt(IGNORED_USD_THRESHOLD);
+    });
+}
+
+/**
+ * Compose assets info from exchanges
+ * @param marketCoins
+ * @param exchangeWallets
  */
 export function composeAssetsInfo(
   marketCoins: CoinInMarket[],
-  binanceWallets: BinanceWallet[],
-  bitfinexWallets: BfxWallet[],
-  gateWallets: GateWallet[],
-  okxWallets: OkxWallet[],
+  exchangeWallets: BalanceBreakdownFromExchange[],
 ): MyexAsset[] {
-  const bitfinexWalletsWithAmount = bitfinexWallets.filter(
-    (wallet) => wallet.currency !== 'UST' && wallet.balance > 0,
-  );
-  const synedBitfinexWallets = syncBitfinexCurrencies(bitfinexWalletsWithAmount, marketCoins);
+  const walletsWithoutUst = exchangeWallets.filter((wallet) => wallet.currency !== 'USDT');
 
-  const binanceWalletsWithAmount = binanceWallets.filter(
-    (wallet) => wallet.asset !== 'USDT' && Number(wallet.free) + Number(wallet.locked) > 0,
-  );
-
-  const gateWalletsWithAmount = gateWallets.filter(
-    (wallet) => wallet.currency !== 'USDT' && Number(wallet.available) + Number(wallet.locked) > 0,
-  );
-
-  const okxWalletsWithAmount = okxWallets.filter(
-    (wallet) => wallet.ccy !== 'USDT' && Number(wallet.availBal) + Number(wallet.frozenBal) > 0,
-  );
-
-  const currencies = _uniq([
-    ..._map(synedBitfinexWallets, 'currency'),
-    ..._map(binanceWalletsWithAmount, 'asset'),
-    ..._map(gateWalletsWithAmount, 'currency'),
-    ..._map(okxWalletsWithAmount, 'ccy'),
-  ]);
+  const currencies = _uniq([..._map(walletsWithoutUst, 'currency')]);
 
   return _compact(
     currencies.map((currency) => {
@@ -205,54 +159,13 @@ export function composeAssetsInfo(
         return null;
       }
 
-      const bfxAsset = synedBitfinexWallets.find((wallet) => wallet.currency === currency);
-      const binanceAsset = binanceWalletsWithAmount.find((wallet) => wallet.asset === currency);
-      const gateAsset = gateWalletsWithAmount.find((wallet) => wallet.currency === currency);
-      const okxAsset = okxWalletsWithAmount.find((wallet) => wallet.ccy === currency);
-
-      const walletsOfCurrency: MyexWallet[] = _compact([
-        bfxAsset &&
-        BigNumber(bfxAsset.balance).multipliedBy(marketCoin.price).gt(IGNORED_USD_THRESHOLD)
-          ? {
-              totalAmount: BigNumber(bfxAsset.balance),
-              availableAmount: BigNumber(bfxAsset.availableBalance),
-              exchange: Exchange.Bitfinex,
-            }
-          : null,
-        binanceAsset &&
-        BigNumber(binanceAsset.free)
-          .plus(BigNumber(binanceAsset.locked))
-          .multipliedBy(marketCoin.price)
-          .gt(IGNORED_USD_THRESHOLD)
-          ? {
-              totalAmount: BigNumber(binanceAsset.free).plus(BigNumber(binanceAsset.locked)),
-              availableAmount: BigNumber(binanceAsset.free),
-              exchange: Exchange.Binance,
-            }
-          : null,
-        gateAsset &&
-        BigNumber(gateAsset.available)
-          .plus(BigNumber(gateAsset.locked))
-          .multipliedBy(marketCoin.price)
-          .gt(IGNORED_USD_THRESHOLD)
-          ? {
-              totalAmount: BigNumber(gateAsset.available).plus(BigNumber(gateAsset.locked)),
-              availableAmount: BigNumber(gateAsset.available),
-              exchange: Exchange.Gate,
-            }
-          : null,
-        okxAsset &&
-        BigNumber(okxAsset.availBal)
-          .plus(BigNumber(okxAsset.frozenBal))
-          .multipliedBy(marketCoin.price)
-          .gt(IGNORED_USD_THRESHOLD)
-          ? {
-              totalAmount: BigNumber(okxAsset.availBal).plus(BigNumber(okxAsset.frozenBal)),
-              availableAmount: BigNumber(okxAsset.availBal),
-              exchange: Exchange.OKX,
-            }
-          : null,
-      ]);
+      const walletsOfCurrency: MyexWallet[] = exchangeWallets
+        .filter((wallet) => wallet.currency === currency)
+        .map((wallet) => ({
+          totalAmount: BigNumber(wallet.totalAmount),
+          availableAmount: BigNumber(wallet.availableAmount),
+          exchange: wallet.exchange,
+        }));
 
       const walletTotalAmount = walletsOfCurrency.reduce(
         (sum, wallet) => sum.plus(wallet.totalAmount),

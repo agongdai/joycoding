@@ -14,19 +14,19 @@ interface Props {
 }
 
 export default function BalanceCard({ label, balance }: Props) {
-  if (balance.total.isLessThan(IGNORED_USD_THRESHOLD)) return null;
+  if (balance.totalAmount.isLessThan(IGNORED_USD_THRESHOLD)) return null;
 
   return (
     <Card label={label}>
       <div>
-        <Money value={balance.available.toNumber()} flash nDecimals={3} />
+        <Money value={balance.availableAmount.toNumber()} flash nDecimals={3} />
         <div className='text-text-disabled text-base w-full m-1'>
           <MyexTooltip title='On hold: in order, or funding, or staking' placement='left'>
             <div>
               <AwesomeIcon icon={faHandsHoldingDollar} size='sm' />
               {` `}
               <Money
-                value={balance.total.minus(balance.available || 0).toNumber()}
+                value={balance.totalAmount.minus(balance.availableAmount || 0).toNumber()}
                 flash
                 nDecimals={3}
                 currencySymbol=''

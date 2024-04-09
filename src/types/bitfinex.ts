@@ -2,9 +2,9 @@
 export type BfxWallet = {
   type: string;
   currency: string;
-  balance: number;
+  balance: string;
   unsettledInterest: number;
-  availableBalance: number;
+  availableBalance: string;
   lastChange: string;
   tradeDetails: string;
 };

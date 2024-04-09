@@ -1,10 +1,14 @@
 'use server';
 
+import BigNumber from 'bignumber.js';
 import { SpotAccount, SpotApi } from 'gate-api';
 
 import { auth } from '@myex/auth';
+import { CoinInMarket } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
 import { GateWallet } from '@myex/types/gate';
+import { BalanceBreakdownFromExchange } from '@myex/types/trading';
+import { filterWalletsWithValue } from '@myex/utils/trading';
 
 const GateApi = require('gate-api');
 
@@ -29,7 +33,9 @@ const getGateClient = async () => {
   return client;
 };
 
-export const getGateSpotAccounts = async (): Promise<GateWallet[]> => {
+export const getGateSpotAccounts = async (
+  marketCoins: CoinInMarket[],
+): Promise<BalanceBreakdownFromExchange[]> => {
   const client = await getGateClient();
   if (!client) {
     return [];
@@ -40,7 +46,7 @@ export const getGateSpotAccounts = async (): Promise<GateWallet[]> => {
     // @doc https://github.com/gateio/gateapi-nodejs/blob/master/docs/SpotApi.md#listSpotAccounts
     const res = await client.listSpotAccounts({});
     const body = res.body;
-    return body.map(
+    const wallets: GateWallet[] = body.map(
       (account: SpotAccount) =>
         ({
           currency: account.currency,
@@ -48,6 +54,14 @@ export const getGateSpotAccounts = async (): Promise<GateWallet[]> => {
           locked: account.locked,
         }) as GateWallet,
     );
+
+    const myexWallets: BalanceBreakdownFromExchange[] = wallets.map((wallet) => ({
+      currency: wallet.currency,
+      totalAmount: BigNumber(wallet.available).plus(BigNumber(wallet.locked)).toString(),
+      availableAmount: wallet.available,
+      exchange: Exchange.Gate,
+    }));
+    return filterWalletsWithValue(myexWallets, marketCoins);
   } catch (error) {
     console.error('gate error', error);
     return [];

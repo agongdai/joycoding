@@ -1,15 +1,21 @@
 'use server';
+import BigNumber from 'bignumber.js';
 import crypto from 'crypto';
 import _get from 'lodash/get';
 
 import { auth } from '@myex/auth';
+import { CoinInMarket } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
 import { OkxWallet } from '@myex/types/okx';
+import { BalanceBreakdownFromExchange } from '@myex/types/trading';
+import { filterWalletsWithValue } from '@myex/utils/trading';
 
 /**
  * @doc https://www.okx.com/docs-v5/en/#overview-rest-authentication
  */
-export async function fetchOkxWallets() {
+export async function fetchOkxWallets(
+  marketCoins: CoinInMarket[],
+): Promise<BalanceBreakdownFromExchange[]> {
   const session = await auth();
   const okxKey = (session?.user?.exchangeApis || []).find(
     (exchange) => exchange.exchangeId === Exchange.OKX,
@@ -43,7 +49,7 @@ export async function fetchOkxWallets() {
       },
     });
     const resJson = await res.json();
-    return _get(resJson, 'data.0.details', []).map(
+    const wallets: OkxWallet[] = _get(resJson, 'data.0.details', []).map(
       (wallet: any) =>
         ({
           ccy: wallet?.ccy,
@@ -51,6 +57,14 @@ export async function fetchOkxWallets() {
           frozenBal: wallet?.frozenBal,
         }) as OkxWallet,
     );
+
+    const myexWallets: BalanceBreakdownFromExchange[] = wallets.map((wallet) => ({
+      currency: wallet.ccy,
+      totalAmount: BigNumber(wallet.availBal).plus(BigNumber(wallet.frozenBal)).toString(),
+      availableAmount: wallet.availBal,
+      exchange: Exchange.OKX,
+    }));
+    return filterWalletsWithValue(myexWallets, marketCoins);
   } catch (error) {
     console.error('okx error', error);
     return [];

@@ -11,24 +11,17 @@ import TradingView from '@myex/components/TradingView';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
 import { setCurrentCurrency } from '@myex/store/trading/actions';
 import { selectShowTradingView } from '@myex/store/trading/selectors';
-import { BinanceWallet } from '@myex/types/binance';
-import { BfxWallet } from '@myex/types/bitfinex';
 import { CoinInMarket } from '@myex/types/coin';
 import { ValueFormat } from '@myex/types/common';
-import { GateWallet } from '@myex/types/gate';
-import { OkxWallet } from '@myex/types/okx';
-import { MyexAsset } from '@myex/types/trading';
+import { BalanceBreakdownFromExchange, MyexAsset } from '@myex/types/trading';
 import { Wallet } from '@myex/types/wallet';
 import { composeAssetsInfo, getUstBalance } from '@myex/utils/trading';
 
 import AssetsSummary from './AssetsSummary';
 
 interface Props {
-  binanceWallets: BinanceWallet[];
-  bfxWallets: BfxWallet[];
   marketCoins: CoinInMarket[];
-  gateWallets: GateWallet[];
-  okxWallets: OkxWallet[];
+  exchangeWallets: BalanceBreakdownFromExchange[];
   onChainBalances: Wallet[];
 }
 
@@ -83,36 +76,19 @@ const columns: ColumnData<MyexAsset>[] = [
   },
 ];
 
-export default function MyAssets({
-  binanceWallets,
-  bfxWallets,
-  marketCoins,
-  gateWallets,
-  okxWallets,
-  onChainBalances,
-}: Props) {
+export default function MyAssets({ marketCoins, exchangeWallets, onChainBalances }: Props) {
   const dispatch = useMyexDispatch();
   const showTradingView = useMyexSelector(selectShowTradingView);
   const marketCoinsForAssets = useMemo(
     () =>
-      marketCoins.filter(
-        (marketCoin) =>
-          bfxWallets.find((w) => w.currency.toLowerCase() === marketCoin.currency.toLowerCase()) ||
-          binanceWallets.find((w) => w.asset.toLowerCase() === marketCoin.currency.toLowerCase()) ||
-          gateWallets.find((w) => w.currency.toLowerCase() === marketCoin.currency.toLowerCase()) ||
-          okxWallets.find((w) => w.ccy.toLowerCase() === marketCoin.currency.toLowerCase()),
+      marketCoins.filter((marketCoin) =>
+        exchangeWallets.find((w) => w.currency.toLowerCase() === marketCoin.currency.toLowerCase()),
       ),
-    [bfxWallets, binanceWallets, gateWallets, marketCoins, okxWallets],
+    [exchangeWallets, marketCoins],
   );
 
-  const myexAssets = composeAssetsInfo(
-    marketCoinsForAssets,
-    binanceWallets,
-    bfxWallets,
-    gateWallets,
-    okxWallets,
-  );
-  const ustBalance = getUstBalance(bfxWallets, binanceWallets, gateWallets, okxWallets);
+  const myexAssets = composeAssetsInfo(marketCoinsForAssets, exchangeWallets);
+  const ustBalance = getUstBalance(exchangeWallets);
 
   const onSetCurrentCurrency = (row: MyexAsset) => {
     dispatch(setCurrentCurrency(row.currency));
@@ -140,7 +116,7 @@ export default function MyAssets({
       <h1 className='mb-8'>
         Assets &#8776;{' '}
         <Money
-          value={totalBalance.plus(ustBalance.total).plus(onChainTotalBalance).toNumber()}
+          value={totalBalance.plus(ustBalance.totalAmount).plus(onChainTotalBalance).toNumber()}
           flash
         />
       </h1>

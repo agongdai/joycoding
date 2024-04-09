@@ -1,13 +1,17 @@
 'use server';
-import BigNumber from 'bignumber.js';
 import crypto from 'crypto';
 
 import { BfxEndpoints } from '@myex/api/endpoints';
 import { auth } from '@myex/auth';
 import { BfxWallet } from '@myex/types/bitfinex';
+import { CoinInMarket } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
+import { BalanceBreakdownFromExchange } from '@myex/types/trading';
+import { filterWalletsWithValue, syncBitfinexCurrencies } from '@myex/utils/trading';
 
-export async function fetchBitfinexWallets(): Promise<BfxWallet[]> {
+export async function fetchBitfinexWallets(
+  marketCoins: CoinInMarket[],
+): Promise<BalanceBreakdownFromExchange[]> {
   const session = await auth();
   const bitfinexKey = (session?.user?.exchangeApis || []).find(
     (exchange) => exchange.exchangeId === Exchange.Bitfinex,
@@ -35,7 +39,7 @@ export async function fetchBitfinexWallets(): Promise<BfxWallet[]> {
       },
     });
     const data = await res.json();
-    return data
+    const wallets: BfxWallet[] = data
       .filter((wallet: (string | number)[]) => wallet[0] === 'exchange')
       .map(
         (wallet: (string | number)[]) =>
@@ -48,8 +52,15 @@ export async function fetchBitfinexWallets(): Promise<BfxWallet[]> {
             lastChange: wallet[5],
             tradeDetails: wallet[6],
           }) as BfxWallet,
-      )
-      .filter((wallet: BfxWallet) => BigNumber(wallet.balance).isGreaterThan(BigNumber('1e-6')));
+      );
+    const syncWallets = syncBitfinexCurrencies(wallets, marketCoins);
+    const myexWallets: BalanceBreakdownFromExchange[] = syncWallets.map((wallet) => ({
+      currency: wallet.currency === 'UST' ? 'USDT' : wallet.currency,
+      totalAmount: wallet.balance,
+      availableAmount: wallet.availableBalance,
+      exchange: Exchange.Bitfinex,
+    }));
+    return filterWalletsWithValue(myexWallets, marketCoins);
   } catch (error) {
     console.error('bitfinex error', error);
     return [];

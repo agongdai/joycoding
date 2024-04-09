@@ -4,14 +4,18 @@ import { Exchange } from '@myex/types/exchange';
 import { Coin } from '@prisma/client';
 
 export type BalanceBreakdown = {
-  total: BigNumber;
-  available: BigNumber;
+  totalAmount: string;
+  availableAmount: string;
   exchange: Exchange;
 };
 
+export type BalanceBreakdownFromExchange = BalanceBreakdown & {
+  currency: string;
+};
+
 export type Balance = {
-  total: BigNumber;
-  available: BigNumber;
+  totalAmount: BigNumber;
+  availableAmount: BigNumber;
   breakdown?: BalanceBreakdown[];
 };
 

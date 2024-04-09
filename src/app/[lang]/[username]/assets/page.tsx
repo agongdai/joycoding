@@ -12,23 +12,19 @@ import { MyexStyledPageWrapper } from '@myex/components/MyexStyled';
 export const revalidate = 10;
 
 export default async function Assets() {
-  const [marketCoins, bfxWallets, binanceWallets, gateWallets, okxWallets, onChainBalances] =
-    await Promise.all([
-      fetchMarketCoins(),
-      fetchBitfinexWallets(),
-      getBinanceBalances(),
-      getGateSpotAccounts(),
-      fetchOkxWallets(),
-      fetchOnChainBalances(),
-    ]);
+  const marketCoins = await fetchMarketCoins();
+  const [bfxWallets, binanceWallets, gateWallets, okxWallets, onChainBalances] = await Promise.all([
+    fetchBitfinexWallets(marketCoins),
+    getBinanceBalances(marketCoins),
+    getGateSpotAccounts(marketCoins),
+    fetchOkxWallets(marketCoins),
+    fetchOnChainBalances(),
+  ]);
   return (
     <MyexStyledPageWrapper>
       <MyAssets
         marketCoins={marketCoins}
-        bfxWallets={bfxWallets}
-        binanceWallets={binanceWallets}
-        gateWallets={gateWallets}
-        okxWallets={okxWallets}
+        exchangeWallets={[...bfxWallets, ...binanceWallets, ...gateWallets, ...okxWallets]}
         onChainBalances={onChainBalances}
       />
     </MyexStyledPageWrapper>

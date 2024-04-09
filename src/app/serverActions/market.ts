@@ -8,7 +8,9 @@ import { Coin } from '@prisma/client';
 export async function fetchMarketCoins(): Promise<CoinInMarket[]> {
   const coins = await myexFetchCoins();
   const coinGeokoIdsStr = coins.map((coin: Coin) => coin.coinGeckoId || '').join(',');
+
   try {
+    console.debug('fetching coins from GeokoCoin ...');
     const res = await fetch(
       `${CoinGeokoApiBaseUrl}/coins/markets?ids=${coinGeokoIdsStr}&vs_currency=usd&price_change_percentage=24h`,
       {
@@ -19,7 +21,7 @@ export async function fetchMarketCoins(): Promise<CoinInMarket[]> {
       },
     );
     const data = await res.json();
-    return data.map(
+    return (data || []).map(
       (coin: any) =>
         ({
           geckoId: coin.id,
