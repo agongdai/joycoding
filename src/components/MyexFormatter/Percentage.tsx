@@ -4,6 +4,7 @@ import cx from 'classnames';
 import { Value } from '@myex/types/common';
 
 export default function Percentage({ value }: { value: Value }) {
+  if (value === null || value === undefined) return <span>-</span>;
   const num = Number(value);
   return (
     <span

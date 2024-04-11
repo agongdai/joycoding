@@ -13,6 +13,7 @@ model User {
   provider        String?
   exchangeApis    ExchangeApi[]
   onChainWallets  OnChainWallet[]
+  transactions    Transaction[]
 }
 
 model ExchangeApi {
@@ -52,6 +53,21 @@ model OnChainWallet {
   coinMyexId      Int
   user            User    @relation(fields: [userMyexId], references: [myexId])
   userMyexId      Int
+}
+
+model Transaction {
+  myexId                 Int    @id @default(autoincrement())
+  currency               String
+  totalAmount            String
+  openTimestamp          String
+  closeTimestamp         String?
+  availableAmount        String // partial asset is traded
+  openPrice              String?
+  closePrice             String?
+  exchanges              String
+  aborted                Boolean // asset transferred to cold wallet like Ledger
+  user                   User    @relation(fields: [userMyexId], references: [myexId])
+  userMyexId             Int
 }
 
 generator client {

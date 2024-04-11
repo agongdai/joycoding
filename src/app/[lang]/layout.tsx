@@ -4,9 +4,9 @@ import { SessionProvider } from 'next-auth/react';
 import NextTopLoader from 'nextjs-toploader';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
-import { BfxEndpoints } from '@myex/api/endpoints';
 import Loading from '@myex/app/[lang]/loading';
 import Providers from '@myex/app/Providers';
+import { checkBfxApiStatus } from '@myex/app/serverActions/exchangeStatus';
 import { auth } from '@myex/auth';
 import ExStatus from '@myex/components/ExStatus';
 import Footer from '@myex/components/Footer';
@@ -20,7 +20,6 @@ import { languages } from '@myex/i18n/config';
 import colors from '@myex/theme/colors';
 import fonts from '@myex/theme/font';
 import ThemeRegistry from '@myex/theme/ThemeRegistry';
-import { ExchangeStatus } from '@myex/types/common';
 import { Language, ParamsWithLng } from '@myex/types/i18n';
 import { Analytics } from '@vercel/analytics/react';
 
@@ -48,12 +47,6 @@ export const metadata: Metadata = {
 
 export async function generateStaticParams() {
   return languages.map((lang: Language) => ({ lang: lang.code }));
-}
-
-async function checkBfxApiStatus(): Promise<ExchangeStatus> {
-  const res = await fetch(BfxEndpoints.status.path);
-  const data = await res.json();
-  return data ? data[0] : ExchangeStatus.Maintenance;
 }
 
 export default async function RootLayout({

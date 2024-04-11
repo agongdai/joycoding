@@ -9,7 +9,7 @@ export default function ExStatus({ status }: { status: ExchangeStatus }) {
   const offline = status === ExchangeStatus.Maintenance;
   return (
     <MyexLink href='https://bitfinex.statuspage.io/' className='no-underline'>
-      <MyexTooltip title='Visit Bitfinex status page'>
+      <MyexTooltip title='At your service'>
         <Button
           variant='contained'
           color={offline ? 'tertiary' : 'success'}

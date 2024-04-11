@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js';
 
 import { Exchange } from '@myex/types/exchange';
-import { Coin } from '@prisma/client';
+import { Coin, Transaction } from '@prisma/client';
 
 export type BalanceBreakdown = {
   totalAmount: string;
@@ -14,26 +14,27 @@ export type BalanceBreakdownFromExchange = BalanceBreakdown & {
 };
 
 export type Balance = {
-  totalAmount: BigNumber;
-  availableAmount: BigNumber;
+  totalAmount: string;
+  availableAmount: string;
   breakdown?: BalanceBreakdown[];
 };
 
 export type MyexWallet = {
-  totalAmount: BigNumber;
-  availableAmount: BigNumber;
+  totalAmount: string;
+  availableAmount: string;
   exchange: Exchange;
   address?: string;
 };
 
 export type MyexAsset = {
   currency: string;
-  amount: BigNumber;
-  price: BigNumber;
-  priceChangePercentage24h: BigNumber;
+  amount: string;
+  price: string;
+  priceChangePercentage24h: string;
   _balanceUst: number; // @composed balance in USDt
   wallets: MyexWallet[];
   myexCoin?: Coin | null;
+  myexTransaction?: Transaction | null;
 };
 
 export enum WalletProvider {

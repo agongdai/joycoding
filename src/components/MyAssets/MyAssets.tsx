@@ -1,28 +1,30 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import BigNumber from 'bignumber.js';
 
-import ExchangeIcon from '@myex/components/ExchangeIcon';
 import Money from '@myex/components/MyexFormatter/Money';
+import Percentage from '@myex/components/MyexFormatter/Percentage';
 import MyexTable from '@myex/components/MyexTable';
+import ExchangeIcons from '@myex/components/MyexTable/ExchangeIcons';
 import { ColumnData } from '@myex/components/MyexTable/types';
+import EditableTxOpenPrice from '@myex/components/MyexTransaction/EditableTxOpenPrice';
 import TradingView from '@myex/components/TradingView';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
 import { setCurrentCurrency } from '@myex/store/trading/actions';
 import { selectShowTradingView } from '@myex/store/trading/selectors';
 import { CoinInMarket } from '@myex/types/coin';
 import { ValueFormat } from '@myex/types/common';
-import { BalanceBreakdownFromExchange, MyexAsset } from '@myex/types/trading';
+import { Balance, MyexAsset } from '@myex/types/trading';
 import { Wallet } from '@myex/types/wallet';
-import { composeAssetsInfo, getUstBalance } from '@myex/utils/trading';
 
 import AssetsSummary from './AssetsSummary';
 
 interface Props {
   marketCoins: CoinInMarket[];
-  exchangeWallets: BalanceBreakdownFromExchange[];
   onChainBalances: Wallet[];
+  myexAssets: MyexAsset[];
+  ustBalance: Balance;
 }
 
 const columns: ColumnData<MyexAsset>[] = [
@@ -34,10 +36,19 @@ const columns: ColumnData<MyexAsset>[] = [
     widthRem: 25,
   },
   {
-    label: 'Price',
-    dataKey: 'price',
-    format: ValueFormat.Money,
+    label: '24H Change %',
+    dataKey: 'priceChangePercentage24h',
+    format: ValueFormat.Percentage,
     sortable: true,
+  },
+  {
+    label: 'Current Price / Cost',
+    dataKey: 'price',
+    renderComponent: (value, row) => (
+      <EditableTxOpenPrice price={String(value)} tx={row?.myexTransaction} />
+    ),
+    sortable: true,
+    widthRem: 18,
   },
   {
     label: 'Amount',
@@ -45,50 +56,75 @@ const columns: ColumnData<MyexAsset>[] = [
     format: ValueFormat.Number,
   },
   {
-    label: 'Worth (UST)',
+    label: 'Worth / Cost',
     dataKey: '_balanceUst',
-    format: ValueFormat.Money,
-    sortable: true,
-    className: 'text-lg',
-  },
-  {
-    label: '24H Change %',
-    dataKey: 'priceChangePercentage24h',
-    format: ValueFormat.Percentage,
+    renderComponent: (value, row) => (
+      <div className='flex justify-center flex-col mb-1'>
+        <span className='text-lg'>
+          <Money value={String(value)} />
+        </span>
+        <span className='text-gray-500 leading-none'>
+          {row?.myexTransaction?.openPrice ? (
+            <Money
+              value={BigNumber(row?.myexTransaction?.openPrice || 0)
+                .multipliedBy(row.amount)
+                .toNumber()}
+            />
+          ) : (
+            '-'
+          )}
+        </span>
+      </div>
+    ),
     sortable: true,
   },
   {
     label: 'Exchanges',
     dataKey: 'wallets',
-    renderComponent: (value, row) => {
-      return value ? (
-        <div className='flex'>
-          {(value as MyexAsset['wallets']).map((wallet) => (
-            <ExchangeIcon
-              key={wallet.exchange}
-              exchange={wallet.exchange}
-              tooltip={`${wallet.totalAmount.multipliedBy(row.price).toFixed(0).toString()} USDT`}
-            />
-          ))}
-        </div>
-      ) : null;
-    },
+    renderComponent: (value, row) => (
+      <ExchangeIcons wallets={value as MyexAsset['wallets']} myexAsset={row} />
+    ),
+  },
+  {
+    label: 'Gain / Loss',
+    dataKey: 'price',
+    renderComponent: (value, row) => (
+      <Money
+        value={
+          row?.myexTransaction?.openPrice
+            ? BigNumber(String(value))
+                .minus(BigNumber(row?.myexTransaction?.openPrice))
+                .multipliedBy(row.amount)
+                .toFixed(0)
+                .toString()
+            : null
+        }
+      />
+    ),
+    className: 'text-lg',
+  },
+  {
+    label: 'Gain / Loss %',
+    dataKey: 'price',
+    renderComponent: (value, row) => (
+      <Percentage
+        value={
+          row?.myexTransaction?.openPrice
+            ? BigNumber(String(value))
+                .dividedBy(BigNumber(row?.myexTransaction?.openPrice))
+                .minus(1)
+                .multipliedBy(100)
+                .toNumber()
+            : null
+        }
+      />
+    ),
   },
 ];
 
-export default function MyAssets({ marketCoins, exchangeWallets, onChainBalances }: Props) {
+export default function MyAssets({ marketCoins, onChainBalances, myexAssets, ustBalance }: Props) {
   const dispatch = useMyexDispatch();
   const showTradingView = useMyexSelector(selectShowTradingView);
-  const marketCoinsForAssets = useMemo(
-    () =>
-      marketCoins.filter((marketCoin) =>
-        exchangeWallets.find((w) => w.currency.toLowerCase() === marketCoin.currency.toLowerCase()),
-      ),
-    [exchangeWallets, marketCoins],
-  );
-
-  const myexAssets = composeAssetsInfo(marketCoinsForAssets, exchangeWallets);
-  const ustBalance = getUstBalance(exchangeWallets);
 
   const onSetCurrentCurrency = (row: MyexAsset) => {
     dispatch(setCurrentCurrency(row.currency));

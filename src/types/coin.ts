@@ -18,7 +18,7 @@ export type CoinInMarket = {
   geckoId: string;
   currency: string;
   image: string;
-  price: BigNumber;
+  price: string;
   priceChangePercentage24h: BigNumber;
   priceHigh24h: BigNumber;
   priceLow24h: BigNumber;

@@ -1,4 +1,5 @@
 import React from 'react';
+import BigNumber from 'bignumber.js';
 
 import { faHandsHoldingDollar } from '@fortawesome/pro-duotone-svg-icons';
 import MyexTooltip from '@myex/components/@mui/material/Tooltip';
@@ -14,19 +15,22 @@ interface Props {
 }
 
 export default function BalanceCard({ label, balance }: Props) {
-  if (balance.totalAmount.isLessThan(IGNORED_USD_THRESHOLD)) return null;
+  if (!balance) return null;
+  if (BigNumber(balance.totalAmount).isLessThan(IGNORED_USD_THRESHOLD)) return null;
 
   return (
     <Card label={label}>
       <div>
-        <Money value={balance.availableAmount.toNumber()} flash nDecimals={3} />
+        <Money value={BigNumber(balance.availableAmount).toNumber()} flash nDecimals={3} />
         <div className='text-text-disabled text-base w-full m-1'>
           <MyexTooltip title='On hold: in order, or funding, or staking' placement='left'>
             <div>
               <AwesomeIcon icon={faHandsHoldingDollar} size='sm' />
               {` `}
               <Money
-                value={balance.totalAmount.minus(balance.availableAmount || 0).toNumber()}
+                value={BigNumber(balance.totalAmount)
+                  .minus(balance.availableAmount || 0)
+                  .toNumber()}
                 flash
                 nDecimals={3}
                 currencySymbol=''

@@ -4,15 +4,11 @@ import _map from 'lodash/map';
 import _uniq from 'lodash/uniq';
 
 import { IGNORED_USD_THRESHOLD } from '@myex/config';
-import { BinanceWallet } from '@myex/types/binance';
 import { BfxWallet } from '@myex/types/bitfinex';
 import { CoinInMarket } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
-import { GateWallet } from '@myex/types/gate';
-import { OkxWallet } from '@myex/types/okx';
 import {
   Balance,
-  BalanceBreakdown,
   BalanceBreakdownFromExchange,
   MyexAsset,
   MyexWallet,
@@ -72,14 +68,12 @@ export function getUstBalance(exchangeWallets: BalanceBreakdownFromExchange[]): 
   const ustWallets = exchangeWallets.filter((wallet) => wallet.currency === 'USDT');
 
   return {
-    totalAmount: ustWallets.reduce(
-      (sum, exchange) => BigNumber(exchange.totalAmount).plus(sum),
-      BigNumber(0),
-    ),
-    availableAmount: ustWallets.reduce(
-      (sum, exchange) => BigNumber(exchange.availableAmount).plus(sum),
-      BigNumber(0),
-    ),
+    totalAmount: ustWallets
+      .reduce((sum, exchange) => BigNumber(exchange.totalAmount).plus(sum), BigNumber(0))
+      .toString(),
+    availableAmount: ustWallets
+      .reduce((sum, exchange) => BigNumber(exchange.availableAmount).plus(sum), BigNumber(0))
+      .toString(),
     breakdown: ustWallets,
   };
 }
@@ -104,7 +98,7 @@ export function syncBitfinexCurrencies(bitfinexWallets: BfxWallet[], marketCoins
       if (bitfinexCurrency) {
         syned = syned.map((wallet) => {
           if (wallet.currency === bitfinexCurrency) {
-            wallet.currency = marketCoin.currency;
+            wallet.currency = marketCoin.currency.toUpperCase();
           }
           return wallet;
         });
@@ -162,8 +156,8 @@ export function composeAssetsInfo(
       const walletsOfCurrency: MyexWallet[] = exchangeWallets
         .filter((wallet) => wallet.currency === currency)
         .map((wallet) => ({
-          totalAmount: BigNumber(wallet.totalAmount),
-          availableAmount: BigNumber(wallet.availableAmount),
+          totalAmount: wallet.totalAmount,
+          availableAmount: wallet.availableAmount,
           exchange: wallet.exchange,
         }));
 
@@ -178,9 +172,9 @@ export function composeAssetsInfo(
 
       return {
         currency,
-        amount: walletTotalAmount,
-        priceChangePercentage24h: marketCoin.priceChangePercentage24h,
-        price: marketCoin.price,
+        amount: walletTotalAmount.toString(),
+        priceChangePercentage24h: marketCoin.priceChangePercentage24h.toString(),
+        price: marketCoin.price.toString(),
         _balanceUst: walletTotalAmount.multipliedBy(BigNumber(marketCoin.price)).toNumber(), // @composed balance in USDt
         wallets: walletsOfCurrency,
         myexCoin: marketCoin.myexCoin,
