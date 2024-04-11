@@ -61,14 +61,14 @@ const columns: ColumnData<MyexAsset>[] = [
     renderComponent: (value, row) => (
       <div className='flex justify-center flex-col mb-1'>
         <span className='text-lg'>
-          <Money value={String(value)} />
+          <Money value={BigNumber(String(value)).toFixed(0)} />
         </span>
         <span className='text-gray-500 leading-none'>
           {row?.myexTransaction?.openPrice ? (
             <Money
               value={BigNumber(row?.myexTransaction?.openPrice || 0)
                 .multipliedBy(row.amount)
-                .toNumber()}
+                .toFixed(0)}
             />
           ) : (
             '-'
