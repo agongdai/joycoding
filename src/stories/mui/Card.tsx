@@ -1,6 +1,5 @@
 import React from 'react';
 
-import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
@@ -41,7 +40,6 @@ export const Card = ({ label, value, open }: CardProps): React.ReactElement => {
           <p style={{ color: '#6C7384' }}>{label}</p>
           <p style={{ fontWeight: 'bold', color: '#1B2026' }}>{value}</p>
         </div>
-        <KeyboardArrowDownOutlinedIcon color='primary' />
       </Box>
       <Popover
         open={open}

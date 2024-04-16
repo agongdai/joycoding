@@ -3,13 +3,13 @@ import React from 'react';
 import { useSession } from 'next-auth/react';
 import cx from 'classnames';
 
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { faChevronLeft, faChevronRight } from '@fortawesome/pro-solid-svg-icons';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Toolbar from '@mui/material/Toolbar';
 import MyexTooltip from '@myex/components/@mui/material/Tooltip';
+import AwesomeIcon from '@myex/components/AwesomeIcon';
 import MyexImage from '@myex/components/MyexImage';
 import MyexLink from '@myex/components/MyexLink';
 import { useSidebar } from '@myex/hooks/useSidebar';
@@ -44,7 +44,7 @@ export default function Sidebar() {
             {!xlDown && (
               <MyexTooltip title='Toggle Mini Sidebar' placement={showMini ? 'right' : 'bottom'}>
                 <div onClick={toggleShowMini} className='cursor-pointer'>
-                  {showMini ? <KeyboardArrowRightIcon /> : <KeyboardArrowLeftIcon />}
+                  <AwesomeIcon icon={showMini ? faChevronRight : faChevronLeft} size='sm' />
                 </div>
               </MyexTooltip>
             )}

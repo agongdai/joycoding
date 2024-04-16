@@ -2,8 +2,9 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
-import TranslateIcon from '@mui/icons-material/Translate';
+import { faLanguage } from '@fortawesome/pro-duotone-svg-icons';
 import { IconButton } from '@mui/material';
+import AwesomeIcon from '@myex/components/AwesomeIcon';
 import MyexDropdown from '@myex/components/MyexDropdown';
 import useLocale from '@myex/hooks/useLocale';
 import { defaultLocale, languages } from '@myex/i18n/config';
@@ -24,7 +25,7 @@ export default function LangSwitch() {
       onChange={setLocale}
     >
       <IconButton>
-        <TranslateIcon color='tertiary' />
+        <AwesomeIcon icon={faLanguage} size='sm' />
       </IconButton>
     </MyexDropdown>
   );

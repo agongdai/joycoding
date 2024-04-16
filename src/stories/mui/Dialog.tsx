@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import CloseIcon from '@mui/icons-material/Close';
+import { faXmark } from '@fortawesome/pro-solid-svg-icons';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import MuiDialog, { DialogProps as MuiDialogProps } from '@mui/material/Dialog';
@@ -9,6 +9,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import AwesomeIcon from '@myex/components/AwesomeIcon';
 
 type DialogBaseProps = Pick<MuiDialogProps, 'open' | 'fullWidth'>;
 
@@ -46,7 +47,7 @@ function BootstrapDialogTitle(props: DialogTitleProps): React.ReactElement {
             color: (theme) => theme.palette.grey[500],
           }}
         >
-          <CloseIcon />
+          <AwesomeIcon icon={faXmark} size='sm' />
         </IconButton>
       ) : null}
     </DialogTitle>

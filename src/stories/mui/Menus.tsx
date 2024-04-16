@@ -1,8 +1,6 @@
 import React from 'react';
 
-import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
-import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
-import TranslateIcon from '@mui/icons-material/Translate';
+import { faCopy } from '@fortawesome/pro-solid-svg-icons';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -11,6 +9,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Tooltip from '@mui/material/Tooltip';
+import AwesomeIcon from '@myex/components/AwesomeIcon';
 import { defaultLocale, languages } from '@myex/i18n/config';
 
 interface Menus {
@@ -43,7 +42,7 @@ export default function Menus({ menus }: MenusProps): React.ReactElement {
               <ListItemIcon>{menu.icon}</ListItemIcon>
               <ListItemText>{menu.label}</ListItemText>
               <ListItemIcon>
-                <ArrowForwardIosOutlinedIcon fontSize='small' />
+                <AwesomeIcon icon={faCopy} size='sm' />
               </ListItemIcon>
             </MenuItem>
           ))}
@@ -58,7 +57,7 @@ export default function Menus({ menus }: MenusProps): React.ReactElement {
               aria-haspopup='true'
               aria-expanded={open ? 'true' : undefined}
             >
-              <TranslateIcon color='secondary' />
+              <AwesomeIcon icon={faCopy} size='sm' />
             </IconButton>
           </Tooltip>
           <Menu
@@ -85,23 +84,23 @@ export default function Menus({ menus }: MenusProps): React.ReactElement {
 Menus.defaultProps = {
   menus: [
     {
-      icon: <LocalFireDepartmentOutlinedIcon fontSize='medium' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faCopy} size='sm' />,
       label: 'Menu Item',
     },
     {
-      icon: <LocalFireDepartmentOutlinedIcon fontSize='medium' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faCopy} size='sm' />,
       label: 'Menu Item',
     },
     {
-      icon: <LocalFireDepartmentOutlinedIcon fontSize='medium' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faCopy} size='sm' />,
       label: 'Menu Item',
     },
     {
-      icon: <LocalFireDepartmentOutlinedIcon fontSize='medium' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faCopy} size='sm' />,
       label: 'Menu Item',
     },
     {
-      icon: <LocalFireDepartmentOutlinedIcon fontSize='medium' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faCopy} size='sm' />,
       label: 'Menu Item',
     },
   ],

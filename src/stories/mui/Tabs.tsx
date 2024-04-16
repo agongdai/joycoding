@@ -1,8 +1,9 @@
 import React from 'react';
 
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import { faHeart } from '@fortawesome/pro-solid-svg-icons';
 import Tab from '@mui/material/Tab';
 import MuiTabs, { TabsProps as MuiTabsProps } from '@mui/material/Tabs';
+import AwesomeIcon from '@myex/components/AwesomeIcon';
 
 type TabsBaseProps = Pick<MuiTabsProps, 'orientation'>;
 
@@ -20,7 +21,12 @@ export const Tabs = ({ options, ...rest }: TabsProps): React.ReactElement => {
   return (
     <MuiTabs id='Tabs' value={value} onChange={handleChange} {...rest}>
       {options.map((option) => (
-        <Tab key={option.value} label={option.label} icon={<FavoriteIcon />} iconPosition='start' />
+        <Tab
+          key={option.value}
+          label={option.label}
+          icon={<AwesomeIcon icon={faHeart} size='sm' />}
+          iconPosition='start'
+        />
       ))}
     </MuiTabs>
   );

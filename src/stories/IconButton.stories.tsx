@@ -1,7 +1,8 @@
 import React from 'react';
 
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { faCartShopping } from '@fortawesome/pro-duotone-svg-icons';
 import Stack from '@mui/material/Stack';
+import AwesomeIcon from '@myex/components/AwesomeIcon';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { IconButton } from './mui/IconButton';
@@ -20,22 +21,22 @@ export const Colors: ComponentStory<typeof IconButton> = () => (
   <Stack spacing={4} maxWidth={300}>
     <div>
       <IconButton variant='contained'>
-        <AddShoppingCartIcon />
+        <AwesomeIcon icon={faCartShopping} size='lg' />
       </IconButton>
     </div>
     <div>
       <IconButton variant='contained' color='secondary'>
-        <AddShoppingCartIcon />
+        <AwesomeIcon icon={faCartShopping} size='lg' />
       </IconButton>
     </div>
     <div>
       <IconButton variant='contained' color='success'>
-        <AddShoppingCartIcon />
+        <AwesomeIcon icon={faCartShopping} size='lg' />
       </IconButton>
     </div>
     <div>
       <IconButton variant='contained' color='error'>
-        <AddShoppingCartIcon />
+        <AwesomeIcon icon={faCartShopping} size='lg' />
       </IconButton>
     </div>
   </Stack>
@@ -45,17 +46,17 @@ export const Sizes: ComponentStory<typeof IconButton> = () => (
   <Stack spacing={4} maxWidth={300}>
     <div>
       <IconButton variant='contained' size='small'>
-        <AddShoppingCartIcon fontSize='small' />
+        <AwesomeIcon icon={faCartShopping} size='sm' />
       </IconButton>
     </div>
     <div>
       <IconButton variant='contained' size='medium'>
-        <AddShoppingCartIcon />
+        <AwesomeIcon icon={faCartShopping} size='lg' />
       </IconButton>
     </div>
     <div>
       <IconButton variant='contained' size='large'>
-        <AddShoppingCartIcon fontSize='large' />
+        <AwesomeIcon icon={faCartShopping} size='lg' />
       </IconButton>
     </div>
   </Stack>

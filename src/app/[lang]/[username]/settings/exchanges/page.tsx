@@ -1,8 +1,7 @@
 import React from 'react';
 import { SessionProvider } from 'next-auth/react';
 
-import { faLink } from '@fortawesome/free-solid-svg-icons';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { faChevronDown, faLink } from '@fortawesome/free-solid-svg-icons';
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import { auth } from '@myex/auth';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
@@ -27,7 +26,7 @@ export default async function ExchangesPage() {
             return (
               <Accordion key={exchange.name}>
                 <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
+                  expandIcon={<AwesomeIcon icon={faChevronDown} size='sm' />}
                   aria-controls={`exchange-${exchange.exchangeId}-content`}
                   id={`exchange-${exchange.exchangeId}-header`}
                 >

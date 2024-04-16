@@ -1,9 +1,10 @@
 import React from 'react';
 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { faUser } from '@fortawesome/pro-solid-svg-icons';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
+import AwesomeIcon from '@myex/components/AwesomeIcon';
 
 interface Crumb {
   label: string;
@@ -46,27 +47,27 @@ export default function BreadcrumbsComp({ crumbs }: BreadcrumbsProps): React.Rea
 BreadcrumbsComp.defaultProps = {
   crumbs: [
     {
-      icon: <AccountCircleIcon color='primary' fontSize='small' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faUser} className='mr-1' />,
       label: 'label',
       link: '/',
     },
     {
-      icon: <AccountCircleIcon color='primary' fontSize='small' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faUser} className='mr-1' />,
       label: 'label',
       link: '/',
     },
     {
-      icon: <AccountCircleIcon color='primary' fontSize='small' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faUser} className='mr-1' />,
       label: 'label',
       link: '/',
     },
     {
-      icon: <AccountCircleIcon color='primary' fontSize='small' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faUser} className='mr-1' />,
       label: 'label',
       link: '/',
     },
     {
-      icon: <AccountCircleIcon color='primary' fontSize='small' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faUser} className='mr-1' />,
       label: 'label',
       link: '/',
     },

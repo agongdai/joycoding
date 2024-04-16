@@ -1,10 +1,10 @@
 'use client';
 import React from 'react';
 
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import LightModeIcon from '@mui/icons-material/LightMode';
+import { faMoonStars, faSunBright } from '@fortawesome/pro-duotone-svg-icons';
 import { IconButton } from '@mui/material';
 import MyexTooltip from '@myex/components/@mui/material/Tooltip';
+import AwesomeIcon from '@myex/components/AwesomeIcon';
 import useMyexTheme from '@myex/hooks/useMyexTheme';
 import { MyexTheme } from '@myex/theme';
 
@@ -22,11 +22,7 @@ export default function ThemeSwitch() {
   return (
     <MyexTooltip title='Switch theme'>
       <IconButton onClick={toggleTheme}>
-        {theme === MyexTheme.Dark ? (
-          <LightModeIcon color='tertiary' />
-        ) : (
-          <DarkModeIcon color='tertiary' />
-        )}
+        <AwesomeIcon icon={theme === MyexTheme.Dark ? faSunBright : faMoonStars} size='sm' />
       </IconButton>
     </MyexTooltip>
   );

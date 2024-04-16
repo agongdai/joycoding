@@ -1,10 +1,8 @@
 import React from 'react';
 
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import Favorite from '@mui/icons-material/Favorite';
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import { faBookmark, faHeart } from '@fortawesome/pro-duotone-svg-icons';
 import Stack from '@mui/material/Stack';
+import AwesomeIcon from '@myex/components/AwesomeIcon';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { Checkbox } from './mui/Checkbox';
@@ -63,13 +61,17 @@ export const Sizes: ComponentStory<typeof Checkbox> = () => (
 export const Icons: ComponentStory<typeof Checkbox> = () => (
   <Stack spacing={2} maxWidth={300}>
     <div>
-      <Checkbox label='Favorite' icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
+      <Checkbox
+        label='Favorite'
+        icon={<AwesomeIcon icon={faHeart} />}
+        checkedIcon={<AwesomeIcon icon={faHeart} />}
+      />
     </div>
     <div>
       <Checkbox
         label='BookmarkBorder'
-        icon={<BookmarkBorderIcon />}
-        checkedIcon={<BookmarkIcon />}
+        icon={<AwesomeIcon icon={faBookmark} />}
+        checkedIcon={<AwesomeIcon icon={faBookmark} />}
       />
     </div>
   </Stack>

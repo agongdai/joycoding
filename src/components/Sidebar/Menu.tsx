@@ -3,8 +3,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+import { faChevronDown, faChevronUp } from '@fortawesome/pro-solid-svg-icons';
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -78,7 +77,7 @@ export default function Menu({ menu, showMini }: Props) {
             classes={{ root: 'text-text-primary dark:text-text-primary-1' }}
           />
         </MyexLink>
-        {hasSubMenus && (open ? <ExpandLess /> : <ExpandMore />)}
+        {hasSubMenus && <AwesomeIcon icon={open ? faChevronUp : faChevronDown} size='sm' />}
       </ListItemButton>
       {hasSubMenus && (
         <Collapse in={open} timeout='auto' unmountOnExit>

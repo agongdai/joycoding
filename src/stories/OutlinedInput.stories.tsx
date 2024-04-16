@@ -1,8 +1,9 @@
 import React from 'react';
 
-import Visibility from '@mui/icons-material/Visibility';
+import { faEye } from '@fortawesome/pro-duotone-svg-icons';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
+import AwesomeIcon from '@myex/components/AwesomeIcon';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { OutlinedInput } from './mui/OutlinedInput';
@@ -38,7 +39,7 @@ export const Colors: ComponentStory<typeof OutlinedInput> = () => (
       endAdornment={
         <InputAdornment position='end'>
           <IconButton aria-label='toggle password visibility' edge='end'>
-            <Visibility />
+            <AwesomeIcon icon={faEye} size='sm' />
           </IconButton>
         </InputAdornment>
       }

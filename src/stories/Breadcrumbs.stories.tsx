@@ -1,6 +1,7 @@
 import React from 'react';
 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { faUser } from '@fortawesome/pro-solid-svg-icons';
+import AwesomeIcon from '@myex/components/AwesomeIcon';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import Breadcrumbs from './mui/Breadcrumbs';
@@ -16,27 +17,27 @@ export const Playground = Template.bind({});
 Playground.args = {
   crumbs: [
     {
-      icon: <AccountCircleIcon color='primary' fontSize='medium' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faUser} className='mr-1' />,
       label: 'label',
       link: '/',
     },
     {
-      icon: <AccountCircleIcon color='primary' fontSize='medium' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faUser} className='mr-1' />,
       label: 'label',
       link: '/',
     },
     {
-      icon: <AccountCircleIcon color='primary' fontSize='medium' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faUser} className='mr-1' />,
       label: 'label',
       link: '/',
     },
     {
-      icon: <AccountCircleIcon color='primary' fontSize='medium' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faUser} className='mr-1' />,
       label: 'label',
       link: '/',
     },
     {
-      icon: <AccountCircleIcon color='primary' fontSize='medium' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faUser} className='mr-1' />,
       label: 'label',
       link: '/',
     },

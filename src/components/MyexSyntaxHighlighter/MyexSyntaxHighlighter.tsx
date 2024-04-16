@@ -3,8 +3,9 @@ import cx from 'classnames';
 import SyntaxHighlighter, { SyntaxHighlighterProps } from 'react-syntax-highlighter';
 import { shadesOfPurple } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { IconButton } from '@mui/material';
+import { faCopy } from '@fortawesome/pro-solid-svg-icons';
+import IconButton from '@mui/material/IconButton';
+import AwesomeIcon from '@myex/components/AwesomeIcon';
 import Copiable from '@myex/components/Copiable';
 
 type Props = Omit<SyntaxHighlighterProps, 'children'> & {
@@ -26,7 +27,7 @@ export default function MyexSyntaxHighlighter({ snippet, ...props }: Props) {
       </SyntaxHighlighter>
       <Copiable text={snippet} tipText='Copy Code' className='absolute top-0 right-0 sm:-right-4'>
         <IconButton>
-          <ContentCopyIcon fontSize='small' color='white' />
+          <AwesomeIcon icon={faCopy} size='sm' />
         </IconButton>
       </Copiable>
     </div>

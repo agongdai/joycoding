@@ -3,8 +3,9 @@ import React from 'react';
 import { useTheme } from 'next-themes';
 import cx from 'classnames';
 
-import MenuIcon from '@mui/icons-material/Menu';
+import { faBars } from '@fortawesome/pro-solid-svg-icons';
 import AppBar from '@mui/material/AppBar';
+import AwesomeIcon from '@myex/components/AwesomeIcon';
 import LangSwitch from '@myex/components/LangSwitch';
 import LiveIndicator from '@myex/components/LiveIndicator/LiveIndicator';
 import MyexLink from '@myex/components/MyexLink';
@@ -49,7 +50,7 @@ export default function Header({ statusNode = null }: { statusNode?: React.React
         })}
       >
         <div className='flex-1 text-lg font-bold'>
-          {mdDown && <MenuIcon onClick={showMobileSidebar} classes={{ root: 'cursor-pointer' }} />}
+          {mdDown && <AwesomeIcon icon={faBars} onClick={showMobileSidebar} size='sm' />}
           <MyexLink href='/' className='!text-primary-main md:ml-4 sm:ml-2'>
             MyEx.AI
           </MyexLink>

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
+import { faUser } from '@fortawesome/pro-solid-svg-icons';
+import AwesomeIcon from '@myex/components/AwesomeIcon';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import Menus from './mui/Menus';
@@ -16,23 +17,23 @@ export const Playground = Template.bind({});
 Playground.args = {
   menus: [
     {
-      icon: <LocalFireDepartmentOutlinedIcon fontSize='medium' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faUser} className='mr-1' />,
       label: 'Menu Item',
     },
     {
-      icon: <LocalFireDepartmentOutlinedIcon fontSize='medium' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faUser} className='mr-1' />,
       label: 'Menu Item',
     },
     {
-      icon: <LocalFireDepartmentOutlinedIcon fontSize='medium' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faUser} className='mr-1' />,
       label: 'Menu Item',
     },
     {
-      icon: <LocalFireDepartmentOutlinedIcon fontSize='medium' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faUser} className='mr-1' />,
       label: 'Menu Item',
     },
     {
-      icon: <LocalFireDepartmentOutlinedIcon fontSize='medium' sx={{ mr: '1rem' }} />,
+      icon: <AwesomeIcon icon={faUser} className='mr-1' />,
       label: 'Menu Item',
     },
   ],

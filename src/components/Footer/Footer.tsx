@@ -1,9 +1,10 @@
 import React from 'react';
 
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import { faEnvelope, faHeart } from '@fortawesome/pro-duotone-svg-icons';
 import Divider from '@mui/material/Divider';
+import AwesomeIcon from '@myex/components/AwesomeIcon';
 import MyexLink from '@myex/components/MyexLink';
+import { StyleVariant } from '@myex/types/common';
 
 export default function Footer() {
   return (
@@ -11,7 +12,13 @@ export default function Footer() {
       <div className='flex items-center sm:block'>
         <div>
           &copy; {new Date().getFullYear()} Made with
-          <FavoriteIcon fontSize='small' color='highlight' className='mx-2' /> by Shaojiang
+          <AwesomeIcon
+            icon={faHeart}
+            variant={StyleVariant.Highlight}
+            size='sm'
+            className='mx-2'
+          />{' '}
+          by Shaojiang
         </div>
         <div className='flex items-center sm:my-1'>
           <Divider
@@ -30,7 +37,7 @@ export default function Footer() {
       </div>
       <div className='flex items-center'>
         <MyexLink href='mailto:caishaojiang@gmail.com'>
-          <EmailOutlinedIcon fontSize='small' classes={{ root: 'mr-1' }} /> caishaojiang@gmail.com
+          <AwesomeIcon icon={faEnvelope} className='mr-1' size='sm' /> caishaojiang@gmail.com
         </MyexLink>
       </div>
     </footer>
