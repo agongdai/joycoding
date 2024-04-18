@@ -13,6 +13,7 @@ import LightTheme from '@myex/theme/myex-light';
 
 // This implementation is from emotion-js
 // https://github.com/emotion-js/emotion/issues/2928#issuecomment-1319747902
+// Tried to follow https://mui.com/material-ui/integrations/nextjs/, but the page styles are not applied initially, then later applied.
 export default function ThemeRegistry({
   options,
   children,

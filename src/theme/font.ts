@@ -1,15 +1,9 @@
-import { Lato, Outfit, Space_Mono } from 'next/font/google';
+import { Outfit, Space_Mono } from 'next/font/google';
 
 const outfitFont = Outfit({
   weight: ['300', '400', '500', '600', '700', '800', '900'],
   subsets: ['latin'],
   variable: '--font-outfit',
-});
-
-const latoFont = Lato({
-  weight: ['100', '300', '400', '700', '900'],
-  subsets: ['latin'],
-  variable: '--font-lato',
 });
 
 const spaceMono = Space_Mono({

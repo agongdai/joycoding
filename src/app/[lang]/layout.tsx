@@ -59,7 +59,7 @@ export default async function RootLayout({
   const bfxApiStatus = await checkBfxApiStatus();
   const session = await auth();
   return (
-    <html lang={lang} suppressHydrationWarning className={fonts.spaceMono.variable}>
+    <html lang={lang} suppressHydrationWarning>
       <body className={fonts.default.className} id='root'>
         <NextTopLoader color={colors.primaryMain} shadow='none' />
         <Providers>
