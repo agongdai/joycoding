@@ -5,7 +5,7 @@ const colors = require('./src/theme/colors');
 const breakpoints = require('./src/theme/breakpoints');
 const _ = require('lodash');
 
-const panoColors = Object.keys(colors).reduce((colorsObj, key) => {
+const myexColors = Object.keys(colors).reduce((colorsObj, key) => {
   colorsObj[_.kebabCase(key)] = colors[key];
   return colorsObj;
 }, {});
@@ -44,7 +44,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        ...panoColors,
+        ...myexColors,
       },
       spacing: {
         1: '0.4rem',
