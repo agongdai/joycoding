@@ -21,7 +21,6 @@ import colors from '@myex/theme/colors';
 import fonts from '@myex/theme/font';
 import ThemeRegistry from '@myex/theme/ThemeRegistry';
 import { Language, ParamsWithLng } from '@myex/types/i18n';
-import { Analytics } from '@vercel/analytics/react';
 
 import '@myex/app/globals.css';
 
@@ -80,7 +79,6 @@ export default async function RootLayout({
             </main>
           </ThemeRegistry>
         </Providers>
-        <Analytics />
       </body>
     </html>
   );
