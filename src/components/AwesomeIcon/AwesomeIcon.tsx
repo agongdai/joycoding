@@ -3,8 +3,8 @@ import cx from 'classnames';
 
 import { IconProp, SizeProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Zoom } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
+import Zoom from '@mui/material/Zoom';
 import { variant2Color } from '@myex/theme/palette';
 import { StyleVariant } from '@myex/types/common';
 

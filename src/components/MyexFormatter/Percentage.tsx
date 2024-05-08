@@ -13,6 +13,7 @@ export default function Percentage({ value }: { value: Value }) {
         {
           'bg-go-down': num < 0,
           'bg-go-up': num > 0,
+          'text-sm': num >= 10,
         },
       )}
     >
