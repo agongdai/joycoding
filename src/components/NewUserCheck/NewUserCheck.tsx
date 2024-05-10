@@ -17,6 +17,11 @@ export default function NewUserCheck() {
     if (user && !!user?.username && pathName === registerUserPath) {
       router.push(`${window.location.origin}/`);
     }
+
+    // @todo only allow developer to access the app right now. Move the flag to db later.
+    if (user?.email !== 'caishaojiang@gmail.com') {
+      router.push(`${window.location.origin}/under-construction`);
+    }
   }, [pathName, router, user]);
 
   useEffect(() => {
