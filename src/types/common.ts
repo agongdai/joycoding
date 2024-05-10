@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import DateTime from '@myex/components/MyexFormatter/DateTime';
 
 export interface PropsWithChildren {
   children: React.ReactNode;
