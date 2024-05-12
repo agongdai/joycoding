@@ -50,3 +50,5 @@ export type ApiResponse<T> = {
 };
 
 export type ApiHandler<T> = (req: Request) => Promise<NextResponse<ApiResponse<T>>>;
+
+export type AnyPrismaModel = any; // @todo replace any with the actual prisma model type

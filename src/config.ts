@@ -31,3 +31,5 @@ export const HttpStatusMessage: Record<HttpStatusCode, string> = {
 };
 
 export const BLOCK_DAEMON_API_BASE = 'https://svc.blockdaemon.com/universal/v1';
+
+export const INITIAL_INVESTMENT = 70000; // @todo to move it into db.

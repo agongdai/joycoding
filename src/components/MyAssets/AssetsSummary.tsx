@@ -8,7 +8,7 @@ import BalanceCard from '@myex/components/MyAssets/BalanceCard';
 import CoinIcon from '@myex/components/MyexFormatter/CoinIcon';
 import Money from '@myex/components/MyexFormatter/Money';
 import MyexImage from '@myex/components/MyexImage';
-import { FIAT_CURRENCY_SYMBOL } from '@myex/config';
+import { FIAT_CURRENCY_SYMBOL, INITIAL_INVESTMENT } from '@myex/config';
 import { Balance, MyexAsset } from '@myex/types/trading';
 import { Wallet } from '@myex/types/wallet';
 import { getWalletProviderImageUrl } from '@myex/utils/trading';
@@ -24,15 +24,42 @@ export default function AssetsSummary({ assets, ustBalance, onChainWallets }: Pr
     (acc, asset) => BigNumber(acc).plus(asset?._balanceUst || 0),
     BigNumber(0),
   );
-  const totalBalance = assets
+  const assetsWorthBalance = assets
     .reduce((acc, asset) => BigNumber(acc).plus(asset._balanceUst), BigNumber(0))
     .plus(onChainTotalBalance);
+
+  const investedBalance = assets
+    .reduce(
+      (acc, asset) =>
+        BigNumber(acc).plus(
+          BigNumber(asset?.myexTransaction?.openPrice || 0).multipliedBy(asset?.amount || 0),
+        ),
+      BigNumber(0),
+    )
+    .plus(onChainTotalBalance);
+
+  const unclaimedGainLost = assetsWorthBalance
+    .dividedBy(investedBalance)
+    .minus(1)
+    .multipliedBy(100);
+  const earning = investedBalance.isGreaterThan(INITIAL_INVESTMENT);
 
   return (
     <div className='my-4 grid grid-cols-4 gap-6'>
       <BalanceCard label='Balance (UST)' balance={ustBalance} />
-      <Card label='Assets Worth (UST)'>
-        <Money value={totalBalance.toNumber()} flash />
+      <Card
+        label='Invested Balance (UST)'
+        info={`Initial: ${INITIAL_INVESTMENT} UST => ${earning ? '+' : ''}${((investedBalance.toNumber() / INITIAL_INVESTMENT - 1) * 100).toFixed(2)}%`}
+        infoClassName={earning ? 'bg-go-up' : 'bg-go-down'}
+      >
+        <Money value={investedBalance.toNumber()} flash />
+      </Card>
+      <Card
+        label='Assets Worth (UST)'
+        info={`${unclaimedGainLost.toFixed(2)}%`}
+        infoClassName={unclaimedGainLost.isNegative() ? 'bg-go-down' : 'bg-go-up'}
+      >
+        <Money value={assetsWorthBalance.toNumber()} flash />
       </Card>
       <Card
         label={
