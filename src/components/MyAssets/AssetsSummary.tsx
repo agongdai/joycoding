@@ -36,9 +36,11 @@ export default function AssetsSummary({ assets, ustBalance, onChainWallets }: Pr
         ),
       BigNumber(0),
     )
-    .plus(onChainTotalBalance);
+    .plus(onChainTotalBalance)
+    .plus(ustBalance.totalAmount);
 
   const unclaimedGainLost = assetsWorthBalance
+    .plus(ustBalance.totalAmount)
     .dividedBy(investedBalance)
     .minus(1)
     .multipliedBy(100);
@@ -46,7 +48,6 @@ export default function AssetsSummary({ assets, ustBalance, onChainWallets }: Pr
 
   return (
     <div className='my-4 grid grid-cols-4 gap-6'>
-      <BalanceCard label='Balance (UST)' balance={ustBalance} />
       <Card
         label='Invested Balance (UST)'
         info={`Initial: ${INITIAL_INVESTMENT} UST => ${earning ? '+' : ''}${((investedBalance.toNumber() / INITIAL_INVESTMENT - 1) * 100).toFixed(2)}%`}
@@ -54,6 +55,7 @@ export default function AssetsSummary({ assets, ustBalance, onChainWallets }: Pr
       >
         <Money value={investedBalance.toNumber()} flash />
       </Card>
+      <BalanceCard label='Balance (UST)' balance={ustBalance} />
       <Card
         label='Assets Worth (UST)'
         info={`${unclaimedGainLost.toFixed(2)}%`}
