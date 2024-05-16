@@ -9,7 +9,7 @@ export default function Percentage({ value }: { value: Value }) {
   return (
     <span
       className={cx(
-        'text-white w-20 text-center font-semibold p-2 leading-none inline-block rounded',
+        'text-white min-w-[8rem] text-center font-semibold p-2 leading-none inline-block rounded',
         {
           'bg-go-down': num < 0,
           'bg-go-up': num > 0,
