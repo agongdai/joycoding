@@ -11,7 +11,6 @@ import { composeAssetsInfo, getUstBalance } from '@myex/utils/trading';
 export const revalidate = 10;
 
 export default async function AssetsPage() {
-  console.log('AssetsPage', new Date());
   const marketCoins = await fetchMarketCoins();
   const [exchangeWallets, onChainBalances] = await Promise.all([
     fetchAssetsFromExchanges(marketCoins),

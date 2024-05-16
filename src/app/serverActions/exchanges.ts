@@ -1,5 +1,6 @@
 import { fetchBitfinexWallets } from '@myex/app/serverActions/bfxRestAuth';
 import { getBinanceBalances } from '@myex/app/serverActions/binanceRestAuth';
+import { getBitgetBalances } from '@myex/app/serverActions/bitgetRestAuth';
 import { getGateSpotAccounts } from '@myex/app/serverActions/gateRestAuth';
 import { fetchOkxWallets } from '@myex/app/serverActions/okxRestAuth';
 import { auth } from '@myex/auth';
@@ -12,12 +13,13 @@ export async function fetchAssetsFromExchanges(marketCoins: CoinInMarket[]) {
     return [];
   }
 
-  const [bfxWallets, binanceWallets, gateWallets, okxWallets] = await Promise.all([
+  const [bfxWallets, binanceWallets, gateWallets, okxWallets, bitgetWallets] = await Promise.all([
     fetchBitfinexWallets(marketCoins),
     getBinanceBalances(marketCoins),
     getGateSpotAccounts(marketCoins),
     fetchOkxWallets(marketCoins),
+    getBitgetBalances(marketCoins),
   ]);
 
-  return [...bfxWallets, ...binanceWallets, ...gateWallets, ...okxWallets];
+  return [...bfxWallets, ...binanceWallets, ...gateWallets, ...okxWallets, ...bitgetWallets];
 }
