@@ -4,7 +4,6 @@ import BigNumber from 'bignumber.js';
 import { SpotAccountApi } from 'bitget-api-node-sdk';
 
 import { auth } from '@myex/auth';
-import { BinanceWallet } from '@myex/types/binance';
 import { BitgetWallet } from '@myex/types/bitget';
 import { CoinInMarket } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
@@ -57,7 +56,7 @@ export const getBitgetBalances = async (
     }));
     return filterWalletsWithValue(myexWallets, marketCoins);
   } catch (error) {
-    console.error('binance error', error);
+    console.error('bitget error', error);
     return [];
   }
 };
