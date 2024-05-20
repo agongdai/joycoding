@@ -21,12 +21,12 @@ export default function Coin({ coin = null }: { coin?: MyexCoin | null }) {
 
   return (
     <div className='flex items-center'>
-      <div className='flex-shrink-0'>
+      <div className='flex-shrink-0 xs:hidden mr-4'>
         <MyexImage src={icon} alt='' width={28} height={28} className='rounded-full' />
       </div>
-      <div className='flex flex-col ml-4 justify-center text-left'>
+      <div className='flex flex-col justify-center text-left'>
         <MyexLink href={coin.projectUrl} className='inline-flex hover:no-underline'>
-          <span className='text-lg font-semibold'>{currency}</span>
+          <span className='text-lg xs:text-sm font-semibold'>{currency}</span>
         </MyexLink>
         <div className='flex items-center'>
           <Typography

@@ -35,7 +35,7 @@ const columns: ColumnData<MyexAsset>[] = [
     format: ValueFormat.Coin,
     sortable: true,
     widthRem: 25,
-    responsiveClassName: 'md:!basis-[12rem]',
+    responsiveClassName: 'md:!basis-[12rem] xs:!basis-[6rem]',
   },
   {
     label: '24H Change %',
@@ -52,7 +52,7 @@ const columns: ColumnData<MyexAsset>[] = [
     ),
     sortable: true,
     widthRem: 18,
-    responsiveClassName: 'md:!basis-[13rem]',
+    responsiveClassName: 'md:!basis-[12.5rem]',
   },
   {
     label: 'Amount',
