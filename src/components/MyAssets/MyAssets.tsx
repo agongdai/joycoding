@@ -8,6 +8,7 @@ import Percentage from '@myex/components/MyexFormatter/Percentage';
 import MyexTable from '@myex/components/MyexTable';
 import ExchangeIcons from '@myex/components/MyexTable/ExchangeIcons';
 import { ColumnData } from '@myex/components/MyexTable/types';
+import EditableTxCost from '@myex/components/MyexTransaction/EditableTxCost';
 import EditableTxOpenPrice from '@myex/components/MyexTransaction/EditableTxOpenPrice';
 import TradingView from '@myex/components/TradingView';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
@@ -59,22 +60,7 @@ const columns: ColumnData<MyexAsset>[] = [
     label: 'Worth / Cost',
     dataKey: '_balanceUst',
     renderComponent: (value, row) => (
-      <div className='flex justify-center flex-col mb-1'>
-        <span className='text-lg'>
-          <Money value={BigNumber(String(value)).toFixed(0)} />
-        </span>
-        <span className='text-gray-500 leading-none'>
-          {row?.myexTransaction?.openPrice ? (
-            <Money
-              value={BigNumber(row?.myexTransaction?.openPrice || 0)
-                .multipliedBy(row.amount)
-                .toFixed(0)}
-            />
-          ) : (
-            '-'
-          )}
-        </span>
-      </div>
+      <EditableTxCost price={row?.price} tx={row?.myexTransaction} />
     ),
     sortable: true,
   },

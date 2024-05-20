@@ -55,7 +55,7 @@ export default function AssetsSummary({ assets, ustBalance, onChainWallets }: Pr
       >
         <Money value={investedBalance.toNumber()} flash />
       </Card>
-      <BalanceCard label='Balance (UST)' balance={ustBalance} />
+      <BalanceCard label='UST Balance' balance={ustBalance} />
       <Card
         label='Assets Worth (UST)'
         info={`${unclaimedGainLost.toFixed(2)}%`}

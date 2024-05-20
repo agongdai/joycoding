@@ -59,7 +59,10 @@ export async function myexFetchOpenTransactions(myexAssets: MyexAsset[]): Promis
 
       return {
         ...asset,
-        myexTransaction: assetTransaction,
+        myexTransaction: {
+          ...assetTransaction,
+          totalAmount: asset.amount, // @todo overwrite the total amount in Transaction now.
+        },
       } as MyexAsset;
     }),
   );
