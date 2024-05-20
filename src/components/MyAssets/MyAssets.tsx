@@ -35,12 +35,14 @@ const columns: ColumnData<MyexAsset>[] = [
     format: ValueFormat.Coin,
     sortable: true,
     widthRem: 25,
+    responsiveClassName: 'md:!basis-[12rem]',
   },
   {
     label: '24H Change %',
     dataKey: 'priceChangePercentage24h',
     format: ValueFormat.Percentage,
     sortable: true,
+    responsiveClassName: 'lg:hidden',
   },
   {
     label: 'Current Price / Cost',
@@ -50,11 +52,13 @@ const columns: ColumnData<MyexAsset>[] = [
     ),
     sortable: true,
     widthRem: 18,
+    responsiveClassName: 'md:!basis-[13rem]',
   },
   {
     label: 'Amount',
     dataKey: 'amount',
     format: ValueFormat.Number,
+    responsiveClassName: 'xxl:hidden',
   },
   {
     label: 'Worth / Cost',
@@ -63,6 +67,7 @@ const columns: ColumnData<MyexAsset>[] = [
       <EditableTxCost price={row?.price} tx={row?.myexTransaction} />
     ),
     sortable: true,
+    responsiveClassName: 'sm:hidden',
   },
   {
     label: 'Exchanges',
@@ -70,6 +75,7 @@ const columns: ColumnData<MyexAsset>[] = [
     renderComponent: (value, row) => (
       <ExchangeIcons wallets={value as MyexAsset['wallets']} myexAsset={row} />
     ),
+    responsiveClassName: 'xxl:hidden',
   },
   {
     label: 'Gain / Loss',
@@ -88,6 +94,7 @@ const columns: ColumnData<MyexAsset>[] = [
       />
     ),
     className: 'text-lg',
+    responsiveClassName: 'xl:hidden',
   },
   {
     label: 'Gain / Loss %',
@@ -136,7 +143,7 @@ export default function MyAssets({ marketCoins, onChainBalances, myexAssets, ust
   return (
     <>
       <h1 className='mb-8'>
-        Assets &#8776;{' '}
+        <span className='xs:hidden'>Assets &#8776; </span>
         <Money
           value={totalBalance.plus(ustBalance.totalAmount).plus(onChainTotalBalance).toNumber()}
           flash

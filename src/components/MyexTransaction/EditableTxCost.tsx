@@ -73,7 +73,7 @@ export default function EditableTxCost({ price, tx }: Props) {
             <AwesomeIcon
               icon={editing ? faSave : faPencil}
               size='sm'
-              className='cursor-pointer ml-2'
+              className='cursor-pointer ml-2 md:hidden'
               onClick={onClick}
               tooltip={editing ? 'Save' : 'Edit'}
             />

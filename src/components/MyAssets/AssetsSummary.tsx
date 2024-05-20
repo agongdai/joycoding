@@ -47,10 +47,10 @@ export default function AssetsSummary({ assets, ustBalance, onChainWallets }: Pr
   const earning = investedBalance.isGreaterThan(INITIAL_INVESTMENT);
 
   return (
-    <div className='my-4 grid grid-cols-4 gap-6'>
+    <div className='my-4 grid grid-cols-4 gap-6 xl:grid-cols-2 xs:grid-cols-1 lg:gap-4'>
       <Card
         label='Invested Balance (UST)'
-        info={`Initial: ${INITIAL_INVESTMENT} UST => ${earning ? '+' : ''}${((investedBalance.toNumber() / INITIAL_INVESTMENT - 1) * 100).toFixed(2)}%`}
+        info={`${INITIAL_INVESTMENT} UST => ${earning ? '+' : ''}${((investedBalance.toNumber() / INITIAL_INVESTMENT - 1) * 100).toFixed(2)}%`}
         infoClassName={earning ? 'bg-go-up' : 'bg-go-down'}
       >
         <Money value={investedBalance.toNumber()} flash />

@@ -29,13 +29,17 @@ export default function Coin({ coin = null }: { coin?: MyexCoin | null }) {
           <span className='text-lg font-semibold'>{currency}</span>
         </MyexLink>
         <div className='flex items-center'>
-          <Typography color='secondary' variant='caption' classes={{ root: 'leading-none mr-1' }}>
+          <Typography
+            color='secondary'
+            variant='caption'
+            classes={{ root: 'leading-none mr-1 md:hidden' }}
+          >
             {name}
           </Typography>
-          <MyexWindowOpenLink url={cmcUrl} className='flex-shrink-0 mr-1'>
+          <MyexWindowOpenLink url={cmcUrl} className='flex-shrink-0 mr-1 md:hidden'>
             <MyexImage src='/images/cmc.svg' alt='' width={16} height={16} />
           </MyexWindowOpenLink>
-          <MyexWindowOpenLink url={geokoUrl} className='flex-shrink-0'>
+          <MyexWindowOpenLink url={geokoUrl} className='flex-shrink-0 md:hidden'>
             <MyexImage src='/images/geoko.png' alt='' width={16} height={16} />
           </MyexWindowOpenLink>
         </div>

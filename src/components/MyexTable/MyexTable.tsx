@@ -68,10 +68,15 @@ export default function MyexTable<T>({
         {columns.map((column, index) => (
           <div
             key={index}
-            className={cx('grow shrink flex items-center py-1 px-4', {
-              'grow-0 shrink-0': column.widthPercentage || column.widthRem,
-              'cursor-pointer hover:opacity-75': column.sortable,
-            })}
+            className={cx(
+              'grow shrink flex items-center py-1 px-4 sm:px-2',
+              column.responsiveClassName || '',
+              {
+                'grow-0 shrink-0': column.widthPercentage || column.widthRem,
+                'cursor-pointer hover:opacity-75': column.sortable,
+                'justify-end': index === columns.length - 1,
+              },
+            )}
             onClick={sortByField(column.dataKey, column.sortable)}
             style={{
               flexBasis: column.widthPercentage
@@ -104,17 +109,25 @@ export default function MyexTable<T>({
           className={cx(
             'flex w-full dark:bg-bg-dark-light hover:dark:bg-hover-bg-dark hover:bg-hover-bg-light ' +
               'bg-white border-t border-border-light dark:border-border-dark',
-            { 'cursor-pointer': !!onRowClick },
+            {
+              'cursor-pointer': !!onRowClick,
+            },
           )}
           key={index}
           onClick={() => onRowClick && onRowClick(item)}
         >
-          {columns.map((column) => (
+          {columns.map((column, index) => (
             <div
               key={((column.dataKey as string) + column.label) as string}
-              className={cx('grow shrink flex items-center py-2 px-4', column.className || '', {
-                'grow-0 shrink-0': column.widthPercentage || column.widthRem,
-              })}
+              className={cx(
+                'grow shrink flex items-center py-2 px-4 sm:px-2',
+                column.className || '',
+                column.responsiveClassName || '',
+                {
+                  'grow-0 shrink-0': column.widthPercentage || column.widthRem,
+                  'justify-end': index === columns.length - 1,
+                },
+              )}
               style={{
                 flexBasis: column.widthPercentage
                   ? `${column.widthPercentage}%`
