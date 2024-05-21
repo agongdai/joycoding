@@ -45,7 +45,7 @@ export default function EditableTxOpenPrice({ price, tx }: Props) {
   return (
     <ClickAwayListener onClickAway={() => setEditing(false)}>
       <div
-        className='flex flex-col w-full'
+        className='flex flex-col w-full xs:text-sm'
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >

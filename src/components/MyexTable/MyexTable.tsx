@@ -63,13 +63,13 @@ export default function MyexTable<T>({
   );
 
   return (
-    <div className='shadow my-6'>
+    <div className='shadow my-6 md:my-2'>
       <header className='flex bg-bg-light-dark dark:bg-bg-dark-dark opacity-60 w-full text-xs font-semibold'>
         {columns.map((column, index) => (
           <div
             key={index}
             className={cx(
-              'grow shrink flex items-center py-1 px-4 sm:px-2',
+              'grow shrink flex items-center py-1 px-4 sm:px-2 xs:pr-0 xs:last:pr-2',
               column.responsiveClassName || '',
               {
                 'grow-0 shrink-0': column.widthPercentage || column.widthRem,
@@ -120,7 +120,7 @@ export default function MyexTable<T>({
             <div
               key={((column.dataKey as string) + column.label) as string}
               className={cx(
-                'grow shrink flex items-center py-2 px-4 sm:px-2',
+                'grow shrink flex items-center py-2 px-4 sm:px-2 xs:pr-0 xs:last:pr-2',
                 column.className || '',
                 column.responsiveClassName || '',
                 {

@@ -30,7 +30,7 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'www.gate.io',
-      }
+      },
     ],
   },
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],

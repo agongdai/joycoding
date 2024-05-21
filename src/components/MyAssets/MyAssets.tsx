@@ -52,7 +52,7 @@ const columns: ColumnData<MyexAsset>[] = [
     ),
     sortable: true,
     widthRem: 18,
-    responsiveClassName: 'md:!basis-[12.5rem]',
+    responsiveClassName: 'md:!basis-[15rem] xs:!basis-[10rem] xs:px-0',
   },
   {
     label: 'Amount',

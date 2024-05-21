@@ -13,7 +13,7 @@ export default function Card({ label, children, className = '', info, infoClassN
   return (
     <div
       className={cx(
-        'shadow rounded-2xl bg-bg-light-light dark:bg-bg-dark-light relative min-h-[16rem] lg:min-h-[14rem] sm:min-h-[12rem]',
+        'shadow rounded-2xl bg-bg-light-light dark:bg-bg-dark-light relative min-h-[16rem] lg:min-h-[14rem] sm:min-h-[12rem] xs:min-h-[10rem]',
         className,
       )}
     >
@@ -30,7 +30,7 @@ export default function Card({ label, children, className = '', info, infoClassN
       {info && (
         <div
           className={cx(
-            'absolute right-0 bottom-0 text-white text-sm xl:text-xs font-semibold py-1 px-2 rounded-ss-2xl rounded-ee-2xl',
+            'absolute right-0 bottom-0 text-white text-sm xl:text-xs font-semibold py-1 px-2 rounded-ss-2xl rounded-ee-2xl xs:leading-none',
             infoClassName,
           )}
         >
