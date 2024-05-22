@@ -11,6 +11,7 @@ export interface IFormNewCoin {
   coinGeckoId?: string | null;
   icon?: string | null;
   exchangeSymbols?: string | null;
+  exchanges?: string | null;
 }
 
 /** The market coin information (from CoinGeoko, CoinMarketCap, or Bitfinex/Binance. **/
@@ -30,5 +31,6 @@ export type CoinInMarket = {
   totalSupply: BigNumber;
   maxSupply: BigNumber;
   rating: number;
+  exchanges: string;
   myexCoin?: Coin | null;
 };

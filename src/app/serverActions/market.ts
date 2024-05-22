@@ -21,27 +21,28 @@ export async function fetchMarketCoins(): Promise<CoinInMarket[]> {
       },
     );
     const data = await res.json();
-    return (data || []).map(
-      (coin: any) =>
-        ({
-          geckoId: coin.id,
-          currency: coin.symbol,
-          image: coin.image,
-          price: coin.current_price,
-          priceChangePercentage24h: coin.price_change_percentage_24h,
-          priceHigh24h: coin.high_24h,
-          priceLow24h: coin.low_24h,
-          marketCap: coin.market_cap,
-          marketCapRank: coin.market_cap_rank,
-          volume24h: coin.total_volume, // ??
-          lastUpdated: coin.last_updated,
-          circulatingSupply: coin.circulating_supply,
-          totalSupply: coin.total_supply,
-          maxSupply: coin.max_supply,
-          rating: coins.find((c: Coin) => c.currency.toLowerCase() === coin.symbol)?.rating || 0,
-          myexCoin: coins.find((c: Coin) => c.currency.toLowerCase() === coin.symbol),
-        }) as CoinInMarket,
-    );
+    return (data || []).map((coin: any) => {
+      const coinInMyex = coins.find((c: Coin) => c.currency.toLowerCase() === coin.symbol);
+      return {
+        geckoId: coin.id,
+        currency: coin.symbol,
+        image: coin.image,
+        price: coin.current_price,
+        priceChangePercentage24h: coin.price_change_percentage_24h,
+        priceHigh24h: coin.high_24h,
+        priceLow24h: coin.low_24h,
+        marketCap: coin.market_cap,
+        marketCapRank: coin.market_cap_rank,
+        volume24h: coin.total_volume, // ??
+        lastUpdated: coin.last_updated,
+        circulatingSupply: coin.circulating_supply,
+        totalSupply: coin.total_supply,
+        maxSupply: coin.max_supply,
+        rating: coinInMyex?.rating || 0,
+        myexCoin: coinInMyex,
+        exchanges: coinInMyex?.exchanges || '',
+      } as CoinInMarket;
+    });
   } catch (error) {
     console.error('Error fetching market coins:', error);
     return [];

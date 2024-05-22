@@ -36,6 +36,7 @@ model Coin {
   rating            Float
   coinGeckoId       String?
   icon              String?
+  exchanges         String? // e.g.: binance,bitfinex,gate. Myex.AI fetches price/history data from exchanges
   exchangeSymbols   String? // e.g.: binance:ATOM;bitfinex:ATO
   onChainWallets    OnChainWallet[]
 }

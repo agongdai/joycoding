@@ -3,6 +3,7 @@
 import React from 'react';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 
+import FieldExchange from '@myex/components/MyexForm/FieldExchange';
 import TextField from '@myex/components/MyexForm/TextField';
 import MyexLink from '@myex/components/MyexLink';
 import { IFormNewCoin } from '@myex/types/coin';
@@ -16,7 +17,7 @@ interface Props {
 export default function CreateCoinForm({ control, errors, update }: Props) {
   return (
     <div className='w-full'>
-      <div className='my-6'>
+      <div className='my-4'>
         <Controller
           render={({ field }) => (
             <TextField
@@ -37,7 +38,7 @@ export default function CreateCoinForm({ control, errors, update }: Props) {
         />
       </div>
 
-      <div className='mb-6'>
+      <div className='mb-4'>
         <Controller
           render={({ field }) => (
             <TextField
@@ -58,7 +59,11 @@ export default function CreateCoinForm({ control, errors, update }: Props) {
         />
       </div>
 
-      <div className='mb-6'>
+      <div className='mb-4'>
+        <FieldExchange<IFormNewCoin> error={errors.exchanges?.message} control={control} />
+      </div>
+
+      <div className='mb-4'>
         <Controller
           render={({ field }) => (
             <TextField
@@ -82,7 +87,7 @@ export default function CreateCoinForm({ control, errors, update }: Props) {
         />
       </div>
 
-      <div className='mb-6'>
+      <div className='mb-4'>
         <Controller
           render={({ field }) => (
             <TextField
@@ -102,7 +107,7 @@ export default function CreateCoinForm({ control, errors, update }: Props) {
         />
       </div>
 
-      <div className='mb-6'>
+      <div className='mb-4'>
         <Controller
           render={({ field }) => (
             <TextField
@@ -122,7 +127,7 @@ export default function CreateCoinForm({ control, errors, update }: Props) {
         />
       </div>
 
-      <div className='mb-6'>
+      <div className='mb-4'>
         <Controller
           render={({ field }) => (
             <TextField
@@ -140,7 +145,7 @@ export default function CreateCoinForm({ control, errors, update }: Props) {
         />
       </div>
 
-      <div className='mb-6'>
+      <div className='mb-4'>
         <Controller
           render={({ field }) => (
             <TextField
@@ -157,7 +162,7 @@ export default function CreateCoinForm({ control, errors, update }: Props) {
         />
       </div>
 
-      <div className='mb-6'>
+      <div className='mb-4'>
         <Controller
           render={({ field }) => (
             <TextField

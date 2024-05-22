@@ -23,7 +23,7 @@ export default function BalanceCard({ label, balance }: Props) {
       <div className='leading-none'>
         <Money value={BigNumber(balance.availableAmount).toNumber()} flash nDecimals={3} />
         <div className='text-text-disabled text-base w-full m-1'>
-          <MyexTooltip title='On hold: in order, or funding, or staking' placement='left'>
+          <MyexTooltip title='On hold: in order, or funding, or staking' placement='bottom'>
             <div>
               <AwesomeIcon icon={faHandsHoldingDollar} size='sm' />
               {` `}

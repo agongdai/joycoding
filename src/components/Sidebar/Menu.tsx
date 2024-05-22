@@ -53,6 +53,7 @@ export default function Menu({ menu, showMini }: Props) {
         root: cx('block my-2', {
           'before:h-full before:z-10 before:block before:content-[" "] before:w-2 before:absolute before:left-0 before:top-0 before:rounded-e-[0.6rem] before:bg-primary-main':
             selected,
+          'before:w-[0.6rem]': selected && showMini,
         }),
       }}
     >
@@ -60,7 +61,12 @@ export default function Menu({ menu, showMini }: Props) {
         color='secondary'
         selected={selected}
         onClick={handleClick}
-        classes={{ root: cx('flex justify-between py-0', { 'pl-4': showMini }) }}
+        classes={{
+          root: cx('flex justify-between py-0', {
+            'pl-4': showMini,
+            'bg-bg-primary-10': hasSubMenus,
+          }),
+        }}
       >
         <MyexLink
           href={hasSubMenus ? '/' : (menu.protected ? `/@me` : '') + menu.href}
@@ -69,7 +75,7 @@ export default function Menu({ menu, showMini }: Props) {
         >
           <MyexTooltip title={showMini ? menu.title : ''} placement='right'>
             <ListItemIcon>
-              <AwesomeIcon icon={menu.icon} size='lg' contrast={selected} />
+              <AwesomeIcon icon={menu.icon} size='lg' contrast={selected} className='w-6 h-6' />
             </ListItemIcon>
           </MyexTooltip>
           <ListItemText
@@ -77,7 +83,9 @@ export default function Menu({ menu, showMini }: Props) {
             classes={{ root: 'text-text-primary dark:text-text-primary-1' }}
           />
         </MyexLink>
-        {hasSubMenus && <AwesomeIcon icon={open ? faChevronUp : faChevronDown} size='sm' />}
+        {hasSubMenus && !showMini && (
+          <AwesomeIcon icon={open ? faChevronUp : faChevronDown} size='sm' />
+        )}
       </ListItemButton>
       {hasSubMenus && (
         <Collapse in={open} timeout='auto' unmountOnExit>
@@ -95,7 +103,11 @@ export default function Menu({ menu, showMini }: Props) {
                     <MyexLink href={subMenuHref} className='py-1 hover:no-underline'>
                       <MyexTooltip title={showMini ? subMenu.title : ''} placement='right'>
                         <ListItemIcon>
-                          <AwesomeIcon icon={subMenu.icon} size='lg' contrast={exactSelect} />
+                          <AwesomeIcon
+                            icon={subMenu.icon}
+                            className='w-5 h-5'
+                            contrast={exactSelect}
+                          />
                         </ListItemIcon>
                       </MyexTooltip>
                       <ListItemText

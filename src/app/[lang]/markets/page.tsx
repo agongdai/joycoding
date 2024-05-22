@@ -65,6 +65,15 @@ const columns: ColumnData<CoinInMarket>[] = [
     responsiveClassName: 'xl:hidden',
   },
   {
+    label: 'Exchanges',
+    dataKey: 'exchanges',
+    format: ValueFormat.Exchange,
+    widthRem: 11,
+    sortable: true,
+    className: 'justify-center',
+    responsiveClassName: 'sm:hidden',
+  },
+  {
     widthRem: 2,
     label: <MyexFavorite toToggleShowFavorites />,
     dataKey: 'currency',

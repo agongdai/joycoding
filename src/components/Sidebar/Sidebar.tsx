@@ -3,7 +3,7 @@ import React from 'react';
 import { useSession } from 'next-auth/react';
 import cx from 'classnames';
 
-import { faChevronLeft, faChevronRight } from '@fortawesome/pro-solid-svg-icons';
+import { faBars, faChevronLeft } from '@fortawesome/pro-solid-svg-icons';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -37,14 +37,22 @@ export default function Sidebar() {
     >
       <div className='flex flex-col justify-between h-full'>
         <div>
-          <Toolbar classes={{ root: cx('flex justify-between', { 'px-0': showMini }) }}>
-            <MyexLink href='/'>
-              <MyexImage src='/myex.png' alt='Joy Trading' width={48} height={48} />
-            </MyexLink>
-            {!xlDown && (
-              <MyexTooltip title='Toggle Mini Sidebar' placement={showMini ? 'right' : 'bottom'}>
+          <Toolbar
+            classes={{
+              root: cx('flex', { 'justify-center': showMini, 'justify-between': !showMini }),
+            }}
+          >
+            {showMini ? (
+              <AwesomeIcon icon={faBars} size='lg' onClick={toggleShowMini} />
+            ) : (
+              <MyexLink href='/'>
+                <MyexImage src='/myex.png' alt='Joy Trading' width={48} height={48} />
+              </MyexLink>
+            )}
+            {!showMini && (
+              <MyexTooltip title='Toggle Mini Sidebar' placement={'top'}>
                 <div onClick={toggleShowMini} className='cursor-pointer'>
-                  <AwesomeIcon icon={showMini ? faChevronRight : faChevronLeft} size='sm' />
+                  <AwesomeIcon icon={faChevronLeft} size='sm' />
                 </div>
               </MyexTooltip>
             )}

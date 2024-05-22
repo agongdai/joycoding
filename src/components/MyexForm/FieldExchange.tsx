@@ -11,16 +11,20 @@ import {
 } from '@mui/material';
 import MyexImage from '@myex/components/MyexImage';
 import exchanges from '@myex/data/exchanges.json';
-import { IFormNewExchangeApi } from '@myex/types/exchange';
 
 import Select from './Select';
 
-interface Props {
-  control: Control<IFormNewExchangeApi>;
+type FormWithExchange = {
+  exchanges?: string | null;
+};
+
+interface Props<T> {
+  // @github https://github.com/orgs/react-hook-form/discussions/11170#discussioncomment-9130442
+  control: T extends FormWithExchange ? Control<T> : never;
   error: string | undefined;
 }
 
-export default function FieldExchange({ control, error }: Props) {
+export default function FieldExchange<T extends FormWithExchange>({ control, error }: Props<T>) {
   return (
     <Controller
       render={({ field }) => (
@@ -41,7 +45,7 @@ export default function FieldExchange({ control, error }: Props) {
               <em>Select exchange ...</em>
             </MenuItem>
             {exchanges.map((exchange) => (
-              <MenuItem key={exchange.name} value={exchange.name} classes={{ root: 'py-3' }}>
+              <MenuItem key={exchange.name} value={exchange.exchangeId} classes={{ root: 'py-3' }}>
                 <ListItemIcon>
                   <MyexImage src={exchange.icon} alt={exchange.name} width={28} height={28} />
                 </ListItemIcon>
@@ -52,7 +56,7 @@ export default function FieldExchange({ control, error }: Props) {
           {error && <FormHelperText error>{error}</FormHelperText>}
         </FormControl>
       )}
-      name='exchangeId'
+      name='exchanges'
       defaultValue=''
       rules={{ required: 'Please select an exchange' }}
       control={control}

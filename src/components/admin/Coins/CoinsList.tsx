@@ -20,7 +20,7 @@ const columns: ColumnData<Coin>[] = [
     label: 'ID',
     dataKey: 'myexId',
     sortable: true,
-    widthRem: 7,
+    widthRem: 6,
   },
   {
     label: 'Icon',
@@ -38,7 +38,7 @@ const columns: ColumnData<Coin>[] = [
     label: 'Currency',
     dataKey: 'currency',
     sortable: true,
-    widthRem: 12,
+    widthRem: 10,
   },
   {
     label: 'Rating',
@@ -65,6 +65,13 @@ const columns: ColumnData<Coin>[] = [
       <MyexLink href={`https://www.coingecko.com/en/coins/${String(value)}`}>{value}</MyexLink>
     ),
     widthRem: 20,
+  },
+  {
+    label: 'Exchanges',
+    dataKey: 'exchanges',
+    format: ValueFormat.Exchange,
+    sortable: true,
+    widthRem: 11,
   },
   {
     label: 'Exchange Symbols',
