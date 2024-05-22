@@ -1,12 +1,12 @@
 'use server';
 import crypto from 'crypto';
 
-import { BfxEndpoints } from '@myex/api/endpoints';
 import { auth } from '@myex/auth';
 import { BfxWallet } from '@myex/types/bitfinex';
 import { CoinInMarket } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
 import { BalanceBreakdownFromExchange } from '@myex/types/trading';
+import { BfxEndpoints } from '@myex/utils/endpoints';
 import { filterWalletsWithValue, syncBitfinexCurrencies } from '@myex/utils/trading';
 
 export async function fetchBitfinexWallets(

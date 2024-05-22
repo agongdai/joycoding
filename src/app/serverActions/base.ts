@@ -1,6 +1,6 @@
-import { apiFailure, apiSuccess } from '@myex/api/utils';
 import { auth } from '@myex/auth';
 import { AnyPrismaModel, HttpStatusCode } from '@myex/types/api';
+import { apiFailure, apiSuccess } from '@myex/utils/api';
 
 type PermissionOptions = {
   logined?: boolean;

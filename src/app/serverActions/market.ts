@@ -1,8 +1,8 @@
 'use server';
 
-import { CoinGeokoApiBaseUrl } from '@myex/api/endpoints';
 import { myexFetchCoins } from '@myex/app/serverActions/myexCoin';
 import { CoinInMarket } from '@myex/types/coin';
+import { CoinGeokoApiBaseUrl } from '@myex/utils/endpoints';
 import { Coin } from '@prisma/client';
 
 export async function fetchMarketCoins(): Promise<CoinInMarket[]> {

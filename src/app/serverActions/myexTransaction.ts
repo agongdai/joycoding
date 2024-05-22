@@ -1,9 +1,9 @@
 'use server';
-import { apiFailure, apiSuccess } from '@myex/api/utils';
 import { auth } from '@myex/auth';
 import { prisma } from '@myex/db';
 import { HttpStatusCode } from '@myex/types/api';
 import { MyexAsset } from '@myex/types/trading';
+import { apiFailure, apiSuccess } from '@myex/utils/api';
 import { Transaction } from '@prisma/client';
 
 export async function myexUpdateTxOpenPrice(myexTxId: number, price: string) {

@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { BfxWsBaseUrl } from '@myex/api/endpoints';
 import { useMyexSelector } from '@myex/store';
 import { selectLive } from '@myex/store/trading/selectors';
+import { BfxWsBaseUrl } from '@myex/utils/endpoints';
 
 export default function useBfxWs() {
   const [ws, setWs] = useState<WebSocket | null>(null);

@@ -1,10 +1,10 @@
 'use server';
-import { apiFailure, apiSuccess } from '@myex/api/utils';
 import { auth } from '@myex/auth';
 import { prisma } from '@myex/db';
 import { HttpStatusCode } from '@myex/types/api';
 import { WalletProvider } from '@myex/types/trading';
 import { IFormOnChainWallet, WalletWithCoin } from '@myex/types/wallet';
+import { apiFailure, apiSuccess } from '@myex/utils/api';
 import { OnChainWallet } from '@prisma/client';
 
 export async function myexFetchOnChainWallets(): Promise<WalletWithCoin[]> {

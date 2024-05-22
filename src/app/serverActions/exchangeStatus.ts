@@ -1,5 +1,5 @@
-import { BfxEndpoints } from '@myex/api/endpoints';
 import { ExchangeStatus } from '@myex/types/common';
+import { BfxEndpoints } from '@myex/utils/endpoints';
 
 export async function checkBfxApiStatus(): Promise<ExchangeStatus> {
   const res = await fetch(BfxEndpoints.status.path);

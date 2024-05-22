@@ -1,10 +1,10 @@
 'use server';
 
-import { apiFailure, apiSuccess } from '@myex/api/utils';
 import { auth } from '@myex/auth';
 import { prisma } from '@myex/db';
 import { HttpStatusCode } from '@myex/types/api';
 import { IFormNewCoin } from '@myex/types/coin';
+import { apiFailure, apiSuccess } from '@myex/utils/api';
 import { Coin, User } from '@prisma/client';
 
 export async function myexFetchCoins(): Promise<Coin[]> {

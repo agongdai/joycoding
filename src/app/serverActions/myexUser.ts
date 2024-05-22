@@ -1,9 +1,9 @@
 'use server';
-import { apiFailure, apiSuccess } from '@myex/api/utils';
 import { auth } from '@myex/auth';
 import { prisma } from '@myex/db';
 import { HttpStatusCode } from '@myex/types/api';
 import { IFormNewUser } from '@myex/types/user';
+import { apiFailure, apiSuccess } from '@myex/utils/api';
 import { User } from '@prisma/client';
 
 export async function myexFetchUsers(): Promise<User[]> {

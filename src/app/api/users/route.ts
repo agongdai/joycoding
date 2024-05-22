@@ -5,10 +5,10 @@
 
 import { NextAuthRequest } from 'next-auth/lib';
 
-import { restApiFailure, restApiSuccess } from '@myex/api/utils';
 import { auth } from '@myex/auth';
 import { prisma } from '@myex/db';
 import { ApiHandler, HttpStatusCode } from '@myex/types/api';
+import { restApiFailure, restApiSuccess } from '@myex/utils/api';
 import { User } from '@prisma/client';
 
 export const GET = auth(async (req: NextAuthRequest) => {
