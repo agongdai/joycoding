@@ -5,8 +5,8 @@ import { faChevronDown, faLink } from '@fortawesome/free-solid-svg-icons';
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import { auth } from '@myex/auth';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
-import MyexImage from '@myex/components/MyexImage';
-import { MyexStyledPageWrapper } from '@myex/components/MyexStyled';
+import MyexImage from '@myex/components/ui/MyexImage';
+import { MyexStyledPageWrapper } from '@myex/components/ui/MyexStyled';
 import exchanges from '@myex/data/exchanges.json';
 import { StyleVariant } from '@myex/types/common';
 

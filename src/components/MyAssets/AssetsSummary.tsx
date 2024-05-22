@@ -2,12 +2,12 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 
 import Badge from '@mui/material/Badge';
-import MyexTooltip from '@myex/components/@mui/material/Tooltip';
-import Card from '@myex/components/Card';
 import BalanceCard from '@myex/components/MyAssets/BalanceCard';
-import CoinIcon from '@myex/components/MyexFormatter/CoinIcon';
-import Money from '@myex/components/MyexFormatter/Money';
-import MyexImage from '@myex/components/MyexImage';
+import MyexCard from '@myex/components/ui/MyexCard';
+import CoinIcon from '@myex/components/ui/MyexFormatter/CoinIcon';
+import Money from '@myex/components/ui/MyexFormatter/Money';
+import MyexImage from '@myex/components/ui/MyexImage';
+import MyexTooltip from '@myex/components/ui/MyexTooltip';
 import { FIAT_CURRENCY_SYMBOL, INITIAL_INVESTMENT } from '@myex/config';
 import { Balance, MyexAsset } from '@myex/types/trading';
 import { Wallet } from '@myex/types/wallet';
@@ -48,22 +48,22 @@ export default function AssetsSummary({ assets, ustBalance, onChainWallets }: Pr
 
   return (
     <div className='my-4 grid grid-cols-4 gap-6 xl:grid-cols-2 xs:grid-cols-1 lg:gap-4'>
-      <Card
+      <MyexCard
         label='Invested Balance (UST)'
         info={`${INITIAL_INVESTMENT} UST => ${earning ? '+' : ''}${((investedBalance.toNumber() / INITIAL_INVESTMENT - 1) * 100).toFixed(2)}%`}
         infoClassName={earning ? 'bg-go-up' : 'bg-go-down'}
       >
         <Money value={investedBalance.toNumber()} flash />
-      </Card>
+      </MyexCard>
       <BalanceCard label='UST Balance' balance={ustBalance} />
-      <Card
+      <MyexCard
         label='Assets Worth (UST)'
         info={`${unclaimedGainLost.toFixed(2)}%`}
         infoClassName={unclaimedGainLost.isNegative() ? 'bg-go-down' : 'bg-go-up'}
       >
         <Money value={assetsWorthBalance.toNumber()} flash />
-      </Card>
-      <Card
+      </MyexCard>
+      <MyexCard
         label={
           'Cold Assets: ' + FIAT_CURRENCY_SYMBOL + ' ' + onChainTotalBalance.toNumber().toFixed(2)
         }
@@ -95,7 +95,7 @@ export default function AssetsSummary({ assets, ustBalance, onChainWallets }: Pr
             </MyexTooltip>
           ))}
         </div>
-      </Card>
+      </MyexCard>
     </div>
   );
 }

@@ -2,10 +2,10 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 
 import { faHandsHoldingDollar } from '@fortawesome/pro-duotone-svg-icons';
-import MyexTooltip from '@myex/components/@mui/material/Tooltip';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
-import Card from '@myex/components/Card';
-import Money from '@myex/components/MyexFormatter/Money';
+import MyexCard from '@myex/components/ui/MyexCard';
+import Money from '@myex/components/ui/MyexFormatter/Money';
+import MyexTooltip from '@myex/components/ui/MyexTooltip';
 import { IGNORED_USD_THRESHOLD } from '@myex/config';
 import { Balance } from '@myex/types/trading';
 
@@ -19,7 +19,7 @@ export default function BalanceCard({ label, balance }: Props) {
   if (BigNumber(balance.totalAmount).isLessThan(IGNORED_USD_THRESHOLD)) return null;
 
   return (
-    <Card label={label}>
+    <MyexCard label={label}>
       <div className='leading-none'>
         <Money value={BigNumber(balance.availableAmount).toNumber()} flash nDecimals={3} />
         <div className='text-text-disabled text-base w-full m-1'>
@@ -39,6 +39,6 @@ export default function BalanceCard({ label, balance }: Props) {
           </MyexTooltip>
         </div>
       </div>
-    </Card>
+    </MyexCard>
   );
 }

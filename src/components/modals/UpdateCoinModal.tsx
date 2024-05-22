@@ -10,7 +10,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/
 import { myexUpdateCoin } from '@myex/app/serverActions';
 import CreateCoinForm from '@myex/components/admin/Coins/CreateCoinForm';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
-import MyexLoadingButton from '@myex/components/ui/MyexLoadingButton/MyexLoadingButton';
+import MyexLoadingButton from '@myex/components/ui/MyexLoadingButton';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
 import { setCoinBeingUpdated } from '@myex/store/flags/actions';
 import { selectCoinBeingUpdated } from '@myex/store/flags/selectors';

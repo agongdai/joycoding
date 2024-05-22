@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import MyexLink from '@myex/components/MyexLink';
+import MyexLink from '@myex/components/ui/MyexLink';
 
 export default function Error() {
   return (

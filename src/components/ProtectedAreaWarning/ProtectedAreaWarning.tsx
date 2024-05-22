@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Alert } from '@mui/material';
-import SignIn from '@myex/components/SignIn';
+import SignIn from '@myex/components/operation/SignIn';
 
 export default function ProtectedAreaWarning({ adminOnly = false }: { adminOnly?: boolean }) {
   return (

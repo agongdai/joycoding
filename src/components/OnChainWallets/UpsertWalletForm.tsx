@@ -3,9 +3,9 @@
 import React from 'react';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 
-import FieldCoinSelect from '@myex/components/MyexForm/FieldCoinSelect';
-import FieldWalletProvider from '@myex/components/MyexForm/FieldWalletProvider';
-import TextField from '@myex/components/MyexForm/TextField';
+import FieldCoinSelect from '@myex/components/form/FieldCoinSelect';
+import FieldWalletProvider from '@myex/components/form/FieldWalletProvider';
+import TextField from '@myex/components/form/TextField';
 import { IFormOnChainWallet } from '@myex/types/wallet';
 
 interface Props {

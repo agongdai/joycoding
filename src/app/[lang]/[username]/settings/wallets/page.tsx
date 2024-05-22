@@ -4,9 +4,9 @@ import { Alert } from '@mui/material';
 import { myexFetchOnChainWallets } from '@myex/app/serverActions/myexOnChainWallet';
 import CreateWalletModal from '@myex/components/modals/CreateWalletModal';
 import UpdateWalletModal from '@myex/components/modals/UpdateWalletModal';
-import { MyexStyledPageWrapper } from '@myex/components/MyexStyled';
 import CreateWalletButton from '@myex/components/OnChainWallets/CreateWalletButton';
 import WalletsList from '@myex/components/OnChainWallets/WalletsList';
+import { MyexStyledPageWrapper } from '@myex/components/ui/MyexStyled';
 
 export default async function WalletsPage() {
   const wallets = await myexFetchOnChainWallets();

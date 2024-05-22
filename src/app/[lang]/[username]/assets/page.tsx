@@ -5,7 +5,7 @@ import { fetchMarketCoins } from '@myex/app/serverActions/market';
 import { myexFetchOpenTransactions } from '@myex/app/serverActions/myexTransaction';
 import { fetchOnChainBalances } from '@myex/app/serverActions/onchain';
 import MyAssets from '@myex/components/MyAssets';
-import { MyexStyledPageWrapper } from '@myex/components/MyexStyled';
+import { MyexStyledPageWrapper } from '@myex/components/ui/MyexStyled';
 import { composeAssetsInfo, getUstBalance } from '@myex/utils/trading';
 
 export const revalidate = 10;

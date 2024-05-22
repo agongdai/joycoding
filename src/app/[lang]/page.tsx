@@ -1,7 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 
-import { MyexStyledPageWrapper } from '@myex/components/MyexStyled';
+import { MyexStyledPageWrapper } from '@myex/components/ui/MyexStyled';
 import Seo from '@myex/data/seo.json';
 import { getTranslations } from '@myex/i18n/translations';
 import { ParamsWithLng } from '@myex/types/i18n';

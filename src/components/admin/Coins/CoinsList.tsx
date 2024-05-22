@@ -2,9 +2,9 @@
 
 import React from 'react';
 
-import MyexLink from '@myex/components/MyexLink';
-import MyexTable from '@myex/components/MyexTable';
-import { ColumnData } from '@myex/components/MyexTable/types';
+import MyexLink from '@myex/components/ui/MyexLink';
+import MyexTable from '@myex/components/ui/MyexTable';
+import { ColumnData } from '@myex/components/ui/MyexTable/types';
 import { ValueFormat } from '@myex/types/common';
 import { Coin } from '@prisma/client';
 

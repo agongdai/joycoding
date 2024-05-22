@@ -2,8 +2,8 @@ import React from 'react';
 import { SessionProvider } from 'next-auth/react';
 
 import { auth } from '@myex/auth';
-import { MyexPaper, MyexStyledPageWrapper } from '@myex/components/MyexStyled';
 import ProtectedAreaWarning from '@myex/components/ProtectedAreaWarning';
+import { MyexPaper, MyexStyledPageWrapper } from '@myex/components/ui/MyexStyled';
 
 import RegisterUserForm from './form';
 

@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-import MyexTable from '@myex/components/MyexTable';
-import { ColumnData } from '@myex/components/MyexTable/types';
+import MyexTable from '@myex/components/ui/MyexTable';
+import { ColumnData } from '@myex/components/ui/MyexTable/types';
 import { ValueFormat } from '@myex/types/common';
 import { User } from '@prisma/client';
 

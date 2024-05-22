@@ -9,7 +9,7 @@ import { faPencil, faSave } from '@fortawesome/pro-solid-svg-icons';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { myexUpdateTxOpenPrice } from '@myex/app/serverActions/myexTransaction';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
-import Money from '@myex/components/MyexFormatter/Money';
+import Money from '@myex/components/ui/MyexFormatter/Money';
 import { removeTrailingZeros } from '@myex/utils/number';
 import { Transaction } from '@prisma/client';
 

@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 
-import { MyexPaper, MyexStyledPageWrapper } from '@myex/components/MyexStyled';
+import { MyexPaper, MyexStyledPageWrapper } from '@myex/components/ui/MyexStyled';
 
 import PrivacyMd from './privacy.mdx';
 

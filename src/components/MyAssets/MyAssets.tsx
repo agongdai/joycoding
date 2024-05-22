@@ -3,14 +3,14 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
-import Money from '@myex/components/MyexFormatter/Money';
-import Percentage from '@myex/components/MyexFormatter/Percentage';
-import MyexTable from '@myex/components/MyexTable';
-import ExchangeIcons from '@myex/components/MyexTable/ExchangeIcons';
-import { ColumnData } from '@myex/components/MyexTable/types';
 import EditableTxCost from '@myex/components/MyexTransaction/EditableTxCost';
 import EditableTxOpenPrice from '@myex/components/MyexTransaction/EditableTxOpenPrice';
 import TradingView from '@myex/components/TradingView';
+import Money from '@myex/components/ui/MyexFormatter/Money';
+import Percentage from '@myex/components/ui/MyexFormatter/Percentage';
+import MyexTable from '@myex/components/ui/MyexTable';
+import ExchangeIcons from '@myex/components/ui/MyexTable/ExchangeIcons';
+import { ColumnData } from '@myex/components/ui/MyexTable/types';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
 import { setCurrentCurrency } from '@myex/store/trading/actions';
 import { selectShowTradingView } from '@myex/store/trading/selectors';

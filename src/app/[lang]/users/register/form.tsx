@@ -7,7 +7,7 @@ import { enqueueSnackbar } from 'notistack';
 import { Controller, useForm } from 'react-hook-form';
 
 import { myexCreateUser } from '@myex/app/serverActions/myexUser';
-import TextField from '@myex/components/MyexForm/TextField';
+import TextField from '@myex/components/form/TextField';
 import MyexLoadingButton from '@myex/components/ui/MyexLoadingButton';
 import { IFormNewUser } from '@myex/types/user';
 

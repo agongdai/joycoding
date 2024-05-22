@@ -3,9 +3,9 @@
 import React from 'react';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 
-import FieldExchange from '@myex/components/MyexForm/FieldExchange';
-import TextField from '@myex/components/MyexForm/TextField';
-import MyexLink from '@myex/components/MyexLink';
+import FieldExchange from '@myex/components/form/FieldExchange';
+import TextField from '@myex/components/form/TextField';
+import MyexLink from '@myex/components/ui/MyexLink';
 import { IFormNewCoin } from '@myex/types/coin';
 
 interface Props {

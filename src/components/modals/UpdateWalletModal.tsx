@@ -10,7 +10,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/
 import { myexUpdateWallet } from '@myex/app/serverActions/myexOnChainWallet';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
 import UpsertWalletForm from '@myex/components/OnChainWallets/UpsertWalletForm';
-import MyexLoadingButton from '@myex/components/ui/MyexLoadingButton/MyexLoadingButton';
+import MyexLoadingButton from '@myex/components/ui/MyexLoadingButton';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
 import { setWalletBeingUpdated } from '@myex/store/flags/actions';
 import { selectWalletBeingUpdated } from '@myex/store/flags/selectors';

@@ -3,7 +3,7 @@ import React from 'react';
 import { faEnvelope, faHeart } from '@fortawesome/pro-duotone-svg-icons';
 import Divider from '@mui/material/Divider';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
-import MyexLink from '@myex/components/MyexLink';
+import MyexLink from '@myex/components/ui/MyexLink';
 import { StyleVariant } from '@myex/types/common';
 
 export default function Footer() {

@@ -6,7 +6,7 @@ import { enqueueSnackbar } from 'notistack';
 import { Controller, useForm } from 'react-hook-form';
 
 import { myexCreateExchangeApi } from '@myex/app/serverActions';
-import TextField from '@myex/components/MyexForm/TextField';
+import TextField from '@myex/components/form/TextField';
 import MyexLoadingButton from '@myex/components/ui/MyexLoadingButton';
 import { IFormNewExchangeApi } from '@myex/types/exchange';
 

@@ -1,8 +1,8 @@
 'use client';
 import React, { useMemo } from 'react';
 
-import MyexTable from '@myex/components/MyexTable';
-import { ColumnData } from '@myex/components/MyexTable/types';
+import MyexTable from '@myex/components/ui/MyexTable';
+import { ColumnData } from '@myex/components/ui/MyexTable/types';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
 import { setCurrentCurrency } from '@myex/store/trading/actions';
 import {

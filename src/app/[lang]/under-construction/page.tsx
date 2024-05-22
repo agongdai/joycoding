@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MyexLink from '@myex/components/MyexLink';
+import MyexLink from '@myex/components/ui/MyexLink';
 
 export default function UnderConstructionPage() {
   return (

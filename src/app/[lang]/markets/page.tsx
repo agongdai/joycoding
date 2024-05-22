@@ -2,10 +2,10 @@ import React from 'react';
 
 import { fetchMarketCoins } from '@myex/app/serverActions/market';
 import MarketsTable from '@myex/components/MarketsTable';
-import MyexFavorite from '@myex/components/MyexFavorite';
-import { MyexStyledPageWrapper } from '@myex/components/MyexStyled';
-import { ColumnData } from '@myex/components/MyexTable/types';
+import MyexFavorite from '@myex/components/operation/MyexFavorite';
 import TradingView from '@myex/components/TradingView';
+import { MyexStyledPageWrapper } from '@myex/components/ui/MyexStyled';
+import { ColumnData } from '@myex/components/ui/MyexTable/types';
 import { CoinInMarket } from '@myex/types/coin';
 import { ValueFormat } from '@myex/types/common';
 
