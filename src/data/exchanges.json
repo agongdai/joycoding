@@ -3,6 +3,7 @@
     "exchangeId": "bitfinex",
     "name": "Bitfinex",
     "url": "https://www.bitfinex.com/",
+    "tradeUrl": "https://trading.bitfinex.com/t/${currency}:UST",
     "logo": "/exchanges/bitfinex-logo.svg",
     "icon": "/exchanges/bitfinex-icon.svg"
   },
@@ -10,6 +11,7 @@
     "exchangeId": "binance",
     "name": "Binance",
     "url": "https://www.binance.com/",
+    "tradeUrl": "https://www.binance.com/en/trade/${currency}_USDT?type=spot",
     "logo": "/exchanges/binance-logo.svg",
     "icon": "/exchanges/binance-icon.svg"
   },
@@ -17,6 +19,7 @@
     "exchangeId": "gate",
     "name": "Gate.io",
     "url": "https://www.gate.io/",
+    "tradeUrl": "https://www.gate.io/trade/${currency}_USDT",
     "logo": "/exchanges/gate-logo.png",
     "icon": "/exchanges/gate-icon.svg"
   },
@@ -25,12 +28,14 @@
     "name": "OKX",
     "url": "https://www.okx.com/",
     "logo": "/exchanges/okx-logo.png",
+    "tradeUrl": "https://www.okx.com/trade-spot/${currency}-usdt",
     "icon": "/exchanges/okx-icon.svg"
   },
   {
     "exchangeId": "bitget",
     "name": "Bitget",
     "url": "https://www.bitget.com/",
+    "tradeUrl": "https://www.bitget.com/spot/${currency}USDT",
     "logo": "/exchanges/bitget-logo.svg",
     "icon": "/exchanges/bitget-icon.svg"
   }

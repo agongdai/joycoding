@@ -1,7 +1,8 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
+import _upperFirst from 'lodash/upperFirst';
 
-import ExchangeIcon from '@myex/components/ExchangeIcon';
+import Exchange from '@myex/components/MyexFormatter/Exchange';
 import { MyexAsset } from '@myex/types/trading';
 
 interface Props {
@@ -13,10 +14,12 @@ export default function ExchangeIcons({ wallets, myexAsset }: Props) {
   return wallets ? (
     <div className='flex'>
       {wallets.map((wallet) => (
-        <ExchangeIcon
+        <Exchange
           key={wallet.exchange}
-          exchange={wallet.exchange}
-          tooltip={`${BigNumber(wallet.totalAmount).multipliedBy(myexAsset.price).toFixed(0).toString()} USDT`}
+          className='mr-2 last:mr-0'
+          value={wallet.exchange}
+          currency={myexAsset.currency}
+          tooltip={`${_upperFirst(wallet.exchange)}: ${BigNumber(wallet.totalAmount).multipliedBy(myexAsset.price).toFixed(0).toString()} USDT`}
         />
       ))}
     </div>

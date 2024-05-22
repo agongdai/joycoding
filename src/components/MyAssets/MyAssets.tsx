@@ -70,7 +70,7 @@ const columns: ColumnData<MyexAsset>[] = [
     responsiveClassName: 'sm:hidden',
   },
   {
-    label: 'Exchanges',
+    label: 'Trade',
     dataKey: 'wallets',
     renderComponent: (value, row) => (
       <ExchangeIcons wallets={value as MyexAsset['wallets']} myexAsset={row} />
