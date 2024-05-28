@@ -5,7 +5,7 @@ import _uniq from 'lodash/uniq';
 
 import { IGNORED_USD_THRESHOLD } from '@myex/config';
 import { BfxWallet } from '@myex/types/bitfinex';
-import { CoinInMarket } from '@myex/types/coin';
+import { MarketCoin } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
 import {
   Balance,
@@ -32,15 +32,15 @@ export function getWalletProviderImageUrl(provider: WalletProvider) {
  * `BTC` => `tBTCUSD`
  * @param currency
  */
-export function currencyToSymbol(currency: string) {
-  return `t${currency}${currency.length === 3 ? '' : ':'}UST`;
+export function currencyToBitfinexSymbol(currency: string) {
+  return `t${currency.toUpperCase()}${currency.length === 3 ? '' : ':'}UST`;
 }
 
 /**
  * `tBTCUSD` => `BTC`
  * @param symbol
  */
-export function symbolToCurrency(symbol: string) {
+export function bitfinexSymbolToCurrency(symbol: string) {
   return symbol.slice(1, -3).replace(':', '');
 }
 
@@ -83,7 +83,7 @@ export function getUstBalance(exchangeWallets: BalanceBreakdownFromExchange[]): 
  * @param bitfinexWallets
  * @param marketCoins
  */
-export function syncBitfinexCurrencies(bitfinexWallets: BfxWallet[], marketCoins: CoinInMarket[]) {
+export function syncBitfinexCurrencies(bitfinexWallets: BfxWallet[], marketCoins: MarketCoin[]) {
   let syned = bitfinexWallets;
   marketCoins.forEach((marketCoin) => {
     const exchangeSymbols = marketCoin?.myexCoin?.exchangeSymbols;
@@ -116,7 +116,7 @@ export function syncBitfinexCurrencies(bitfinexWallets: BfxWallet[], marketCoins
  */
 export function filterWalletsWithValue(
   wallets: BalanceBreakdownFromExchange[],
-  marketCoins: CoinInMarket[],
+  marketCoins: MarketCoin[],
 ) {
   return wallets
     .filter((wallet) => !BigNumber(wallet.totalAmount).isZero())
@@ -136,7 +136,7 @@ export function filterWalletsWithValue(
  * @param exchangeWallets
  */
 export function composeAssetsInfo(
-  marketCoins: CoinInMarket[],
+  marketCoins: MarketCoin[],
   exchangeWallets: BalanceBreakdownFromExchange[],
 ): MyexAsset[] {
   const walletsWithoutUst = exchangeWallets.filter((wallet) => wallet.currency !== 'USDT');
@@ -146,7 +146,7 @@ export function composeAssetsInfo(
   return _compact(
     currencies.map((currency) => {
       const marketCoin = marketCoins.find(
-        (marketCoin: CoinInMarket) => marketCoin.currency.toLowerCase() === currency.toLowerCase(),
+        (marketCoin: MarketCoin) => marketCoin.currency.toLowerCase() === currency.toLowerCase(),
       );
 
       if (!marketCoin) {

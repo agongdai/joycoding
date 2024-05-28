@@ -17,13 +17,15 @@ export default function MyexFavorite({ currency = '', toToggleShowFavorites = fa
   const dispatch = useMyexDispatch();
   const favoritesState = useMyexSelector(selectFavorites);
   const showFavoritesState = useMyexSelector(selectShowFavorites);
-  const isFavorite = toToggleShowFavorites ? showFavoritesState : favoritesState.includes(currency);
+  const isFavorite = toToggleShowFavorites
+    ? showFavoritesState
+    : favoritesState.includes(currency?.toUpperCase());
 
   const onClick = () => {
     if (toToggleShowFavorites) {
       dispatch(toggleShowFavorites());
     } else {
-      dispatch(toggleFavorite(currency));
+      dispatch(toggleFavorite(currency?.toUpperCase()));
     }
   };
 

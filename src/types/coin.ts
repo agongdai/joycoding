@@ -15,7 +15,7 @@ export interface IFormNewCoin {
 }
 
 /** The market coin information (from CoinGeoko, CoinMarketCap, or Bitfinex/Binance. **/
-export type CoinInMarket = {
+export type MarketCoin = {
   geckoId: string;
   currency: string;
   image: string;
@@ -33,4 +33,5 @@ export type CoinInMarket = {
   rating: number;
   exchanges: string;
   myexCoin?: Coin | null;
+  invisible?: boolean;
 };

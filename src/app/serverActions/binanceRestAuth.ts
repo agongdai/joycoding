@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 import { Spot } from '@binance/connector-typescript';
 import { auth } from '@myex/auth';
 import { BinanceWallet } from '@myex/types/binance';
-import { CoinInMarket } from '@myex/types/coin';
+import { MarketCoin } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
 import { BalanceBreakdownFromExchange } from '@myex/types/trading';
 import { filterWalletsWithValue } from '@myex/utils/trading';
@@ -30,7 +30,7 @@ const getBinanceClient = async () => {
 };
 
 export const getBinanceBalances = async (
-  marketCoins: CoinInMarket[],
+  marketCoins: MarketCoin[],
 ): Promise<BalanceBreakdownFromExchange[]> => {
   const client = await getBinanceClient();
   if (!client) {

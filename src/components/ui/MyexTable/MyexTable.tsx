@@ -6,6 +6,7 @@ import _sortBy from 'lodash/sortBy';
 
 import { faSortDown, faSortUp } from '@fortawesome/pro-duotone-svg-icons';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
+import NoData from '@myex/components/NoData';
 import { ColumnData } from '@myex/components/ui/MyexTable/types';
 
 import CellRenderer from './CellRenderer';
@@ -16,6 +17,7 @@ type Props<T> = {
   defaultSortingField?: keyof T;
   defaultSortingDirection?: '' | '-';
   onRowClick?: (row: T) => void;
+  uniqueKey: keyof T;
 };
 
 export default function MyexTable<T>({
@@ -24,6 +26,7 @@ export default function MyexTable<T>({
   defaultSortingField,
   defaultSortingDirection = '',
   onRowClick,
+  uniqueKey,
 }: Props<T>) {
   const [sortingField, setSortingField] = useState<keyof T | undefined>(defaultSortingField);
   const [sortingDirection, setSortingDirection] = useState<'' | '-'>(defaultSortingDirection);
@@ -67,7 +70,7 @@ export default function MyexTable<T>({
       <header className='flex bg-bg-light-dark dark:bg-bg-dark-dark opacity-60 w-full text-xs font-semibold'>
         {columns.map((column, index) => (
           <div
-            key={index}
+            key={((column.dataKey as string) + column.label) as string}
             className={cx(
               'grow shrink flex items-center py-1 px-4 sm:px-2 xs:pr-0 xs:last:pr-2',
               column.responsiveClassName || '',
@@ -104,7 +107,9 @@ export default function MyexTable<T>({
         ))}
       </header>
 
-      {sortedData.map((item, index) => (
+      {sortedData.length === 0 && <NoData />}
+
+      {sortedData.map((item) => (
         <div
           className={cx(
             'flex w-full dark:bg-bg-dark-light hover:dark:bg-hover-bg-dark hover:bg-hover-bg-light ' +
@@ -113,7 +118,7 @@ export default function MyexTable<T>({
               'cursor-pointer': !!onRowClick,
             },
           )}
-          key={index}
+          key={String(item[uniqueKey])}
           onClick={() => onRowClick && onRowClick(item)}
         >
           {columns.map((column, index) => (

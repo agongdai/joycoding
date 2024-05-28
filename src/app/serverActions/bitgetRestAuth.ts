@@ -5,7 +5,7 @@ import { SpotAccountApi } from 'bitget-api-node-sdk';
 
 import { auth } from '@myex/auth';
 import { BitgetWallet } from '@myex/types/bitget';
-import { CoinInMarket } from '@myex/types/coin';
+import { MarketCoin } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
 import { BalanceBreakdownFromExchange } from '@myex/types/trading';
 import { filterWalletsWithValue } from '@myex/utils/trading';
@@ -36,7 +36,7 @@ const getBitgetClient = async () => {
 };
 
 export const getBitgetBalances = async (
-  marketCoins: CoinInMarket[],
+  marketCoins: MarketCoin[],
 ): Promise<BalanceBreakdownFromExchange[]> => {
   const client = await getBitgetClient();
   if (!client) {

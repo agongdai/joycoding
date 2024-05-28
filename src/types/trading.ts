@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js';
 
+import { MarketCoin } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
 import { Coin, Transaction } from '@prisma/client';
 
@@ -43,3 +44,8 @@ export enum WalletProvider {
   MetaMask = 'MetaMask',
   Unknown = '',
 }
+
+export type WsRealTimeData = Pick<
+  MarketCoin,
+  'currency' | 'price' | 'priceChangePercentage24h' | 'volume24h'
+>;

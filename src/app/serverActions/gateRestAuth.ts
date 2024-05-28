@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 import { SpotAccount, SpotApi } from 'gate-api';
 
 import { auth } from '@myex/auth';
-import { CoinInMarket } from '@myex/types/coin';
+import { MarketCoin } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
 import { GateWallet } from '@myex/types/gate';
 import { BalanceBreakdownFromExchange } from '@myex/types/trading';
@@ -34,7 +34,7 @@ const getGateClient = async () => {
 };
 
 export const getGateSpotAccounts = async (
-  marketCoins: CoinInMarket[],
+  marketCoins: MarketCoin[],
 ): Promise<BalanceBreakdownFromExchange[]> => {
   const client = await getGateClient();
   if (!client) {

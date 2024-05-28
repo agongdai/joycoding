@@ -18,7 +18,6 @@ interface Props {
 }
 
 export default function EditableTxCost({ price, tx }: Props) {
-  console.log('tx', tx);
   const router = useRouter();
   const cost = BigNumber(tx?.openPrice || 0)
     .multipliedBy(BigNumber(tx?.totalAmount || 0))

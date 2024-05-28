@@ -1,11 +1,11 @@
-import { symbolToPair } from '@myex/utils/trading';
+import { Exchange } from '@myex/types/exchange';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // Define a type for the slice state
 export interface TradingState {
   favorites: string[];
   showFavorites: boolean;
-  live: boolean;
+  wsLive: Record<Exchange, boolean>;
   showTradingView: boolean;
   currentCurrency?: string;
 }
@@ -14,7 +14,13 @@ export interface TradingState {
 const initialState: TradingState = {
   favorites: [],
   showFavorites: false,
-  live: true,
+  wsLive: {
+    [Exchange.Bitfinex]: true,
+    [Exchange.Binance]: false,
+    [Exchange.OKX]: false,
+    [Exchange.Bitget]: false,
+    [Exchange.Gate]: false,
+  },
   showTradingView: true,
   currentCurrency: 'BTC',
 };
@@ -39,8 +45,8 @@ export const tradingSlice = createSlice({
     toggleShowFavorites: (state) => {
       state.showFavorites = !state.showFavorites;
     },
-    toggleLive: (state) => {
-      state.live = !state.live;
+    toggleWsLive: (state, action: PayloadAction<Exchange>) => {
+      state.wsLive[action.payload] = !state.wsLive[action.payload];
     },
     toggleShowTradingView: (state) => {
       state.showTradingView = !state.showTradingView;

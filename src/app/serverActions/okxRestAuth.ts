@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import _get from 'lodash/get';
 
 import { auth } from '@myex/auth';
-import { CoinInMarket } from '@myex/types/coin';
+import { MarketCoin } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
 import { OkxWallet } from '@myex/types/okx';
 import { BalanceBreakdownFromExchange } from '@myex/types/trading';
@@ -14,7 +14,7 @@ import { filterWalletsWithValue } from '@myex/utils/trading';
  * @doc https://www.okx.com/docs-v5/en/#overview-rest-authentication
  */
 export async function fetchOkxWallets(
-  marketCoins: CoinInMarket[],
+  marketCoins: MarketCoin[],
 ): Promise<BalanceBreakdownFromExchange[]> {
   const session = await auth();
   const okxKey = (session?.user?.exchangeApis || []).find(

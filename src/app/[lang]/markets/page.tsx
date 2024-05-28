@@ -6,12 +6,12 @@ import MyexFavorite from '@myex/components/operation/MyexFavorite';
 import TradingView from '@myex/components/TradingView';
 import { MyexStyledPageWrapper } from '@myex/components/ui/MyexStyled';
 import { ColumnData } from '@myex/components/ui/MyexTable/types';
-import { CoinInMarket } from '@myex/types/coin';
+import { MarketCoin } from '@myex/types/coin';
 import { ValueFormat } from '@myex/types/common';
 
 export const revalidate = 10;
 
-const columns: ColumnData<CoinInMarket>[] = [
+const columns: ColumnData<MarketCoin>[] = [
   {
     label: 'Coin',
     dataKey: 'currency',

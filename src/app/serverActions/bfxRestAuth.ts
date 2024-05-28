@@ -3,14 +3,14 @@ import crypto from 'crypto';
 
 import { auth } from '@myex/auth';
 import { BfxWallet } from '@myex/types/bitfinex';
-import { CoinInMarket } from '@myex/types/coin';
+import { MarketCoin } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
 import { BalanceBreakdownFromExchange } from '@myex/types/trading';
 import { BfxEndpoints } from '@myex/utils/endpoints';
 import { filterWalletsWithValue, syncBitfinexCurrencies } from '@myex/utils/trading';
 
 export async function fetchBitfinexWallets(
-  marketCoins: CoinInMarket[],
+  marketCoins: MarketCoin[],
 ): Promise<BalanceBreakdownFromExchange[]> {
   const session = await auth();
   const bitfinexKey = (session?.user?.exchangeApis || []).find(

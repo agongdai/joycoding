@@ -1,36 +1,46 @@
-import { useEffect, useState } from 'react';
+'use client';
+
+import { useEffect } from 'react';
 
 import { SIDEBAR_WIDTH_DESKTOP, SIDEBAR_WIDTH_TABLET } from '@myex/config';
 import useMuiMediaQuery from '@myex/hooks/useMuiMediaQuery';
-import { useMyexDispatch } from '@myex/store';
-import { setMobileSidebarOpen } from '@myex/store/actions';
+import { useMyexDispatch, useMyexSelector } from '@myex/store';
+import { setMiniSidebarOpen, setMobileSidebarOpen } from '@myex/store/actions';
+import { selectMiniSidebarOpen } from '@myex/store/dom/selectors';
+import { usePrevious } from '@radix-ui/react-use-previous';
 
 export function useSidebar() {
   const dispatch = useMyexDispatch();
+  const miniSidebarOpen = useMyexSelector(selectMiniSidebarOpen);
   const { xlDown, mdDown } = useMuiMediaQuery();
-  const [showMini, setShowMini] = useState(false);
 
-  const toggleShowMini = () => setShowMini(!showMini);
+  const toggleMiniSidebarOpen = () => dispatch(setMiniSidebarOpen(!miniSidebarOpen));
 
+  const prevXlDown = usePrevious(xlDown);
+  const prevMdDown = usePrevious(mdDown);
   useEffect(() => {
-    if (xlDown && !mdDown) {
-      setShowMini(true);
-    } else {
-      setShowMini(false);
+    // Toggle mini sidebar open when switching from desktop to tablet
+    if (prevXlDown !== xlDown || prevMdDown !== mdDown) {
+      if (xlDown && !mdDown) {
+        dispatch(setMiniSidebarOpen(true));
+      } else {
+        dispatch(setMiniSidebarOpen(false));
+      }
     }
-  }, [mdDown, xlDown]);
+  }, [dispatch, mdDown, prevMdDown, prevXlDown, xlDown]);
 
   useEffect(() => {
-    if (!mdDown) {
+    // Toggle mini sidebar open when switching from desktop to tablet
+    if (prevMdDown !== mdDown && !mdDown) {
       dispatch(setMobileSidebarOpen(false));
     }
-  }, [dispatch, mdDown]);
+  }, [dispatch, mdDown, prevMdDown]);
 
   return {
-    sidebarWidth: showMini ? SIDEBAR_WIDTH_TABLET : SIDEBAR_WIDTH_DESKTOP,
+    sidebarWidth: miniSidebarOpen ? SIDEBAR_WIDTH_TABLET : SIDEBAR_WIDTH_DESKTOP,
     xlDown,
     mdDown,
-    showMini,
-    toggleShowMini,
+    miniSidebarOpen,
+    toggleMiniSidebarOpen,
   };
 }

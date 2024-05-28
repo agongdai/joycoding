@@ -14,7 +14,7 @@ import { ColumnData } from '@myex/components/ui/MyexTable/types';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
 import { setCurrentCurrency } from '@myex/store/trading/actions';
 import { selectShowTradingView } from '@myex/store/trading/selectors';
-import { CoinInMarket } from '@myex/types/coin';
+import { MarketCoin } from '@myex/types/coin';
 import { ValueFormat } from '@myex/types/common';
 import { Balance, MyexAsset } from '@myex/types/trading';
 import { Wallet } from '@myex/types/wallet';
@@ -22,7 +22,7 @@ import { Wallet } from '@myex/types/wallet';
 import AssetsSummary from './AssetsSummary';
 
 interface Props {
-  marketCoins: CoinInMarket[];
+  marketCoins: MarketCoin[];
   onChainBalances: Wallet[];
   myexAssets: MyexAsset[];
   ustBalance: Balance;
@@ -75,7 +75,7 @@ const columns: ColumnData<MyexAsset>[] = [
     renderComponent: (value, row) => (
       <ExchangeIcons wallets={value as MyexAsset['wallets']} myexAsset={row} />
     ),
-    responsiveClassName: 'xxl:hidden',
+    responsiveClassName: 'xl:hidden',
   },
   {
     label: 'Gain / Loss',
@@ -94,7 +94,7 @@ const columns: ColumnData<MyexAsset>[] = [
       />
     ),
     className: 'text-lg',
-    responsiveClassName: 'xl:hidden',
+    responsiveClassName: 'xxl:hidden',
   },
   {
     label: 'Gain / Loss %',
@@ -156,6 +156,7 @@ export default function MyAssets({ marketCoins, onChainBalances, myexAssets, ust
       />
       <TradingView />
       <MyexTable<MyexAsset>
+        uniqueKey='currency'
         data={myexAssets}
         columns={columns}
         defaultSortingField='_balanceUst'

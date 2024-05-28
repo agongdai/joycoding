@@ -82,6 +82,7 @@ const columns: ColumnData<WalletWithCoin>[] = [
 export default function WalletsList({ wallets = [] }: Props) {
   return (
     <MyexTable<WalletWithCoin>
+      uniqueKey='myexId'
       data={wallets}
       columns={columns}
       defaultSortingField='name'

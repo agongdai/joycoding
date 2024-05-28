@@ -63,6 +63,8 @@ const paletteBase = {
   hoverBgDark: 'rgba(40, 56, 78, 1)',
   selectedBgLight: 'rgba(234, 84, 85, 0.12)',
   selectedBgDark: 'rgba(234, 84, 85, 0.12)',
+
+  exchangeBitfinex: 'rgb(1, 167, 129)',
 };
 
 // eslint-disable-next-line no-undef

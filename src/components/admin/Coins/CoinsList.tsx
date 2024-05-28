@@ -93,6 +93,7 @@ const columns: ColumnData<Coin>[] = [
 export default function CoinsList({ coins = [] }: Props) {
   return (
     <MyexTable<Coin>
+      uniqueKey='myexId'
       data={coins}
       columns={columns}
       defaultSortingField='rating'

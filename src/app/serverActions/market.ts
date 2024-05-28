@@ -1,11 +1,11 @@
 'use server';
 
 import { myexFetchCoins } from '@myex/app/serverActions/myexCoin';
-import { CoinInMarket } from '@myex/types/coin';
+import { MarketCoin } from '@myex/types/coin';
 import { CoinGeokoApiBaseUrl } from '@myex/utils/endpoints';
 import { Coin } from '@prisma/client';
 
-export async function fetchMarketCoins(): Promise<CoinInMarket[]> {
+export async function fetchMarketCoins(): Promise<MarketCoin[]> {
   const coins = await myexFetchCoins();
   const coinGeokoIdsStr = coins.map((coin: Coin) => coin.coinGeckoId || '').join(',');
 
@@ -25,7 +25,7 @@ export async function fetchMarketCoins(): Promise<CoinInMarket[]> {
       const coinInMyex = coins.find((c: Coin) => c.currency.toLowerCase() === coin.symbol);
       return {
         geckoId: coin.id,
-        currency: coin.symbol,
+        currency: coin.symbol.toUpperCase(),
         image: coin.image,
         price: coin.current_price,
         priceChangePercentage24h: coin.price_change_percentage_24h,
@@ -41,7 +41,7 @@ export async function fetchMarketCoins(): Promise<CoinInMarket[]> {
         rating: coinInMyex?.rating || 0,
         myexCoin: coinInMyex,
         exchanges: coinInMyex?.exchanges || '',
-      } as CoinInMarket;
+      } as MarketCoin;
     });
   } catch (error) {
     console.error('Error fetching market coins:', error);

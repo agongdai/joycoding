@@ -4,12 +4,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface DomState {
   scrollTop: number;
   mobileSidebarOpen?: boolean;
+  miniSidebarOpen: boolean;
 }
 
 // Define the initial state using that type
 const initialState: DomState = {
   scrollTop: 0,
   mobileSidebarOpen: false,
+  miniSidebarOpen: false,
 };
 
 export const domSlice = createSlice({
@@ -21,6 +23,9 @@ export const domSlice = createSlice({
     },
     setMobileSidebarOpen: (state, action: PayloadAction<boolean>) => {
       state.mobileSidebarOpen = action.payload;
+    },
+    setMiniSidebarOpen: (state, action: PayloadAction<boolean>) => {
+      state.miniSidebarOpen = action.payload;
     },
   },
 });

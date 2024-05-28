@@ -5,7 +5,7 @@ import Coin from '@myex/components/ui/MyexFormatter/Coin';
 import CoinIcon from '@myex/components/ui/MyexFormatter/CoinIcon';
 import Exchange from '@myex/components/ui/MyexFormatter/Exchange';
 import { ColumnData } from '@myex/components/ui/MyexTable/types';
-import { CoinInMarket } from '@myex/types/coin';
+import { MarketCoin } from '@myex/types/coin';
 import { Value, ValueFormat } from '@myex/types/common';
 import { Coin as DbCoin } from '@prisma/client';
 
@@ -19,15 +19,12 @@ export default function CellRenderer<T>({ column, item }: { column: ColumnData<T
   }
 
   if (column.format === ValueFormat.Coin) {
-    return <Coin coin={(item as CoinInMarket)?.myexCoin} />;
+    return <Coin coin={(item as MarketCoin)?.myexCoin} />;
   }
 
   if (column.format === ValueFormat.Exchange) {
     return (
-      <Exchange
-        value={(item as CoinInMarket)?.exchanges}
-        currency={(item as CoinInMarket)?.currency}
-      />
+      <Exchange value={(item as MarketCoin)?.exchanges} currency={(item as MarketCoin)?.currency} />
     );
   }
 

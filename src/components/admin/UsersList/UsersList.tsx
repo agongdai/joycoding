@@ -53,6 +53,7 @@ export default function UsersList({ users = [] }: Props) {
     <>
       <h1>Users</h1>
       <MyexTable<User>
+        uniqueKey='myexId'
         data={users}
         columns={columns}
         defaultSortingField='myexId'

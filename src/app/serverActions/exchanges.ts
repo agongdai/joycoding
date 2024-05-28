@@ -4,9 +4,9 @@ import { getBitgetBalances } from '@myex/app/serverActions/bitgetRestAuth';
 import { getGateSpotAccounts } from '@myex/app/serverActions/gateRestAuth';
 import { fetchOkxWallets } from '@myex/app/serverActions/okxRestAuth';
 import { auth } from '@myex/auth';
-import { CoinInMarket } from '@myex/types/coin';
+import { MarketCoin } from '@myex/types/coin';
 
-export async function fetchAssetsFromExchanges(marketCoins: CoinInMarket[]) {
+export async function fetchAssetsFromExchanges(marketCoins: MarketCoin[]) {
   const session = await auth();
   const userMyexId = Number(session?.user?.myexId);
   if (!userMyexId) {
