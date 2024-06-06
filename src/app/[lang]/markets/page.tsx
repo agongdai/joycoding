@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fetchMarketCoins } from '@myex/app/serverActions/market';
 import MarketsTable from '@myex/components/MarketsTable';
+import ErrorIndicator from '@myex/components/operation/ErrorIndicator';
 import MyexFavorite from '@myex/components/operation/MyexFavorite';
 import TradingView from '@myex/components/TradingView';
 import { MyexStyledPageWrapper } from '@myex/components/ui/MyexStyled';
@@ -84,12 +85,13 @@ const columns: ColumnData<MarketCoin>[] = [
 ];
 
 export default async function MarketsPage() {
-  const marketCoins = await fetchMarketCoins();
+  const marketCoinsRes = await fetchMarketCoins();
   return (
     <MyexStyledPageWrapper>
+      <ErrorIndicator error={marketCoinsRes.success ? '' : marketCoinsRes.message || 'Failed'} />
       <h1>Markets</h1>
       <TradingView />
-      <MarketsTable marketCoins={marketCoins} columns={columns} />
+      <MarketsTable marketCoins={marketCoinsRes.data || []} columns={columns} />
     </MyexStyledPageWrapper>
   );
 }

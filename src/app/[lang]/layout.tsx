@@ -12,7 +12,7 @@ import Footer from '@myex/components/Footer';
 import Header from '@myex/components/Header';
 import ExStatus from '@myex/components/operation/ExStatus';
 import MyexScrollToTop from '@myex/components/operation/MyexScrollToTop';
-import NewUserCheck from '@myex/components/operation/NewUserCheck';
+import PermissionGard from '@myex/components/operation/PermissionGard';
 import ScrollTopHolder from '@myex/components/operation/ScrollTopHolder';
 import Sidebar from '@myex/components/Sidebar';
 import Seo from '@myex/data/seo.json';
@@ -65,7 +65,7 @@ export default async function RootLayout({
           <ThemeRegistry options={{ key: 'mui' }}>
             <main className='flex'>
               <SessionProvider session={session}>
-                <NewUserCheck />
+                <PermissionGard />
                 <Sidebar />
               </SessionProvider>
               <ScrollTopHolder>

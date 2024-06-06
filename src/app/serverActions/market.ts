@@ -1,11 +1,13 @@
 'use server';
 
 import { myexFetchCoins } from '@myex/app/serverActions/myexCoin';
+import { ApiResponse, HttpStatusCode } from '@myex/types/api';
 import { MarketCoin } from '@myex/types/coin';
+import { apiFailure, apiSuccess } from '@myex/utils/api';
 import { CoinGeokoApiBaseUrl } from '@myex/utils/endpoints';
 import { Coin } from '@prisma/client';
 
-export async function fetchMarketCoins(): Promise<MarketCoin[]> {
+export async function fetchMarketCoins(): Promise<ApiResponse<MarketCoin[]>> {
   const coins = await myexFetchCoins();
   const coinGeokoIdsStr = coins.map((coin: Coin) => coin.coinGeckoId || '').join(',');
 
@@ -21,7 +23,7 @@ export async function fetchMarketCoins(): Promise<MarketCoin[]> {
       },
     );
     const data = await res.json();
-    return (data || []).map((coin: any) => {
+    const marketCoins = (data || []).map((coin: any) => {
       const coinInMyex = coins.find((c: Coin) => c.currency.toLowerCase() === coin.symbol);
       return {
         geckoId: coin.id,
@@ -43,8 +45,9 @@ export async function fetchMarketCoins(): Promise<MarketCoin[]> {
         exchanges: coinInMyex?.exchanges || '',
       } as MarketCoin;
     });
+    return apiSuccess<MarketCoin[]>(marketCoins);
   } catch (error) {
     console.error('Error fetching market coins:', error);
-    return [];
+    return apiFailure(HttpStatusCode.BadRequest, 'Geoko API failed to fetch your coins');
   }
 }

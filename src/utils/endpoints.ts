@@ -1,8 +1,7 @@
+import { IS_PROD } from '@myex/config';
 import { Endpoint } from '@myex/types/api';
-import { Exchange } from '@myex/types/exchange';
 
 const BfxBaseUrl = 'https://api-pub.bitfinex.com';
-export const BfxWsBaseUrl = 'wss://api-pub.bitfinex.com/ws/2';
 
 export const BfxApiBaseUrl = BfxBaseUrl + '/v2';
 
@@ -23,10 +22,4 @@ export const BfxEndpoints: Record<string, Endpoint> = {
 
 export const CoinGeokoApiBaseUrl = 'https://api.coingecko.com/api/v3';
 
-export const WsBaseUrl = {
-  [Exchange.Bitfinex]: BfxWsBaseUrl,
-  [Exchange.Binance]: '',
-  [Exchange.OKX]: '',
-  [Exchange.Bitget]: '',
-  [Exchange.Gate]: '',
-};
+export const MyExWsBaseUrl = IS_PROD ? 'wss://ws.myex.ai/' : 'ws://localhost:8080/';

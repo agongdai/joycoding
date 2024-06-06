@@ -45,7 +45,4 @@ export enum WalletProvider {
   Unknown = '',
 }
 
-export type WsRealTimeData = Pick<
-  MarketCoin,
-  'currency' | 'price' | 'priceChangePercentage24h' | 'volume24h'
->;
+export type WsRealTimeData = Pick<MarketCoin, 'currency' | 'price' | 'priceChangePercentage24h'>;

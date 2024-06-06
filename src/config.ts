@@ -1,5 +1,7 @@
 import { HttpStatusCode } from '@myex/types/api';
 
+export const IS_PROD: boolean = process.env.NODE_ENV === 'production';
+
 export const MOBILE_QUERY: string = '(max-width: 768px)';
 
 /** Side bar width in rem */

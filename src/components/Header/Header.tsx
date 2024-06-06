@@ -14,6 +14,7 @@ import UserMenu from '@myex/components/operation/UserMenu';
 import MyexLink from '@myex/components/ui/MyexLink';
 import { useSidebar } from '@myex/hooks';
 import useScrollDirection from '@myex/hooks/useScrollDirection';
+import useUnderConstruction from '@myex/hooks/useUnderConstruction';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
 import { setMobileSidebarOpen } from '@myex/store/actions';
 import { selectScrollTop } from '@myex/store/selectors';
@@ -26,6 +27,7 @@ export default function Header({ statusNode = null }: { statusNode?: React.React
   const scrollTop = useMyexSelector(selectScrollTop);
   const scrollingDirection = useScrollDirection();
   const { theme } = useTheme();
+  const { underConstruction } = useUnderConstruction();
 
   const scrolled = scrollTop > 0;
 
@@ -57,21 +59,27 @@ export default function Header({ statusNode = null }: { statusNode?: React.React
           <span className='ml-2 text-xs xs:hidden'>by Shaojiang</span>
         </div>
         <ul className='flex items-center'>
-          <li className='ml-1'>
-            <LiveIndicator />
-          </li>
-          <li className='ml-1'>
-            <TradingViewSwitch />
-          </li>
+          {!underConstruction && (
+            <>
+              <li className='ml-1'>
+                <LiveIndicator />
+              </li>
+              <li className='ml-1'>
+                <TradingViewSwitch />
+              </li>
+            </>
+          )}
           <li className='ml-1'>
             <LangSwitch />
           </li>
           <li className='ml-1'>
             <ThemeSwitch />
           </li>
-          <li className='ml-1'>
-            <UserMenu />
-          </li>
+          {!underConstruction && (
+            <li className='ml-1'>
+              <UserMenu />
+            </li>
+          )}
         </ul>
       </div>
     </AppBar>

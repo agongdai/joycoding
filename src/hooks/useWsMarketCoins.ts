@@ -6,7 +6,7 @@ import { enqueueSnackbar } from 'notistack';
 
 import useWs from '@myex/hooks/useWs';
 import { MarketCoin } from '@myex/types/coin';
-import { Exchange } from '@myex/types/exchange';
+import { Exchange, MapExchangeNameToId } from '@myex/types/exchange';
 import { readBitfinexWsResponse } from '@myex/utils/adaptor';
 import { replaceArrayIndexes } from '@myex/utils/array';
 import { bitfinexSymbolToCurrency, currencyToBitfinexSymbol } from '@myex/utils/trading';
@@ -15,19 +15,33 @@ import usePrevious from './usePrevious';
 
 export default function useWsMarketCoins(defaultMarketCoins: MarketCoin[]): MarketCoin[] {
   const [marketCoins, setMarketCoins] = useState<MarketCoin[]>(defaultMarketCoins);
-  const realTimeCurrencies = useMemo(
+  const realTimeMarketCoins = useMemo(
     () =>
-      defaultMarketCoins
-        .filter((coin) => !coin.invisible && coin.exchanges === Exchange.Bitfinex)
-        .map((coin) => coin.currency),
+      defaultMarketCoins.filter((coin) => !coin.invisible && coin.exchanges === Exchange.Bitfinex),
     [defaultMarketCoins],
   );
-  const { ws, disconnect, alive, connect } = useWs(
-    Exchange.Bitfinex,
-    realTimeCurrencies.length > 0,
+  const realTimeCurrencies = useMemo(
+    () => realTimeMarketCoins.map((coin) => coin.currency),
+    [realTimeMarketCoins],
   );
-  const mapCurrencyToChannelId = useRef<Record<string, number>>({});
-  const mapChannelIdToCurrency = useRef<Record<number, string>>({});
+
+  // Map currency to exchange @todo to support multiple exchanges
+  const mapCurrencyToExchange: Record<string, Exchange> = useMemo(
+    () =>
+      defaultMarketCoins.reduce(
+        (prev, coin, index) => ({
+          ...prev,
+          [coin.currency]: coin.exchanges as Exchange,
+        }),
+        {} as Record<string, Exchange>,
+      ),
+    [defaultMarketCoins],
+  );
+
+  const mapCurrencyToChannelId = useRef<Record<string, string>>({});
+  const mapChannelIdToCurrency = useRef<Record<string, string>>({});
+
+  const { ws, disconnect, alive, connect } = useWs(realTimeCurrencies.length > 0);
 
   const mapCurrencyToIndexInArray: Record<string, number> = useMemo(() => {
     return defaultMarketCoins.reduce(
@@ -44,11 +58,15 @@ export default function useWsMarketCoins(defaultMarketCoins: MarketCoin[]): Mark
   useEffect(() => {
     if (prevRealTimeCurrencies !== realTimeCurrencies && alive) {
       const removedCurrencies = _difference(prevRealTimeCurrencies, realTimeCurrencies);
+
       removedCurrencies.forEach((currency) => {
         ws?.send(
           JSON.stringify({
-            event: 'unsubscribe',
-            chanId: mapCurrencyToChannelId.current[currency],
+            exchange: MapExchangeNameToId[mapCurrencyToExchange[currency]],
+            payload: {
+              event: 'unsubscribe',
+              chanId: Number(mapCurrencyToChannelId.current[currency].split('-')[1] || 0),
+            },
           }),
         );
       });
@@ -57,14 +75,17 @@ export default function useWsMarketCoins(defaultMarketCoins: MarketCoin[]): Mark
       newCurrencies.forEach((currency) => {
         ws?.send(
           JSON.stringify({
-            event: 'subscribe',
-            channel: 'ticker',
-            symbol: currencyToBitfinexSymbol(currency),
+            exchange: MapExchangeNameToId[mapCurrencyToExchange[currency]],
+            payload: {
+              event: 'subscribe',
+              channel: 'ticker',
+              symbol: currencyToBitfinexSymbol(currency),
+            },
           }),
         );
       });
     }
-  }, [alive, disconnect, prevRealTimeCurrencies, realTimeCurrencies, ws]);
+  }, [alive, disconnect, mapCurrencyToExchange, prevRealTimeCurrencies, realTimeCurrencies, ws]);
 
   // Connect to WebSocket when there are realTimeCurrencies and disconnect when there are none
   useEffect(() => {
@@ -88,51 +109,67 @@ export default function useWsMarketCoins(defaultMarketCoins: MarketCoin[]): Mark
     }
 
     // WebSocket event handlers
+    // When the WebSocket opens, make sure the latest currencies are subscribed.
     ws.addEventListener('open', (event) => {
-      enqueueSnackbar('WebSocket connection to Bitfinex has been established.', {
+      enqueueSnackbar('WebSocket connection to MyEx.AI has been established.', {
         variant: 'success',
         preventDuplicate: true,
+        persist: false,
       });
       realTimeCurrencies.forEach((currency) => {
         ws.send(
           JSON.stringify({
-            event: 'subscribe',
-            channel: 'ticker',
-            symbol: currencyToBitfinexSymbol(currency),
+            exchange: MapExchangeNameToId[mapCurrencyToExchange[currency]],
+            payload: {
+              event: 'subscribe',
+              channel: 'ticker',
+              symbol: currencyToBitfinexSymbol(currency),
+            },
           }),
         );
       });
     });
 
+    // Whenever a message arrives
     ws.addEventListener('message', (event) => {
       const message = JSON.parse(event.data);
-      if (message?.event === 'subscribed') {
-        mapChannelIdToCurrency.current[message.chanId] = bitfinexSymbolToCurrency(message.symbol);
-        mapCurrencyToChannelId.current[bitfinexSymbolToCurrency(message.symbol)] = message.chanId;
+      const exchange = message?.exchange;
+      const payload = message?.payload;
+      // To handle multiple exchanges, make the channel id unique by prefixing it with the exchange id
+      const uniqueChanId = `${exchange}-${payload?.chanId || ''}`;
+
+      // Handle subscription and unsubscription events
+      if (payload?.event === 'subscribed') {
+        mapChannelIdToCurrency.current[uniqueChanId] = bitfinexSymbolToCurrency(payload.symbol);
+        mapCurrencyToChannelId.current[bitfinexSymbolToCurrency(payload.symbol)] = uniqueChanId;
       }
-      if (message?.event === 'unsubscribed') {
-        const currency = mapChannelIdToCurrency.current[message.chanId];
-        delete mapChannelIdToCurrency.current[message.chanId];
+      if (payload?.event === 'unsubscribed') {
+        const currency = mapChannelIdToCurrency.current[uniqueChanId];
+        delete mapChannelIdToCurrency.current[uniqueChanId];
         delete mapCurrencyToChannelId.current[currency];
       }
-      if (Array.isArray(message) && message[0]) {
-        if (Array.isArray(message[1])) {
-          const channelId = message[0];
-          const currency = mapChannelIdToCurrency.current[channelId];
+
+      // Handle ticker updates
+      if (Array.isArray(payload) && payload[0]) {
+        if (Array.isArray(payload[1])) {
+          const uniqueChanId = `${exchange}-${payload[0]}`;
+          const currency = mapChannelIdToCurrency.current[uniqueChanId];
           const index = mapCurrencyToIndexInArray[currency];
-          const updatedMarketCoin = readBitfinexWsResponse([currency, ...message[1]]);
-          setMarketCoins((prevMarketCoins) =>
-            replaceArrayIndexes(
-              prevMarketCoins,
-              [index],
-              [
-                {
-                  ...prevMarketCoins[index],
-                  ...updatedMarketCoin,
-                },
-              ],
-            ),
-          );
+          const updatedMarketCoin = readBitfinexWsResponse([currency, ...payload[1]]);
+          currency &&
+            index >= 0 &&
+            setMarketCoins((prevMarketCoins) =>
+              replaceArrayIndexes(
+                prevMarketCoins,
+                [index],
+                [
+                  {
+                    ...prevMarketCoins[index],
+                    ...updatedMarketCoin,
+                  },
+                ],
+              ),
+            );
         }
       }
     });
@@ -143,7 +180,7 @@ export default function useWsMarketCoins(defaultMarketCoins: MarketCoin[]): Mark
         preventDuplicate: true,
       });
     });
-  }, [disconnect, mapCurrencyToIndexInArray, realTimeCurrencies, ws]);
+  }, [disconnect, mapCurrencyToExchange, mapCurrencyToIndexInArray, realTimeCurrencies, ws]);
 
   return marketCoins;
 }
