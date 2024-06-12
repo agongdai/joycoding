@@ -143,6 +143,7 @@ export default function useWsMarketCoins(defaultMarketCoins: MarketCoin[]): Mark
         mapChannelIdToCurrency.current[uniqueChanId] = bitfinexSymbolToCurrency(payload.symbol);
         mapCurrencyToChannelId.current[bitfinexSymbolToCurrency(payload.symbol)] = uniqueChanId;
       }
+
       if (payload?.event === 'unsubscribed') {
         const currency = mapChannelIdToCurrency.current[uniqueChanId];
         delete mapChannelIdToCurrency.current[uniqueChanId];
