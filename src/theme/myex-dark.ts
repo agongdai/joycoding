@@ -1,3 +1,5 @@
+'use client';
+
 import createTheme from '@mui/material/styles/createTheme';
 import { Shadows } from '@mui/material/styles/shadows';
 import fonts from '@myex/theme/font';

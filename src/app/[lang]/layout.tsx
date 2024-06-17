@@ -19,9 +19,11 @@ import Seo from '@myex/data/seo.json';
 import { languages } from '@myex/i18n/config';
 import colors from '@myex/theme/colors';
 import fonts from '@myex/theme/font';
-import ThemeRegistry from '@myex/theme/ThemeRegistry';
+import MuiThemeCacheProvider from '@myex/theme/MuiThemeCacheProvider';
 import { Language, ParamsWithLng } from '@myex/types/i18n';
 
+// @doc https://docs.fontawesome.com/web/use-with/react/use-with
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import '@myex/app/globals.css';
 
 config.autoAddCss = false;
@@ -61,8 +63,8 @@ export default async function RootLayout({
     <html lang={lang} suppressHydrationWarning>
       <body className={fonts.default.className} id='root'>
         <NextTopLoader color={colors.primaryMain} shadow='none' />
-        <Providers>
-          <ThemeRegistry options={{ key: 'mui' }}>
+        <MuiThemeCacheProvider>
+          <Providers>
             <main className='flex'>
               <SessionProvider session={session}>
                 <PermissionGard />
@@ -77,8 +79,8 @@ export default async function RootLayout({
                 <Footer />
               </ScrollTopHolder>
             </main>
-          </ThemeRegistry>
-        </Providers>
+          </Providers>
+        </MuiThemeCacheProvider>
       </body>
     </html>
   );
