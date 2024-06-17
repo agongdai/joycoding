@@ -23,6 +23,7 @@ export async function fetchMarketCoins(): Promise<ApiResponse<MarketCoin[]>> {
       },
     );
     const data = await res.json();
+    console.log('data from GeokoCoin:', data);
     const marketCoins = (data || []).map((coin: any) => {
       const coinInMyex = coins.find((c: Coin) => c.currency.toLowerCase() === coin.symbol);
       return {

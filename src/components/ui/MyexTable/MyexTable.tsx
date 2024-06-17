@@ -113,10 +113,7 @@ export default function MyexTable<T>({
         <div
           className={cx(
             'flex w-full dark:bg-bg-dark-light hover:dark:bg-hover-bg-dark hover:bg-hover-bg-light ' +
-              'bg-white border-t border-border-light dark:border-border-dark',
-            {
-              'cursor-pointer': !!onRowClick,
-            },
+              'bg-white border-t border-border-light dark:border-border-dark cursor-pointer',
           )}
           key={String(item[uniqueKey])}
           onClick={() => onRowClick && onRowClick(item)}

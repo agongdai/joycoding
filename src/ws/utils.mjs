@@ -15,3 +15,12 @@ export const bitfinexSymbolToCurrency = (symbol) => {
 export const bitfinexSymbolToPair = (symbol) => {
   return symbol.slice(1);
 };
+
+/**
+ * Currency to Bitfinex symbol: 'BTC' => 'tBTCUSD'
+ * @param currency
+ * @returns {`t${string}${string}UST`}
+ */
+export const bitfinexCurrencyToSymbol = (currency) => {
+  return `t${currency.toUpperCase()}${currency.length === 3 ? '' : ':'}UST`;
+};
