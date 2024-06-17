@@ -23,7 +23,11 @@ export async function fetchMarketCoins(): Promise<ApiResponse<MarketCoin[]>> {
       },
     );
     const data = await res.json();
-    console.log('data from GeokoCoin:', data);
+    if (!Array.isArray(data)) {
+      console.error('Error fetching market coins:', data);
+      return apiFailure(HttpStatusCode.BadRequest, 'Geoko API failed to fetch your coins');
+    }
+
     const marketCoins = (data || []).map((coin: any) => {
       const coinInMyex = coins.find((c: Coin) => c.currency.toLowerCase() === coin.symbol);
       return {
