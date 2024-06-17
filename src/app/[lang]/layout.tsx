@@ -63,8 +63,8 @@ export default async function RootLayout({
     <html lang={lang} suppressHydrationWarning>
       <body className={fonts.default.className} id='root'>
         <NextTopLoader color={colors.primaryMain} shadow='none' />
-        <MuiThemeCacheProvider>
-          <Providers>
+        <Providers>
+          <MuiThemeCacheProvider>
             <main className='flex'>
               <SessionProvider session={session}>
                 <PermissionGard />
@@ -79,8 +79,8 @@ export default async function RootLayout({
                 <Footer />
               </ScrollTopHolder>
             </main>
-          </Providers>
-        </MuiThemeCacheProvider>
+          </MuiThemeCacheProvider>
+        </Providers>
       </body>
     </html>
   );
