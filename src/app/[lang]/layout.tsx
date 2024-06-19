@@ -4,7 +4,6 @@ import { SessionProvider } from 'next-auth/react';
 import NextTopLoader from 'nextjs-toploader';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
-import Loading from '@myex/app/[lang]/loading';
 import Providers from '@myex/app/Providers';
 import { checkBfxApiStatus } from '@myex/app/serverActions/exchangeStatus';
 import { auth } from '@myex/auth';
@@ -74,7 +73,7 @@ export default async function RootLayout({
                 <SessionProvider session={session}>
                   <Header statusNode={<ExStatus status={bfxApiStatus} />} />
                 </SessionProvider>
-                <Suspense fallback={<Loading />}>{children}</Suspense>
+                {children}
                 <MyexScrollToTop />
                 <Footer />
               </ScrollTopHolder>

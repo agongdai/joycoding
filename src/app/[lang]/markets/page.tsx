@@ -7,7 +7,7 @@ import { MyexStyledPageWrapper } from '@myex/components/ui/MyexStyled';
 
 export const revalidate = 10;
 
-export default async function MarketsPage() {
+export default function MarketsPage() {
   return (
     <MyexStyledPageWrapper>
       <h1>Markets</h1>
