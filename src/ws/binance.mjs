@@ -1,11 +1,10 @@
 import _difference from 'lodash/difference.js';
 import _uniq from 'lodash/uniq.js';
 
-import shared from './shared.mjs';
-import { bitfinexCurrencyToSymbol } from './utils.mjs';
-import ws from './ws.mjs';
+import WebSocketConnector from './WebSocketConnector.mjs';
 
 const binanceWs = (function() {
+  const ws = new WebSocketConnector('wss://stream.binance.com:9443/ws');
   let subscribedPairs = [];
 
   /**
@@ -17,17 +16,16 @@ const binanceWs = (function() {
   };
 
   const connect = (myexWs) => {
-    ws.connect('wss://stream.binance.com:9443/ws',
-      function(data) {
+    ws.connect(
+      (data) => {
         console.log('Got message from Binance WebSocket', data);
-        console.log('Binance shared', shared.getWsBaseUrl());
         const isTicker = data.e === '24hrMiniTicker';
         // send({
         //   event: 'subscribe',
         //   channel: 'ticker',
         //   symbol: bitfinexCurrencyToSymbol(currency),
         // });
-      }, function(connection) {
+      }, (connection) => {
       });
   };
 

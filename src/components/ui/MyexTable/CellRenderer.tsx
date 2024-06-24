@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import MyexFormatter from '@myex/components/ui/MyexFormatter';
 import Coin from '@myex/components/ui/MyexFormatter/Coin';
@@ -9,7 +9,7 @@ import { MarketCoin } from '@myex/types/coin';
 import { Value, ValueFormat } from '@myex/types/common';
 import { Coin as DbCoin } from '@prisma/client';
 
-export default function CellRenderer<T>({ column, item }: { column: ColumnData<T>; item: T }) {
+export default memo(function CellRenderer<T>({ column, item }: { column: ColumnData<T>; item: T }) {
   if (column.renderComponent) {
     return column.renderComponent(item[column.dataKey], item);
   }
@@ -34,4 +34,4 @@ export default function CellRenderer<T>({ column, item }: { column: ColumnData<T
       format={column.format || ValueFormat.String}
     />
   );
-}
+});

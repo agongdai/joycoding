@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import BigNumber from 'bignumber.js';
 import { enqueueSnackbar } from 'notistack';
@@ -10,6 +10,7 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { myexUpdateTxOpenPrice } from '@myex/app/serverActions/myexTransaction';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
 import Money from '@myex/components/ui/MyexFormatter/Money';
+import useOptimistic from '@myex/hooks/useOptimistic';
 import { Transaction } from '@prisma/client';
 
 interface Props {
@@ -17,31 +18,36 @@ interface Props {
   tx: Transaction | null | undefined;
 }
 
-export default function EditableTxCost({ price, tx }: Props) {
+export default memo(function EditableTxCost({ price, tx }: Props) {
   const router = useRouter();
   const cost = BigNumber(tx?.openPrice || 0)
     .multipliedBy(BigNumber(tx?.totalAmount || 0))
     .toFixed(0);
-  const [editing, setEditing] = React.useState(false);
-  const [hover, setHover] = React.useState(false);
-  const [value, setValue] = React.useState(cost ? cost.toString() : '');
+  const [editing, setEditing] = useState(false);
+  const [hover, setHover] = useState(false);
+  const [value, setValue] = useState(cost || '');
+  const [optimistic, setOptimistic] = useOptimistic<string>(cost);
 
   const currentPrice = BigNumber(price);
 
+  useEffect(() => {
+    editing && setValue(cost || '');
+  }, [cost, editing]);
+
   const onClick = async () => {
     if (editing) {
-      const res = await myexUpdateTxOpenPrice(
-        tx?.myexId || 0,
-        BigNumber(value)
-          .dividedBy(BigNumber(tx?.totalAmount || 0))
-          .toString(),
-      );
+      const updatedCost = BigNumber(value);
+      const updatedPrice = updatedCost.dividedBy(BigNumber(tx?.totalAmount || 0)).toString();
+
+      setOptimistic(updatedCost.toFixed(0));
+      setEditing(false);
+
+      const res = await myexUpdateTxOpenPrice(tx?.myexId || 0, updatedPrice);
       if (res?.success) {
         enqueueSnackbar(`The open price has been updated successfully.`, {
           variant: 'success',
         });
         router.refresh();
-        setEditing(false);
       }
     } else {
       setEditing(true);
@@ -66,7 +72,7 @@ export default function EditableTxCost({ price, tx }: Props) {
               onChange={(e) => setValue(e.target.value)}
             />
           ) : (
-            <Money value={cost} />
+            <Money value={optimistic} />
           )}
           {(hover || editing) && (
             <AwesomeIcon
@@ -81,4 +87,4 @@ export default function EditableTxCost({ price, tx }: Props) {
       </div>
     </ClickAwayListener>
   );
-}
+});
