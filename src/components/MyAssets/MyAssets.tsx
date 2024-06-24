@@ -68,6 +68,7 @@ const columns: ColumnData<MyexAsset>[] = [
     ),
     sortable: true,
     responsiveClassName: 'sm:hidden',
+    widthRem: 13,
   },
   {
     label: 'Trade',
