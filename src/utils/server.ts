@@ -2,6 +2,6 @@
 
 import { setTimeout } from 'timers/promises';
 
-export async function sleep(ms: number) {
+export async function sleep(ms) {
   await setTimeout(ms);
 }

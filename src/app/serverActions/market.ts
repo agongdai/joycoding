@@ -1,3 +1,5 @@
+'use server';
+
 import { myexFetchCoins } from '@myex/app/serverActions/myexCoin';
 import { ApiResponse, HttpStatusCode } from '@myex/types/api';
 import { MarketCoin } from '@myex/types/coin';
@@ -18,7 +20,6 @@ export async function fetchMarketCoins(): Promise<ApiResponse<MarketCoin[]>> {
         headers: {
           'x-cg-api-key': process.env.COIN_GEOKO_API_KEY,
         },
-        cache: 'force-cache',
       },
     );
     const data = await res.json();
