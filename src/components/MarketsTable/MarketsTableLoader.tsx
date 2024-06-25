@@ -30,6 +30,7 @@ const columns: ColumnData<MarketCoin>[] = [
     dataKey: 'price',
     format: ValueFormat.Money,
     sortable: true,
+    widthRem: 15,
     responsiveClassName: 'md:!basis-[15rem] xs:!basis-[8rem] xs:px-0',
   },
   {

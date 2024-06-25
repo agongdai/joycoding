@@ -5,7 +5,7 @@ import TradingView from '@myex/components/TradingView';
 import MyexSkeleton from '@myex/components/ui/MyexSkeleton';
 import { MyexStyledPageWrapper } from '@myex/components/ui/MyexStyled';
 
-export const revalidate = 10;
+export const revalidate = 60;
 
 export default function MarketsPage() {
   return (
