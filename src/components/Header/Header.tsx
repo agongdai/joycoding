@@ -21,7 +21,7 @@ import { selectScrollTop } from '@myex/store/selectors';
 import { MyexTheme } from '@myex/theme';
 import { Direction } from '@myex/types/window';
 
-export default function Header({ statusNode = null }: { statusNode?: React.ReactNode }) {
+export default function Header() {
   const dispatch = useMyexDispatch();
   const { mdDown } = useSidebar();
   const scrollTop = useMyexSelector(selectScrollTop);

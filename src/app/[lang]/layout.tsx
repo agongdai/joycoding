@@ -1,15 +1,13 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import type { Metadata } from 'next';
 import { SessionProvider } from 'next-auth/react';
 import NextTopLoader from 'nextjs-toploader';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import Providers from '@myex/app/Providers';
-import { checkBfxApiStatus } from '@myex/app/serverActions/exchangeStatus';
 import { auth } from '@myex/auth';
 import Footer from '@myex/components/Footer';
 import Header from '@myex/components/Header';
-import ExStatus from '@myex/components/operation/ExStatus';
 import MyexScrollToTop from '@myex/components/operation/MyexScrollToTop';
 import PermissionGard from '@myex/components/operation/PermissionGard';
 import ScrollTopHolder from '@myex/components/operation/ScrollTopHolder';
@@ -28,7 +26,7 @@ import '@myex/app/globals.css';
 config.autoAddCss = false;
 
 // revalidate at some frequency
-export const revalidate = 600;
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   metadataBase: new URL(Seo.siteUrl),
@@ -56,7 +54,6 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: ParamsWithLng;
 }) {
-  const bfxApiStatus = await checkBfxApiStatus();
   const session = await auth();
   return (
     <html lang={lang} suppressHydrationWarning>
@@ -71,7 +68,7 @@ export default async function RootLayout({
               </SessionProvider>
               <ScrollTopHolder>
                 <SessionProvider session={session}>
-                  <Header statusNode={<ExStatus status={bfxApiStatus} />} />
+                  <Header />
                 </SessionProvider>
                 {children}
                 <MyexScrollToTop />
