@@ -29,7 +29,7 @@ export default function Menu({ menu, showMini }: Props) {
   const selected =
     menu.href === '/'
       ? pathName === '/'
-      : pathName.startsWith((menu.protected ? '/@me' : '') + menu.href);
+      : pathName.startsWith((menu.protected ? '/app' : '') + menu.href);
   const [open, setOpen] = React.useState(false);
   const hasSubMenus = Number(menu.subMenus?.length) > 0;
 
@@ -69,7 +69,7 @@ export default function Menu({ menu, showMini }: Props) {
         }}
       >
         <MyexLink
-          href={hasSubMenus ? '/' : (menu.protected ? `/@me` : '') + menu.href}
+          href={hasSubMenus ? '/' : (menu.protected ? `/app` : '') + menu.href}
           className='hover:no-underline w-full py-2'
           disabled={hasSubMenus}
         >
@@ -91,7 +91,7 @@ export default function Menu({ menu, showMini }: Props) {
         <Collapse in={open} timeout='auto' unmountOnExit>
           <List component='ul' classes={{ root: 'py-0' }}>
             {(menu.subMenus || []).map((subMenu) => {
-              const subMenuHref = (menu.protected ? '/@me' : '') + menu.href + subMenu.href;
+              const subMenuHref = (menu.protected ? '/app' : '') + menu.href + subMenu.href;
               const exactSelect = subMenuHref === pathName;
               return (
                 <ListItem key={subMenu.title} classes={{ root: 'block p-0' }}>
