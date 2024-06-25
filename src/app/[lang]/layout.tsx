@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { SessionProvider } from 'next-auth/react';
 import NextTopLoader from 'nextjs-toploader';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import Providers from '@myex/app/Providers';
+import { checkBfxApiStatus } from '@myex/app/serverActions/exchangeStatus';
 import { auth } from '@myex/auth';
 import Footer from '@myex/components/Footer';
 import Header from '@myex/components/Header';
+import ExStatus from '@myex/components/operation/ExStatus';
 import MyexScrollToTop from '@myex/components/operation/MyexScrollToTop';
 import PermissionGard from '@myex/components/operation/PermissionGard';
 import ScrollTopHolder from '@myex/components/operation/ScrollTopHolder';
@@ -49,14 +51,15 @@ export async function generateStaticParams() {
 
 export default async function RootLayout({
   children,
-  params,
+  params: { lang },
 }: {
   children: React.ReactNode;
   params: ParamsWithLng;
 }) {
+  const bfxApiStatus = await checkBfxApiStatus();
   const session = await auth();
   return (
-    <html lang={params?.lang || 'en'} suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <body className={fonts.default.className} id='root'>
         <NextTopLoader color={colors.primaryMain} shadow='none' />
         <Providers>
@@ -68,7 +71,7 @@ export default async function RootLayout({
               </SessionProvider>
               <ScrollTopHolder>
                 <SessionProvider session={session}>
-                  <Header />
+                  <Header statusNode={<ExStatus status={bfxApiStatus} />} />
                 </SessionProvider>
                 {children}
                 <MyexScrollToTop />

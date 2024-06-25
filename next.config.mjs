@@ -42,11 +42,6 @@ const nextConfig = {
       allowedOrigins: ['myex.ai'],
     },
   },
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-  },
 };
 
 const withMDX = createMDX({
