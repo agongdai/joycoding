@@ -7,6 +7,8 @@ import { BLOCK_DAEMON_API_BASE } from '@myex/config';
 import { prisma } from '@myex/db';
 import { BlockDaemonWallet, Wallet } from '@myex/types/wallet';
 
+import cache from './cache';
+
 export async function fetchOnChainBalances(): Promise<Wallet[]> {
   const wallets = await prisma?.onChainWallet.findMany({});
   if (!wallets) {
@@ -39,6 +41,9 @@ export async function fetchOnChainBalances(): Promise<Wallet[]> {
       }
 
       const blockDaemonUrl = `${BLOCK_DAEMON_API_BASE}/${wallet.protocol}/${wallet.network}/account/${wallet.address}`;
+      if (cache.get(blockDaemonUrl)) {
+        return cache.get(blockDaemonUrl) as Wallet;
+      }
       try {
         const res = await fetch(blockDaemonUrl, {
           // @ts-ignore
@@ -52,7 +57,7 @@ export async function fetchOnChainBalances(): Promise<Wallet[]> {
           return null;
         }
 
-        return {
+        const myexWallet = {
           currency: chain.currency.symbol,
           address: wallet.address,
           name: wallet.name,
@@ -65,6 +70,9 @@ export async function fetchOnChainBalances(): Promise<Wallet[]> {
             .toString(),
           myexCoin,
         } as Wallet;
+        cache.put(blockDaemonUrl, myexWallet);
+
+        return myexWallet;
       } catch (error) {
         console.error('Error fetching on-chain balances:', error);
         return null;

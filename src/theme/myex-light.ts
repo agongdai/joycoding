@@ -2,22 +2,13 @@ import createTheme from '@mui/material/styles/createTheme';
 import { Shadows } from '@mui/material/styles/shadows';
 import fonts from '@myex/theme/font';
 
-import breakpoints from './breakpoints';
+import { muiBreakpoints } from './mui';
 import palette from './palette';
 
 import '@mui/lab/themeAugmentation';
 
 const theme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: breakpoints.sm,
-      md: breakpoints.md,
-      lg: breakpoints.lg,
-      xl: breakpoints.xl,
-      xxl: breakpoints.xxl,
-    },
-  },
+  breakpoints: muiBreakpoints,
   spacing: (factor: number) => `${0.4 * factor}rem`,
   shadows: ['none'].concat(
     Array(25).fill(
@@ -212,6 +203,15 @@ const theme = createTheme({
         root: {
           margin: '2.4rem 0',
           borderColor: palette.borderLight,
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          [muiBreakpoints.down('sm')]: {
+            padding: '0.4rem',
+          },
         },
       },
     },

@@ -10,9 +10,25 @@ import { GateWallet } from '@myex/types/gate';
 import { BalanceBreakdownFromExchange } from '@myex/types/trading';
 import { filterWalletsWithValue } from '@myex/utils/trading';
 
+import cache from './cache';
+
 const GateApi = require('gate-api');
 
 let client: SpotApi | null = null;
+
+/**
+ * Get the cache key for Gate exchange for current user
+ */
+const getGateCacheKey = async () => {
+  const session = await auth();
+  const gateKey = (session?.user?.exchangeApis || []).find(
+    (exchange) => exchange.exchangeId === Exchange.Gate,
+  );
+  if (!session?.user || !gateKey) {
+    return '';
+  }
+  return `${Exchange.Gate}-${session?.user?.myexId}-${gateKey?.apiKey}`;
+};
 
 const getGateClient = async () => {
   if (client) {
@@ -41,6 +57,16 @@ export const getGateSpotAccounts = async (
     return [];
   }
 
+  const gateCacheKey = await getGateCacheKey();
+
+  if (!gateCacheKey) {
+    return [];
+  }
+
+  if (cache.get(gateCacheKey)) {
+    return cache.get(gateCacheKey) as BalanceBreakdownFromExchange[];
+  }
+
   try {
     console.debug('fetching gate spot accounts ...');
     // @doc https://github.com/gateio/gateapi-nodejs/blob/master/docs/SpotApi.md#listSpotAccounts
@@ -61,7 +87,9 @@ export const getGateSpotAccounts = async (
       availableAmount: wallet.available,
       exchange: Exchange.Gate,
     }));
-    return filterWalletsWithValue(myexWallets, marketCoins);
+    const myexWalletsWithBalance = filterWalletsWithValue(myexWallets, marketCoins);
+    cache.put(gateCacheKey, myexWalletsWithBalance);
+    return myexWalletsWithBalance;
   } catch (error) {
     console.error('gate error', error);
     return [];

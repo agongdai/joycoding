@@ -19,7 +19,12 @@ import { useMyexDispatch, useMyexSelector } from '@myex/store';
 import { setMobileSidebarOpen } from '@myex/store/actions';
 import { selectScrollTop } from '@myex/store/selectors';
 import { MyexTheme } from '@myex/theme';
+import { PropsWithChildren } from '@myex/types/common';
 import { Direction } from '@myex/types/window';
+
+function MenuItem({ children }: PropsWithChildren) {
+  return <li className='ml-1 sm:ml-0'>{children}</li>;
+}
 
 export default function Header() {
   const dispatch = useMyexDispatch();
@@ -61,24 +66,24 @@ export default function Header() {
         <ul className='flex items-center'>
           {!underConstruction && (
             <>
-              <li className='ml-1'>
+              <MenuItem>
                 <LiveIndicator />
-              </li>
-              <li className='ml-1'>
+              </MenuItem>
+              <MenuItem>
                 <TradingViewSwitch />
-              </li>
+              </MenuItem>
             </>
           )}
-          <li className='ml-1'>
+          <MenuItem>
             <LangSwitch />
-          </li>
-          <li className='ml-1'>
+          </MenuItem>
+          <MenuItem>
             <ThemeSwitch />
-          </li>
+          </MenuItem>
           {!underConstruction && (
-            <li className='ml-1'>
+            <MenuItem>
               <UserMenu />
-            </li>
+            </MenuItem>
           )}
         </ul>
       </div>

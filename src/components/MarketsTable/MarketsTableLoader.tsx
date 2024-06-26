@@ -15,7 +15,7 @@ const columns: ColumnData<MarketCoin>[] = [
     format: ValueFormat.Coin,
     sortable: true,
     widthRem: 25,
-    responsiveClassName: 'md:!basis-[12rem] xs:!basis-[6rem]',
+    responsiveClassName: 'md:!basis-[12rem] xs:!basis-[7rem]',
   },
   {
     label: 'Rating',

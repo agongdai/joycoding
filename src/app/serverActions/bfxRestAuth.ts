@@ -9,6 +9,8 @@ import { BalanceBreakdownFromExchange } from '@myex/types/trading';
 import { BfxEndpoints } from '@myex/utils/endpoints';
 import { filterWalletsWithValue, syncBitfinexCurrencies } from '@myex/utils/trading';
 
+import cache from './cache';
+
 export async function fetchBitfinexWallets(
   marketCoins: MarketCoin[],
 ): Promise<BalanceBreakdownFromExchange[]> {
@@ -18,6 +20,11 @@ export async function fetchBitfinexWallets(
   );
   if (!session?.user || !bitfinexKey) {
     return [];
+  }
+
+  const bitfinexCacheKey = `${Exchange.Bitfinex}-${session?.user?.myexId}-${bitfinexKey?.apiKey}`;
+  if (cache.get(bitfinexCacheKey)) {
+    return cache.get(bitfinexCacheKey) as BalanceBreakdownFromExchange[];
   }
 
   const apiKey = bitfinexKey.apiKey;
@@ -60,7 +67,10 @@ export async function fetchBitfinexWallets(
       availableAmount: wallet.availableBalance,
       exchange: Exchange.Bitfinex,
     }));
-    return filterWalletsWithValue(myexWallets, marketCoins);
+
+    const myexWalletsWithBalance = filterWalletsWithValue(myexWallets, marketCoins);
+    cache.put(bitfinexCacheKey, myexWalletsWithBalance);
+    return myexWalletsWithBalance;
   } catch (error) {
     console.error('bitfinex error', error);
     return [];
