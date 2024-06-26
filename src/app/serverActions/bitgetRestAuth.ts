@@ -3,6 +3,7 @@
 import BigNumber from 'bignumber.js';
 import { SpotAccountApi } from 'bitget-api-node-sdk';
 
+import cache from '@myex/app/serverActions/cache';
 import { auth } from '@myex/auth';
 import { BitgetWallet } from '@myex/types/bitget';
 import { MarketCoin } from '@myex/types/coin';
@@ -11,6 +12,20 @@ import { BalanceBreakdownFromExchange } from '@myex/types/trading';
 import { filterWalletsWithValue } from '@myex/utils/trading';
 
 let client: any | null = null;
+
+/**
+ * Get the cache key for Gate exchange for current user
+ */
+const getBitgetCacheKey = async () => {
+  const session = await auth();
+  const bitgetKey = (session?.user?.exchangeApis || []).find(
+    (exchange) => exchange.exchangeId === Exchange.Bitget,
+  );
+  if (!session?.user || !bitgetKey) {
+    return '';
+  }
+  return `${Exchange.Bitget}-${session?.user?.myexId}-${bitgetKey?.apiKey}`;
+};
 
 const getBitgetClient = async () => {
   if (client) {
@@ -43,6 +58,16 @@ export const getBitgetBalances = async (
     return [];
   }
 
+  const bitgetCacheKey = await getBitgetCacheKey();
+
+  if (!bitgetCacheKey) {
+    return [];
+  }
+
+  if (cache.get(bitgetCacheKey)) {
+    return cache.get(bitgetCacheKey) as BalanceBreakdownFromExchange[];
+  }
+
   try {
     console.debug('fetching bitget balances ...');
     // @doc https://www.bitget.com/api-doc/spot/account/Get-Account-Assets
@@ -54,7 +79,10 @@ export const getBitgetBalances = async (
       availableAmount: wallet.available,
       exchange: Exchange.Bitget,
     }));
-    return filterWalletsWithValue(myexWallets, marketCoins);
+
+    const myexWalletsWithBalance = filterWalletsWithValue(myexWallets, marketCoins);
+    cache.put(bitgetCacheKey, myexWalletsWithBalance);
+    return myexWalletsWithBalance;
   } catch (error) {
     console.error('bitget error', error);
     return [];

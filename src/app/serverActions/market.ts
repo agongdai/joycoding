@@ -1,27 +1,33 @@
 'use server';
 
 import { myexFetchCoins } from '@myex/app/serverActions/myexCoin';
+import { DEFAULT_CACHE_EXPIRE_TIME } from '@myex/store/ApiCache';
 import { ApiResponse, HttpStatusCode } from '@myex/types/api';
 import { MarketCoin } from '@myex/types/coin';
 import { apiFailure, apiSuccess } from '@myex/utils/api';
 import { CoinGeokoApiBaseUrl } from '@myex/utils/endpoints';
+import { nowMs } from '@myex/utils/moment';
 import { Coin } from '@prisma/client';
+
+import cache from './cache';
 
 export async function fetchMarketCoins(): Promise<ApiResponse<MarketCoin[]>> {
   const coins = await myexFetchCoins();
   const coinGeokoIdsStr = coins.map((coin: Coin) => coin.coinGeckoId || '').join(',');
+  const url = `${CoinGeokoApiBaseUrl}/coins/markets?ids=${coinGeokoIdsStr}&vs_currency=usd&price_change_percentage=24h`;
+
+  if (cache.get(url)) {
+    return apiSuccess<MarketCoin[]>(cache.get(url) as MarketCoin[]);
+  }
 
   try {
     console.debug('fetching coins from GeokoCoin ...');
-    const res = await fetch(
-      `${CoinGeokoApiBaseUrl}/coins/markets?ids=${coinGeokoIdsStr}&vs_currency=usd&price_change_percentage=24h`,
-      {
-        // @ts-ignore
-        headers: {
-          'x-cg-api-key': process.env.COIN_GEOKO_API_KEY,
-        },
+    const res = await fetch(url, {
+      // @ts-ignore
+      headers: {
+        'x-cg-api-key': process.env.COIN_GEOKO_API_KEY,
       },
-    );
+    });
     const data = await res.json();
     if (!Array.isArray(data)) {
       console.error('Error fetching market coins:', data);
@@ -50,6 +56,7 @@ export async function fetchMarketCoins(): Promise<ApiResponse<MarketCoin[]>> {
         exchanges: coinInMyex?.exchanges || '',
       } as MarketCoin;
     });
+    cache.put(url, marketCoins);
     return apiSuccess<MarketCoin[]>(marketCoins);
   } catch (error) {
     console.error('Error fetching market coins:', error);

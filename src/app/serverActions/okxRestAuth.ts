@@ -10,6 +10,8 @@ import { OkxWallet } from '@myex/types/okx';
 import { BalanceBreakdownFromExchange } from '@myex/types/trading';
 import { filterWalletsWithValue } from '@myex/utils/trading';
 
+import cache from './cache';
+
 /**
  * @doc https://www.okx.com/docs-v5/en/#overview-rest-authentication
  */
@@ -22,6 +24,11 @@ export async function fetchOkxWallets(
   );
   if (!session?.user || !okxKey) {
     return [];
+  }
+
+  const okxCacheKey = `${Exchange.OKX}-${session?.user?.myexId}-${okxKey?.apiKey}`;
+  if (cache.get(okxCacheKey)) {
+    return cache.get(okxCacheKey) as BalanceBreakdownFromExchange[];
   }
 
   const apiKey = okxKey.apiKey;
@@ -64,7 +71,9 @@ export async function fetchOkxWallets(
       availableAmount: wallet.availBal,
       exchange: Exchange.OKX,
     }));
-    return filterWalletsWithValue(myexWallets, marketCoins);
+    const myexWalletsWithBalance = filterWalletsWithValue(myexWallets, marketCoins);
+    cache.put(okxCacheKey, myexWalletsWithBalance);
+    return myexWalletsWithBalance;
   } catch (error) {
     console.error('okx error', error);
     return [];
