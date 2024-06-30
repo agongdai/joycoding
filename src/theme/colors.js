@@ -85,6 +85,6 @@ module.exports = {
 
   link: paletteBase.primaryMain,
 
-  borderLight: paletteBase.gray200,
+  borderLight: paletteBase.info10,
   borderDark: paletteBase.secondary25,
 };
