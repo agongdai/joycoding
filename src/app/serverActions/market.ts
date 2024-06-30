@@ -1,12 +1,10 @@
 'use server';
 
 import { myexFetchCoins } from '@myex/app/serverActions/myexCoin';
-import { DEFAULT_CACHE_EXPIRE_TIME } from '@myex/store/ApiCache';
 import { ApiResponse, HttpStatusCode } from '@myex/types/api';
 import { MarketCoin } from '@myex/types/coin';
 import { apiFailure, apiSuccess } from '@myex/utils/api';
 import { CoinGeokoApiBaseUrl } from '@myex/utils/endpoints';
-import { nowMs } from '@myex/utils/moment';
 import { Coin } from '@prisma/client';
 
 import cache from './cache';

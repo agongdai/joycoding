@@ -61,7 +61,7 @@ export default function Header() {
           <MyexLink href='/' className='!text-primary-main md:ml-4 sm:ml-2'>
             MyEx.AI
           </MyexLink>
-          <span className='ml-2 text-xs xs:hidden'>by Shaojiang</span>
+          {theme !== undefined && <span className='ml-2 text-xs xs:hidden'>by Shaojiang</span>}
         </div>
         <ul className='flex items-center'>
           {!underConstruction && (

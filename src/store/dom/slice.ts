@@ -11,7 +11,7 @@ export interface DomState {
 const initialState: DomState = {
   scrollTop: 0,
   mobileSidebarOpen: false,
-  miniSidebarOpen: false,
+  miniSidebarOpen: true,
 };
 
 export const domSlice = createSlice({
