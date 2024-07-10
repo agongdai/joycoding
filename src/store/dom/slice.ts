@@ -10,7 +10,7 @@ export interface DomState {
 // Define the initial state using that type
 const initialState: DomState = {
   scrollTop: 0,
-  mobileSidebarOpen: false,
+  mobileSidebarOpen: true,
   miniSidebarOpen: true,
 };
 

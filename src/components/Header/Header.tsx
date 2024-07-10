@@ -80,11 +80,9 @@ export default function Header() {
           <MenuItem>
             <ThemeSwitch />
           </MenuItem>
-          {!underConstruction && (
-            <MenuItem>
-              <UserMenu />
-            </MenuItem>
-          )}
+          <MenuItem>
+            <UserMenu />
+          </MenuItem>
         </ul>
       </div>
     </AppBar>
