@@ -135,6 +135,11 @@ export const config = {
     // Zoom,
   ],
   callbacks: {
+    // @ts-ignore Awaitable type not supported
+    signIn({ profile }) {
+      // @todo only allow developer to access the app right now.
+      return profile?.email === process.env.ADMIN_EMAIL;
+    },
     async session({ session }: { session: Session }) {
       const sessionUser = session?.user;
       if (sessionUser?.email && !sessionUser.username) {

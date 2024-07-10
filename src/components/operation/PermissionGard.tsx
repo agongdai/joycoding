@@ -19,7 +19,7 @@ export default function PermissionGard() {
     if (underConstruction) {
       router.push(`${window.location.origin}/under-construction`);
     }
-  }, [router, underConstruction]);
+  }, [router, underConstruction, pathName]);
 
   useEffect(() => {
     if (user && !!user?.username && pathName === registerUserPath) {
