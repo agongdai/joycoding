@@ -14,6 +14,24 @@ model User {
   exchangeApis    ExchangeApi[]
   onChainWallets  OnChainWallet[]
   transactions    Transaction[]
+  userParameters  UserParameter[]
+}
+
+model Parameter {
+  myexId            Int      @id @default(autoincrement())
+  name              String
+  description       String?
+  enabled           Boolean
+  UserParameters    UserParameter[]
+}
+
+model UserParameter {
+  myexId            Int      @id @default(autoincrement())
+  user              User     @relation(fields: [userMyexId], references: [myexId])
+  userMyexId        Int
+  parameter         Parameter @relation(fields: [parameterMyexId], references: [myexId])
+  parameterMyexId   Int
+  value             String
 }
 
 model ExchangeApi {
