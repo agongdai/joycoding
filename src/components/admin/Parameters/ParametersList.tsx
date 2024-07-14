@@ -2,6 +2,9 @@
 
 import React from 'react';
 
+import RemoveCoinButton from '@myex/components/admin/Coins/RemoveCoinButton';
+import UpdateCoinButton from '@myex/components/admin/Coins/UpdateCoinButton';
+import UpdateParameterButton from '@myex/components/admin/Parameters/UpdateParameterButton';
 import MyexTable from '@myex/components/ui/MyexTable';
 import { ColumnData } from '@myex/components/ui/MyexTable/types';
 import { Parameter } from '@prisma/client';
@@ -35,6 +38,12 @@ const columns: ColumnData<Parameter>[] = [
     renderComponent: (value, row) => <SetEnabledButton parameter={row} />,
     widthRem: 10,
     sortable: true,
+  },
+  {
+    label: 'Actions',
+    dataKey: 'myexId',
+    renderComponent: (value, row) => <UpdateParameterButton parameter={row} />,
+    widthRem: 8,
   },
 ];
 

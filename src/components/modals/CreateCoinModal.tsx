@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { faXmark } from '@fortawesome/pro-solid-svg-icons';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { myexCreateCoin } from '@myex/app/serverActions';
-import CreateCoinForm from '@myex/components/admin/Coins/CreateCoinForm';
+import UpsertCoinForm from '@myex/components/admin/Coins/UpsertCoinForm';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
 import MyexLoadingButton from '@myex/components/ui/MyexLoadingButton';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
@@ -65,7 +65,7 @@ export default function CreateCoinModal() {
       </DialogTitle>
       <DialogContent>
         <form id='create-coin-form' onSubmit={handleSubmit(onSubmit)} className='w-full'>
-          <CreateCoinForm control={control} errors={errors} />
+          <UpsertCoinForm control={control} errors={errors} />
         </form>
       </DialogContent>
       <DialogActions classes={{ root: 'justify-between' }}>

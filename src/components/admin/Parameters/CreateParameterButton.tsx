@@ -4,15 +4,15 @@ import React from 'react';
 
 import Button from '@mui/material/Button';
 import { useMyexDispatch } from '@myex/store';
-import { toggleCreateWalletModal } from '@myex/store/flags/actions';
+import { toggleCreateParameterModalOpen } from '@myex/store/flags/actions';
 
-export default function CreateWalletButton() {
+export default function CreateParameterButton() {
   const dispatch = useMyexDispatch();
-  const onCreate = () => dispatch(toggleCreateWalletModal());
+  const onCreate = () => dispatch(toggleCreateParameterModalOpen());
 
   return (
     <Button variant='contained' color='primary' onClick={onCreate}>
-      Add New Wallet
+      Add New Parameter
     </Button>
   );
 }

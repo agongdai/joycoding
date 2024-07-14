@@ -1,3 +1,4 @@
+import { auth } from '@myex/auth';
 import { HttpStatusMessage } from '@myex/config';
 import { HttpStatusCode } from '@myex/types/api';
 
@@ -21,6 +22,7 @@ export const apiFailure = (
   message: HttpStatusMessage[status] || message,
   status,
   success: false,
+  data: null,
 });
 
 export const restApiFailure = (
@@ -32,3 +34,12 @@ export const restApiFailure = (
     status,
     success: false,
   });
+
+export const withAdmin = async (callback: () => {}) => {
+  const session = await auth();
+  const sessionUser = session?.user;
+  if (!sessionUser?.isAdmin) {
+    return apiFailure(HttpStatusCode.Unauthorized);
+  }
+  return callback;
+};

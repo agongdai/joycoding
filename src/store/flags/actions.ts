@@ -2,7 +2,9 @@ import { flagsSlice } from './slice';
 
 export const {
   toggleCreateCoinModal,
+  toggleCreateWalletModal,
+  toggleCreateParameterModalOpen,
   setCoinBeingUpdated,
-  toggleUpsertWalletModal,
   setWalletBeingUpdated,
+  setParameterBeingUpdated,
 } = flagsSlice.actions;

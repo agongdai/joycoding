@@ -1,51 +1,46 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
 
 import { faXmark } from '@fortawesome/pro-solid-svg-icons';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
-import { myexUpdateCoin } from '@myex/app/serverActions';
-import UpsertCoinForm from '@myex/components/admin/Coins/UpsertCoinForm';
+import { myexCreateParameter } from '@myex/app/serverActions/myexParameter';
+import UpsertParameterForm from '@myex/components/admin/Parameters/UpsertParameterForm';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
 import MyexLoadingButton from '@myex/components/ui/MyexLoadingButton';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
-import { setCoinBeingUpdated } from '@myex/store/flags/actions';
-import { selectCoinBeingUpdated } from '@myex/store/flags/selectors';
-import { IFormNewCoin } from '@myex/types/coin';
+import { toggleCreateParameterModalOpen } from '@myex/store/flags/actions';
+import { selectCreateParameterModalOpen } from '@myex/store/flags/selectors';
+import { IFormNewParameter } from '@myex/types/parameter';
 
-export default function UpdateCoinModal() {
+export default function CreateParameterModal() {
   const dispatch = useMyexDispatch();
-  const coinToUpdate = useMyexSelector(selectCoinBeingUpdated);
+  const createParameterModalOpen = useMyexSelector(selectCreateParameterModalOpen);
   const router = useRouter();
-  const onClose = () => dispatch(setCoinBeingUpdated(null));
+  const onClose = () => dispatch(toggleCreateParameterModalOpen());
 
   const {
     control,
     handleSubmit,
-    reset,
     formState: { errors, isSubmitting },
-  } = useForm<IFormNewCoin>({
+    reset,
+  } = useForm<IFormNewParameter>({
     defaultValues: {
-      ...coinToUpdate,
+      name: '',
+      description: '',
+      enabled: true,
     },
   });
 
-  useEffect(() => {
-    if (coinToUpdate) {
-      reset({ ...coinToUpdate });
-    }
-  }, [coinToUpdate, reset]);
-
-  const onSubmit = async (data: IFormNewCoin) => {
-    if (!coinToUpdate) return;
-
-    const res = await myexUpdateCoin(coinToUpdate.myexId, data);
+  const onSubmit = async (data: IFormNewParameter) => {
+    const res = await myexCreateParameter(data);
     if (res.success) {
+      reset();
       onClose();
-      enqueueSnackbar(`The coin ${coinToUpdate.name} has been updated successfully.`, {
+      enqueueSnackbar('The parameter has been added to MyEx.AI successfully.', {
         variant: 'success',
       });
       router.refresh();
@@ -56,25 +51,25 @@ export default function UpdateCoinModal() {
 
   return (
     <Dialog
-      open={Boolean(coinToUpdate)}
+      open={Boolean(createParameterModalOpen)}
       onClose={onClose}
       maxWidth='sm'
       classes={{ paper: 'w-full' }}
     >
       <DialogTitle classes={{ root: 'flex justify-between items-center' }}>
-        Update Coin {coinToUpdate?.name}
+        Create Parameter
         <AwesomeIcon icon={faXmark} size='sm' onClick={onClose} tooltip='Cancel' />
       </DialogTitle>
       <DialogContent>
-        <form id='update-coin-form' onSubmit={handleSubmit(onSubmit)} className='w-full'>
-          <UpsertCoinForm control={control} errors={errors} update />
+        <form id='create-parameter-form' onSubmit={handleSubmit(onSubmit)} className='w-full'>
+          <UpsertParameterForm control={control} errors={errors} />
         </form>
       </DialogContent>
       <DialogActions classes={{ root: 'justify-between' }}>
         <Button onClick={onClose} color='secondary' variant='contained'>
           Cancel
         </Button>
-        <MyexLoadingButton formId='update-coin-form' loading={isSubmitting} />
+        <MyexLoadingButton formId='create-parameter-form' loading={isSubmitting} />
       </DialogActions>
     </Dialog>
   );
