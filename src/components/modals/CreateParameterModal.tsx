@@ -31,6 +31,7 @@ export default function CreateParameterModal() {
     defaultValues: {
       name: '',
       description: '',
+      defaultValue: '',
       enabled: true,
     },
   });

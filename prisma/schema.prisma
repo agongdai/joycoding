@@ -22,6 +22,7 @@ model Parameter {
   name              String
   description       String?
   enabled           Boolean
+  defaultValue      String?
   UserParameters    UserParameter[]
 }
 

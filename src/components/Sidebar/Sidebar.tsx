@@ -12,23 +12,25 @@ import AwesomeIcon from '@myex/components/AwesomeIcon';
 import MyexImage from '@myex/components/ui/MyexImage';
 import MyexLink from '@myex/components/ui/MyexLink';
 import MyexTooltip from '@myex/components/ui/MyexTooltip';
-import { useSidebar } from '@myex/hooks/useSidebar';
-import { useMyexDispatch, useMyexSelector } from '@myex/store';
-import { setMobileSidebarOpen } from '@myex/store/actions';
-import { selectMobileSidebarOpen } from '@myex/store/dom/selectors';
+import { SIDEBAR_WIDTH_DESKTOP, SIDEBAR_WIDTH_TABLET } from '@myex/config';
+import useSidebar from '@myex/hooks/useSidebar';
+import { SystemParameter, SystemParameterSettings } from '@myex/types/system';
 
 import Menu from './Menu';
 import menus from './menus';
 
-export default function Sidebar() {
-  const dispatch = useMyexDispatch();
+export default function Sidebar({ userParameters }: { userParameters: SystemParameterSettings }) {
   const { data: session } = useSession();
   const authed = !!session?.user;
-  const showMobileSidebar = useMyexSelector(selectMobileSidebarOpen);
-  const { sidebarWidth, toggleMiniSidebarOpen, miniSidebarOpen, xlDown, mdDown } = useSidebar();
-  const toggleSidebar = () => {
-    dispatch(setMobileSidebarOpen(!showMobileSidebar));
-  };
+  const isMobile = JSON.parse(userParameters[SystemParameter.IsMobile]);
+  const {
+    toggleMiniSidebarOpen,
+    toggleMobileSidebarOpen,
+    mobileSidebarOpen,
+    miniSidebarOpen,
+    xlDown,
+  } = useSidebar(userParameters);
+  const sidebarWidth = miniSidebarOpen ? SIDEBAR_WIDTH_TABLET : SIDEBAR_WIDTH_DESKTOP;
 
   const $list = (
     <aside
@@ -49,7 +51,7 @@ export default function Sidebar() {
               <AwesomeIcon icon={faBars} size='lg' onClick={toggleMiniSidebarOpen} />
             ) : (
               <MyexLink href='/'>
-                <MyexImage src='/myex.png' alt='Joy Trading' width={48} height={48} />
+                <MyexImage src='/myex.png' alt='MyEx.AI' width={48} height={48} />
               </MyexLink>
             )}
             {!miniSidebarOpen && (
@@ -76,12 +78,12 @@ export default function Sidebar() {
     </aside>
   );
 
-  if (showMobileSidebar || mdDown) {
+  if (mobileSidebarOpen || isMobile || xlDown) {
     return (
       <Drawer
         anchor='left'
-        open={showMobileSidebar}
-        onClose={toggleSidebar}
+        open={mobileSidebarOpen}
+        onClose={toggleMobileSidebarOpen}
         keepMounted
         classes={{ paper: 'dark:bg-bg-dark-light' }}
       >

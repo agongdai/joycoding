@@ -33,6 +33,12 @@ const columns: ColumnData<Parameter>[] = [
     dataKey: 'description',
   },
   {
+    label: 'Default Value',
+    dataKey: 'defaultValue',
+    widthRem: 12,
+    sortable: true,
+  },
+  {
     label: 'Enabled',
     dataKey: 'enabled',
     renderComponent: (value, row) => <SetEnabledButton parameter={row} />,

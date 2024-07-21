@@ -64,7 +64,7 @@ const menus: IMenu[] = [
     subMenus: [
       { title: 'Users', icon: faUsers, href: '/users' },
       { title: 'Coins', icon: faCoins, href: '/coins' },
-      { title: 'Parameters', icon: faCoins, href: '/parameters' },
+      { title: 'Parameters', icon: faSliders, href: '/parameters' },
     ],
   },
 ];

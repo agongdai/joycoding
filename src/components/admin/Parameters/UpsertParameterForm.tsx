@@ -55,6 +55,21 @@ export default function UpsertParameterForm({ control, errors, update }: Props) 
         />
       </div>
 
+      <div className='my-4'>
+        <Controller
+          render={({ field }) => (
+            <TextField
+              label='Default value (e.g. "BTC, SUSHI")'
+              placeholder='default value like: BTC, SUSHI'
+              {...field}
+              ref={null}
+            />
+          )}
+          name='defaultValue'
+          control={control}
+        />
+      </div>
+
       <div className='mb-4'>
         <Controller
           render={({ field }) => <Switch label='Enabled' {...field} ref={null} />}

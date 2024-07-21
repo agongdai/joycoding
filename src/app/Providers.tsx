@@ -38,7 +38,12 @@ store.subscribe(
   }, 1000),
 );
 
-export default function Providers({ children }: { children: React.ReactNode }) {
+interface Props {
+  children: React.ReactNode;
+  theme: MyexTheme;
+}
+
+export default function Providers({ children, theme }: Props) {
   return (
     <ReduxProvider store={store}>
       <SnackbarProvider
@@ -51,7 +56,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         }}
       >
         <QueryClientProvider client={queryClient}>
-          <ThemeProvider defaultTheme={MyexTheme.Dark} attribute='class'>
+          <ThemeProvider defaultTheme={theme} attribute='class'>
             {children}
           </ThemeProvider>
         </QueryClientProvider>
