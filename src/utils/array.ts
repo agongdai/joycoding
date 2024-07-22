@@ -1,3 +1,9 @@
+/**
+ * Replace array items with new items by indexes.
+ * @param array
+ * @param indexes
+ * @param items
+ */
 export const replaceArrayIndexes = <T>(array: T[], indexes: number[], items: T[]): T[] => {
   if (!Array.isArray(array) || !Array.isArray(indexes) || !Array.isArray(items)) {
     console.warn('[dev] wrong parameters for function replaceArrayIndexes');
@@ -14,4 +20,17 @@ export const replaceArrayIndexes = <T>(array: T[], indexes: number[], items: T[]
   }
 
   return [...array];
+};
+
+/**
+ * Toggle an item in an array.
+ * @param array
+ * @param item
+ */
+export const toggleItemInArray = <T>(array: T[], item: T): T[] => {
+  if (array.includes(item)) {
+    return array.filter((f) => f !== item);
+  }
+
+  return [...array, item];
 };

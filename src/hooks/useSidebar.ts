@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import _isUndefined from 'lodash/isUndefined';
 
 import { myexUpdateUserParameter } from '@myex/app/serverActions/myexUserParameter';
 import useMuiMediaQuery from '@myex/hooks/useMuiMediaQuery';
@@ -64,7 +65,7 @@ export default function useSidebar(
   const prevXlDown = usePrevious(xlDown);
   const prevMdDown = usePrevious(mdDown);
   useEffect(() => {
-    if (typeof prevXlDown === 'undefined' || typeof prevMdDown === 'undefined') {
+    if (_isUndefined(prevXlDown) || _isUndefined(prevMdDown)) {
       return;
     }
     // Toggle mini sidebar open when switching from desktop to tablet
@@ -79,7 +80,7 @@ export default function useSidebar(
 
   useEffect(() => {
     // Hide mobile sidebar if going to desktop.
-    if (typeof prevMdDown !== 'undefined' && prevMdDown !== mdDown && !mdDown) {
+    if (!_isUndefined(prevMdDown) && prevMdDown !== mdDown && !mdDown) {
       setMobileSidebarOpenAndSave(false);
     }
   }, [dispatch, mdDown, prevMdDown, setMobileSidebarOpenAndSave]);

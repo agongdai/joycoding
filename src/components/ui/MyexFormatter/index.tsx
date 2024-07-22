@@ -9,7 +9,6 @@ import Link from './Link';
 import Money from './Money';
 import Number from './Number';
 import Percentage from './Percentage';
-import UserActions from './UserActions';
 import Volume from './Volume';
 import WalletAddress from './WalletAddress';
 
@@ -38,10 +37,6 @@ export default function MyexFormatter({
 
   if (ValueFormat.Volume === format) {
     return <Volume value={value} />;
-  }
-
-  if (ValueFormat.UserActions === format) {
-    return <UserActions currency={String(value)} />;
   }
 
   if (ValueFormat.Image === format) {
