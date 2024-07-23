@@ -4,10 +4,8 @@ export enum SystemParameter {
   ScrollTop = 'dom.scrollTop',
   IsMobile = 'dom.isMobile',
   Theme = 'dom.theme',
-  CurrentCurrency = 'trading.currentCurrency',
   Favorites = 'trading.favorites',
   ShowFavorites = 'trading.showFavorites',
-  ShowTradingView = 'trading.showTradingView',
   WsLive = 'trading.wsLive',
 }
 
@@ -21,9 +19,7 @@ export const DefaultSystemParameterSettings: SystemParameterSettings = {
   [SystemParameter.ScrollTop]: '0',
   [SystemParameter.IsMobile]: 'false',
   [SystemParameter.Theme]: 'dark',
-  [SystemParameter.CurrentCurrency]: 'BTC',
   [SystemParameter.Favorites]: '"[]"',
   [SystemParameter.ShowFavorites]: 'false',
-  [SystemParameter.ShowTradingView]: 'false',
   [SystemParameter.WsLive]: '"[]"',
 };
