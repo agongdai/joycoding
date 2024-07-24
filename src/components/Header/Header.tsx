@@ -15,6 +15,8 @@ import MyexLink from '@myex/components/ui/MyexLink';
 import useScrollDirection from '@myex/hooks/useScrollDirection';
 import useSidebar from '@myex/hooks/useSidebar';
 import useUnderConstruction from '@myex/hooks/useUnderConstruction';
+import { useMyexSelector } from '@myex/store';
+import { selectScrollTop } from '@myex/store/selectors';
 import { MyexTheme } from '@myex/theme';
 import { PropsWithChildren } from '@myex/types/common';
 import { SystemParameter, SystemParameterSettings } from '@myex/types/system';
@@ -26,7 +28,7 @@ function MenuItem({ children }: PropsWithChildren) {
 
 export default function Header({ userParameters }: { userParameters: SystemParameterSettings }) {
   const isMobile = JSON.parse(userParameters[SystemParameter.IsMobile]);
-  const scrollTop = JSON.parse(userParameters[SystemParameter.ScrollTop]);
+  const scrollTop = useMyexSelector(selectScrollTop);
   const { toggleMobileSidebarOpen, xlDown } = useSidebar(userParameters);
   const scrollingDirection = useScrollDirection();
   const { theme } = useTheme();
