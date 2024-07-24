@@ -28,6 +28,10 @@ function MenuItem({ children }: PropsWithChildren) {
 
 export default function Header({ userParameters }: { userParameters: SystemParameterSettings }) {
   const isMobile = JSON.parse(userParameters[SystemParameter.IsMobile]);
+  const currentCurrencyServer = userParameters[SystemParameter.CurrentCurrency];
+  const showTradingViewServer = Boolean(
+    JSON.parse(userParameters[SystemParameter.ShowTradingView]),
+  );
   const scrollTop = useMyexSelector(selectScrollTop);
   const { toggleMobileSidebarOpen, xlDown } = useSidebar(userParameters);
   const scrollingDirection = useScrollDirection();
@@ -68,7 +72,10 @@ export default function Header({ userParameters }: { userParameters: SystemParam
                 <LiveIndicator />
               </MenuItem>
               <MenuItem>
-                <TradingViewSwitch />
+                <TradingViewSwitch
+                  currentCurrencyServer={currentCurrencyServer}
+                  showTradingViewServer={showTradingViewServer}
+                />
               </MenuItem>
             </>
           )}

@@ -5,9 +5,9 @@ import MyexFavorite from '@myex/components/operation/MyexFavorite';
 import MyexTable from '@myex/components/ui/MyexTable';
 import { ColumnData } from '@myex/components/ui/MyexTable/types';
 import useFavorite from '@myex/hooks/useFavorite';
+import useTradingView from '@myex/hooks/useTradingView';
 import useWsMarketCoins from '@myex/hooks/useWsMarketCoins';
-import { useMyexDispatch, useMyexSelector } from '@myex/store';
-import { setCurrentCurrency } from '@myex/store/trading/actions';
+import { useMyexSelector } from '@myex/store';
 import { selectShowTradingView } from '@myex/store/trading/selectors';
 import { MarketCoin } from '@myex/types/coin';
 import { ValueFormat } from '@myex/types/common';
@@ -103,12 +103,12 @@ interface Props {
 }
 
 export default function MarketsTable({ marketCoins, showFavoritesServer, favoritesServer }: Props) {
-  const dispatch = useMyexDispatch();
   const showTradingView = useMyexSelector(selectShowTradingView);
   const { showFavorites, favorites } = useFavorite(showFavoritesServer, favoritesServer);
+  const { setCurrentCurrencySync } = useTradingView();
 
   const onSetCurrentCurrency = (row: MarketCoin) => {
-    dispatch(setCurrentCurrency(row.currency));
+    setCurrentCurrencySync(row.currency);
   };
 
   const marketCoinsWithVisibleFlag = useMemo(

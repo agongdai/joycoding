@@ -7,14 +7,15 @@ import TradingViewWidget from 'react-tradingview-widget';
 
 import Collapse from '@mui/material/Collapse';
 import useMyexTheme from '@myex/hooks/useMyexTheme';
-import { useMyexSelector } from '@myex/store';
-import { selectCurrentPair, selectShowTradingView } from '@myex/store/trading/selectors';
-import { pairToTradingViewSymbol } from '@myex/utils/trading';
+import useTradingView from '@myex/hooks/useTradingView';
 
+/**
+ * The trading view is on client-side only, no SSR
+ * @constructor
+ */
 export default function TradingView() {
   const { theme } = useMyexTheme();
-  const currentPair = useMyexSelector(selectCurrentPair);
-  const showTradingView = useMyexSelector(selectShowTradingView);
+  const { currentCurrency, showTradingView } = useTradingView();
 
   return (
     <Collapse in={showTradingView} timeout='auto'>
@@ -22,7 +23,7 @@ export default function TradingView() {
         <TradingViewWidget
           theme={_upperFirst(theme || 'Dark')}
           autosize
-          symbol={`Bitfinex:${pairToTradingViewSymbol(currentPair)}UST`}
+          symbol={`Binance:${currentCurrency}USDT`}
         />
       </div>
     </Collapse>

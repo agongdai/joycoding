@@ -11,9 +11,7 @@ import Percentage from '@myex/components/ui/MyexFormatter/Percentage';
 import MyexTable from '@myex/components/ui/MyexTable';
 import ExchangeIcons from '@myex/components/ui/MyexTable/ExchangeIcons';
 import { ColumnData } from '@myex/components/ui/MyexTable/types';
-import { useMyexDispatch, useMyexSelector } from '@myex/store';
-import { setCurrentCurrency } from '@myex/store/trading/actions';
-import { selectShowTradingView } from '@myex/store/trading/selectors';
+import useTradingView from '@myex/hooks/useTradingView';
 import { MarketCoin } from '@myex/types/coin';
 import { ValueFormat } from '@myex/types/common';
 import { Balance, MyexAsset } from '@myex/types/trading';
@@ -117,11 +115,10 @@ const columns: ColumnData<MyexAsset>[] = [
 ];
 
 export default function MyAssets({ marketCoins, onChainBalances, myexAssets, ustBalance }: Props) {
-  const dispatch = useMyexDispatch();
-  const showTradingView = useMyexSelector(selectShowTradingView);
+  const { showTradingView, setCurrentCurrencySync } = useTradingView();
 
   const onSetCurrentCurrency = (row: MyexAsset) => {
-    dispatch(setCurrentCurrency(row.currency));
+    setCurrentCurrencySync(row.currency);
   };
 
   const totalBalance = myexAssets.reduce((acc, asset) => acc.plus(asset._balanceUst), BigNumber(0));
