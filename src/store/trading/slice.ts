@@ -1,4 +1,5 @@
 import { Exchange } from '@myex/types/exchange';
+import { toggleItemInArray } from '@myex/utils/array';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // Define a type for the slice state
@@ -36,11 +37,7 @@ export const tradingSlice = createSlice({
       state.favorites = state.favorites.filter((f) => f !== action.payload);
     },
     toggleFavorite: (state, action: PayloadAction<string>) => {
-      if (state.favorites.includes(action.payload)) {
-        state.favorites = state.favorites.filter((f) => f !== action.payload);
-      } else {
-        state.favorites = [...state.favorites, action.payload];
-      }
+      state.favorites = toggleItemInArray(state.favorites, action.payload);
     },
     toggleShowFavorites: (state) => {
       state.showFavorites = !state.showFavorites;

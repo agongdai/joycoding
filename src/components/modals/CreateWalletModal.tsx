@@ -12,16 +12,16 @@ import AwesomeIcon from '@myex/components/AwesomeIcon';
 import UpsertWalletForm from '@myex/components/OnChainWallets/UpsertWalletForm';
 import MyexLoadingButton from '@myex/components/ui/MyexLoadingButton';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
-import { toggleUpsertWalletModal } from '@myex/store/flags/actions';
-import { selectUpsertWalletModalOpen } from '@myex/store/flags/selectors';
+import { toggleCreateWalletModal } from '@myex/store/flags/actions';
+import { selectCreateWalletModalOpen } from '@myex/store/flags/selectors';
 import { WalletProvider } from '@myex/types/trading';
 import { IFormOnChainWallet } from '@myex/types/wallet';
 
 export default function CreateWalletModal() {
   const dispatch = useMyexDispatch();
-  const upsertWalletModalOpen = useMyexSelector(selectUpsertWalletModalOpen);
+  const createWalletModalOpen = useMyexSelector(selectCreateWalletModalOpen);
   const router = useRouter();
-  const onClose = () => dispatch(toggleUpsertWalletModal());
+  const onClose = () => dispatch(toggleCreateWalletModal());
 
   const {
     control,
@@ -53,7 +53,7 @@ export default function CreateWalletModal() {
 
   return (
     <Dialog
-      open={Boolean(upsertWalletModalOpen)}
+      open={Boolean(createWalletModalOpen)}
       onClose={onClose}
       maxWidth='sm'
       classes={{ paper: 'w-full' }}

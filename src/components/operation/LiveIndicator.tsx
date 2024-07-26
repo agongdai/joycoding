@@ -9,7 +9,7 @@ import { selectExchangeWsLive } from '@myex/store/trading/selectors';
 import { Exchange } from '@myex/types/exchange';
 
 export default function LiveIndicator() {
-  const isLive = useMyexSelector(selectExchangeWsLive(Exchange.Bitfinex));
+  const isLive = false; // useMyexSelector(selectExchangeWsLive(Exchange.Bitfinex));
   const dispatch = useMyexDispatch();
   const toggle = () => {
     dispatch(toggleWsLive(Exchange.Bitfinex));

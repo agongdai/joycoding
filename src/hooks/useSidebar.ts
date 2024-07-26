@@ -1,46 +1,96 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import _isUndefined from 'lodash/isUndefined';
 
-import { SIDEBAR_WIDTH_DESKTOP, SIDEBAR_WIDTH_TABLET } from '@myex/config';
+import { myexUpdateUserParameter } from '@myex/app/serverActions/myexUserParameter';
 import useMuiMediaQuery from '@myex/hooks/useMuiMediaQuery';
+import usePrevious from '@myex/hooks/usePrevious';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
-import { setMiniSidebarOpen, setMobileSidebarOpen } from '@myex/store/actions';
-import { selectMiniSidebarOpen } from '@myex/store/dom/selectors';
-import { usePrevious } from '@radix-ui/react-use-previous';
+import { setMobileSidebarOpen } from '@myex/store/dom/actions';
+import { selectMobileSidebarOpen } from '@myex/store/selectors';
+import {
+  DefaultSystemParameterSettings,
+  SystemParameter,
+  SystemParameterSettings,
+} from '@myex/types/system';
+import { isOnServer } from '@myex/utils/window';
 
-export function useSidebar() {
+export default function useSidebar(
+  userParameters: SystemParameterSettings = DefaultSystemParameterSettings,
+) {
   const dispatch = useMyexDispatch();
-  const miniSidebarOpen = useMyexSelector(selectMiniSidebarOpen);
+
+  const [miniSidebarOpen, setMiniSidebarOpen] = useState<boolean>(
+    JSON.parse(userParameters[SystemParameter.MiniSidebarOpen]),
+  );
+  const clientMobileSidebarOpen = useMyexSelector(selectMobileSidebarOpen);
+  const mobileSidebarOpen = isOnServer()
+    ? Boolean(JSON.parse(userParameters[SystemParameter.MobileSidebarOpen]))
+    : clientMobileSidebarOpen;
   const { xlDown, mdDown } = useMuiMediaQuery();
 
-  const toggleMiniSidebarOpen = () => dispatch(setMiniSidebarOpen(!miniSidebarOpen));
+  /**
+   * Sidebar exists everywhere, we store it in useState.
+   * @param value
+   */
+  const setMiniSidebarOpenAndSave = useCallback(
+    (value: boolean) => {
+      if (miniSidebarOpen === value) {
+        return;
+      }
+      setMiniSidebarOpen(value);
+      myexUpdateUserParameter(SystemParameter.MiniSidebarOpen, String(value));
+    },
+    [miniSidebarOpen],
+  );
+  const toggleMiniSidebarOpen = () => setMiniSidebarOpenAndSave(!miniSidebarOpen);
+
+  /**
+   * mobileSidebarOpen is controlled both by Sidebar and Header,
+   * so we store it in the Redux store.
+   */
+  const setMobileSidebarOpenAndSave = useCallback(
+    (value: boolean) => {
+      if (mobileSidebarOpen === value) {
+        return;
+      }
+      dispatch(setMobileSidebarOpen(value));
+      myexUpdateUserParameter(SystemParameter.MobileSidebarOpen, String(value));
+    },
+    [dispatch, mobileSidebarOpen],
+  );
+  const toggleMobileSidebarOpen = () => setMobileSidebarOpenAndSave(!mobileSidebarOpen);
 
   const prevXlDown = usePrevious(xlDown);
   const prevMdDown = usePrevious(mdDown);
   useEffect(() => {
+    if (_isUndefined(prevXlDown) || _isUndefined(prevMdDown)) {
+      return;
+    }
     // Toggle mini sidebar open when switching from desktop to tablet
     if (prevXlDown !== xlDown || prevMdDown !== mdDown) {
       if (xlDown && !mdDown) {
-        dispatch(setMiniSidebarOpen(true));
+        setMiniSidebarOpenAndSave(true);
       } else {
-        dispatch(setMiniSidebarOpen(false));
+        setMiniSidebarOpenAndSave(false);
       }
     }
-  }, [dispatch, mdDown, prevMdDown, prevXlDown, xlDown]);
+  }, [dispatch, mdDown, prevMdDown, prevXlDown, setMiniSidebarOpenAndSave, xlDown]);
 
   useEffect(() => {
-    // Toggle mini sidebar open when switching from desktop to tablet
-    if (prevMdDown !== mdDown && !mdDown) {
-      dispatch(setMobileSidebarOpen(false));
+    // Hide mobile sidebar if going to desktop.
+    if (!_isUndefined(prevMdDown) && prevMdDown !== mdDown && !mdDown) {
+      setMobileSidebarOpenAndSave(false);
     }
-  }, [dispatch, mdDown, prevMdDown]);
+  }, [dispatch, mdDown, prevMdDown, setMobileSidebarOpenAndSave]);
 
   return {
-    sidebarWidth: miniSidebarOpen ? SIDEBAR_WIDTH_TABLET : SIDEBAR_WIDTH_DESKTOP,
     xlDown,
     mdDown,
     miniSidebarOpen,
+    mobileSidebarOpen,
     toggleMiniSidebarOpen,
+    toggleMobileSidebarOpen,
   };
 }

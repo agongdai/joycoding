@@ -7,45 +7,45 @@ import { useForm } from 'react-hook-form';
 
 import { faXmark } from '@fortawesome/pro-solid-svg-icons';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
-import { myexUpdateCoin } from '@myex/app/serverActions';
-import UpsertCoinForm from '@myex/components/admin/Coins/UpsertCoinForm';
+import { myexUpdateParameter } from '@myex/app/serverActions/myexParameter';
+import UpsertParameterForm from '@myex/components/admin/Parameters/UpsertParameterForm';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
 import MyexLoadingButton from '@myex/components/ui/MyexLoadingButton';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
-import { setCoinBeingUpdated } from '@myex/store/flags/actions';
-import { selectCoinBeingUpdated } from '@myex/store/flags/selectors';
-import { IFormNewCoin } from '@myex/types/coin';
+import { setParameterBeingUpdated } from '@myex/store/flags/actions';
+import { selectParameterBeingUpdated } from '@myex/store/flags/selectors';
+import { IFormNewParameter } from '@myex/types/parameter';
 
-export default function UpdateCoinModal() {
+export default function UpdateParameterModal() {
   const dispatch = useMyexDispatch();
-  const coinToUpdate = useMyexSelector(selectCoinBeingUpdated);
+  const parameterToUpdate = useMyexSelector(selectParameterBeingUpdated);
   const router = useRouter();
-  const onClose = () => dispatch(setCoinBeingUpdated(null));
+  const onClose = () => dispatch(setParameterBeingUpdated(null));
 
   const {
     control,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<IFormNewCoin>({
+  } = useForm<IFormNewParameter>({
     defaultValues: {
-      ...coinToUpdate,
+      ...parameterToUpdate,
     },
   });
 
   useEffect(() => {
-    if (coinToUpdate) {
-      reset({ ...coinToUpdate });
+    if (parameterToUpdate) {
+      reset({ ...parameterToUpdate });
     }
-  }, [coinToUpdate, reset]);
+  }, [parameterToUpdate, reset]);
 
-  const onSubmit = async (data: IFormNewCoin) => {
-    if (!coinToUpdate) return;
+  const onSubmit = async (data: IFormNewParameter) => {
+    if (!parameterToUpdate) return;
 
-    const res = await myexUpdateCoin(coinToUpdate.myexId, data);
+    const res = await myexUpdateParameter(parameterToUpdate.myexId, data);
     if (res.success) {
       onClose();
-      enqueueSnackbar(`The coin ${coinToUpdate.name} has been updated successfully.`, {
+      enqueueSnackbar(`The parameter ${parameterToUpdate.name} has been updated successfully.`, {
         variant: 'success',
       });
       router.refresh();
@@ -56,25 +56,25 @@ export default function UpdateCoinModal() {
 
   return (
     <Dialog
-      open={Boolean(coinToUpdate)}
+      open={Boolean(parameterToUpdate)}
       onClose={onClose}
       maxWidth='sm'
       classes={{ paper: 'w-full' }}
     >
       <DialogTitle classes={{ root: 'flex justify-between items-center' }}>
-        Update Coin {coinToUpdate?.name}
+        Update parameter {parameterToUpdate?.name}
         <AwesomeIcon icon={faXmark} size='sm' onClick={onClose} tooltip='Cancel' />
       </DialogTitle>
       <DialogContent>
-        <form id='update-coin-form' onSubmit={handleSubmit(onSubmit)} className='w-full'>
-          <UpsertCoinForm control={control} errors={errors} update />
+        <form id='update-parameter-form' onSubmit={handleSubmit(onSubmit)} className='w-full'>
+          <UpsertParameterForm control={control} errors={errors} update />
         </form>
       </DialogContent>
       <DialogActions classes={{ root: 'justify-between' }}>
         <Button onClick={onClose} color='secondary' variant='contained'>
           Cancel
         </Button>
-        <MyexLoadingButton formId='update-coin-form' loading={isSubmitting} />
+        <MyexLoadingButton formId='update-parameter-form' loading={isSubmitting} />
       </DialogActions>
     </Dialog>
   );

@@ -1,20 +1,24 @@
-import { Coin, OnChainWallet } from '@prisma/client';
+import { Coin, OnChainWallet, Parameter } from '@prisma/client';
 import { createSlice } from '@reduxjs/toolkit';
 
 // Define a type for the slice state
 export interface FlagsState {
   createCoinModalOpen: boolean;
-  upsertWalletModalOpen: boolean;
+  createWalletModalOpen: boolean;
+  createParameterModalOpen: boolean;
   coinBeingUpdated: Coin | null;
   walletBeingUpdated: OnChainWallet | null;
+  parameterBeingUpdated: Parameter | null;
 }
 
 // Define the initial state using that type
 const initialState: FlagsState = {
   createCoinModalOpen: false,
+  createWalletModalOpen: false,
+  createParameterModalOpen: false,
   coinBeingUpdated: null,
   walletBeingUpdated: null,
-  upsertWalletModalOpen: false,
+  parameterBeingUpdated: null,
 };
 
 export const flagsSlice = createSlice({
@@ -24,14 +28,20 @@ export const flagsSlice = createSlice({
     toggleCreateCoinModal: (state) => {
       state.createCoinModalOpen = !state.createCoinModalOpen;
     },
+    toggleCreateWalletModal: (state) => {
+      state.createWalletModalOpen = !state.createWalletModalOpen;
+    },
+    toggleCreateParameterModalOpen: (state) => {
+      state.createParameterModalOpen = !state.createParameterModalOpen;
+    },
     setCoinBeingUpdated: (state, action) => {
       state.coinBeingUpdated = action.payload;
     },
-    toggleUpsertWalletModal: (state) => {
-      state.upsertWalletModalOpen = !state.upsertWalletModalOpen;
-    },
     setWalletBeingUpdated: (state, action) => {
       state.walletBeingUpdated = action.payload;
+    },
+    setParameterBeingUpdated: (state, action) => {
+      state.parameterBeingUpdated = action.payload;
     },
   },
 });

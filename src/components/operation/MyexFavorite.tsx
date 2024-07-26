@@ -3,29 +3,36 @@ import React from 'react';
 
 import { faStar } from '@fortawesome/pro-solid-svg-icons';
 import AwesomeIcon from '@myex/components/AwesomeIcon';
-import { useMyexDispatch, useMyexSelector } from '@myex/store';
-import { toggleFavorite, toggleShowFavorites } from '@myex/store/trading/actions';
-import { selectFavorites, selectShowFavorites } from '@myex/store/trading/selectors';
+import useFavorite from '@myex/hooks/useFavorite';
 import { StyleVariant } from '@myex/types/common';
 
 interface Props {
   currency?: string;
   toToggleShowFavorites?: boolean;
+  showFavoritesServer: boolean;
+  favoritesServer: string[];
 }
 
-export default function MyexFavorite({ currency = '', toToggleShowFavorites = false }: Props) {
-  const dispatch = useMyexDispatch();
-  const favoritesState = useMyexSelector(selectFavorites);
-  const showFavoritesState = useMyexSelector(selectShowFavorites);
+export default function MyexFavorite({
+  currency = '',
+  toToggleShowFavorites = false,
+  showFavoritesServer,
+  favoritesServer,
+}: Props) {
+  const { toggleFavoriteSync, toggleShowFavoritesSync, favorites, showFavorites } = useFavorite(
+    showFavoritesServer,
+    favoritesServer,
+  );
+
   const isFavorite = toToggleShowFavorites
-    ? showFavoritesState
-    : favoritesState.includes(currency?.toUpperCase());
+    ? showFavorites
+    : favorites.includes(currency?.toUpperCase());
 
   const onClick = () => {
     if (toToggleShowFavorites) {
-      dispatch(toggleShowFavorites());
+      toggleShowFavoritesSync();
     } else {
-      dispatch(toggleFavorite(currency?.toUpperCase()));
+      toggleFavoriteSync(currency?.toUpperCase());
     }
   };
 

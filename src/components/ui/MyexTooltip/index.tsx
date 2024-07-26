@@ -4,4 +4,5 @@ import dynamic from 'next/dynamic';
 const MyexTooltip = dynamic(() => import('./MyexTooltip'), {
   ssr: false,
 });
-export default MyexTooltip;
+// export default MyexTooltip;
+export { default } from './MyexTooltip';

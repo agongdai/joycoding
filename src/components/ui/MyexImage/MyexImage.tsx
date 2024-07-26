@@ -82,7 +82,7 @@ export default function MyexImage({
         variant='rounded'
         height={height}
         width={width || '100%'}
-        classes={{ root: 'overflow-hidden max-w-full max-h-[40rem]' }}
+        // classes={{ root: 'overflow-hidden max-w-full max-h-[40rem]' }}
       />
     );
   }

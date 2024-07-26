@@ -14,7 +14,7 @@ interface Props {
   update?: boolean;
 }
 
-export default function CreateCoinForm({ control, errors, update }: Props) {
+export default function UpsertCoinForm({ control, errors, update }: Props) {
   return (
     <div className='w-full'>
       <div className='my-4'>

@@ -60,7 +60,6 @@ export const enum ValueFormat {
   String = 'string',
   Coin = 'coin',
   Volume = 'volume',
-  UserActions = 'userActions',
   Image = 'image',
   Exchange = 'exchange',
   Link = 'link',

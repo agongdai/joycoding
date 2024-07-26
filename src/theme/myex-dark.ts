@@ -223,6 +223,11 @@ const theme = createTheme({
           paddingTop: '1.7rem',
           paddingBottom: '1.7rem',
         },
+        multiline: {
+          height: 'auto',
+          paddingTop: 0,
+          paddingBottom: 0,
+        },
       },
     },
     MuiIconButton: {
@@ -312,22 +317,6 @@ const theme = createTheme({
           fontSize: '1.4rem',
           transform: 'none',
           marginBottom: '0.4rem',
-        },
-      },
-    },
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: {
-          height: 40,
-          borderRadius: '0.4rem',
-          '&.Mui-disabled': {
-            border: `1px dashed ${palette.textDisabled}`,
-            backgroundColor: palette.bgDarkMain,
-          },
-        },
-        multiline: {
-          height: 'auto',
-          padding: '10px 14px',
         },
       },
     },

@@ -10,8 +10,9 @@ import {
   MenuItem,
 } from '@mui/material';
 import CoinIcon from '@myex/components/ui/MyexFormatter/CoinIcon';
-import useMyexCoins from '@myex/hooks/useMyexCoins';
+import useMyexRestFetch from '@myex/hooks/useMyexRestFetch';
 import { IFormOnChainWallet } from '@myex/types/wallet';
+import { Coin } from '@prisma/client';
 
 import Select from './Select';
 
@@ -21,7 +22,7 @@ interface Props {
 }
 
 export default function FieldCoinSelect({ control, error }: Props) {
-  const { isLoading, coins } = useMyexCoins();
+  const { isLoading, data: coins } = useMyexRestFetch<Coin[]>('coins', []);
   return (
     <Controller
       render={({ field }) => (

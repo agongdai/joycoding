@@ -7,4 +7,4 @@ export const selectWsLive = (state: RootState) => state.trading.wsLive;
 export const selectExchangeWsLive = (exchange: Exchange) => (state: RootState) =>
   (state?.trading?.wsLive || {})[exchange];
 export const selectShowTradingView = (state: RootState) => state.trading.showTradingView;
-export const selectCurrentPair = (state: RootState) => state.trading.currentCurrency || 'BTC';
+export const selectCurrentCurrency = (state: RootState) => state.trading.currentCurrency || 'BTC';
