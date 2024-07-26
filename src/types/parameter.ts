@@ -1,6 +1,6 @@
 export interface IFormNewParameter {
   name: string;
   description?: string | null;
-  defaultValue: string;
+  defaultValue: string | null;
   enabled: boolean;
 }
