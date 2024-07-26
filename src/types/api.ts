@@ -46,7 +46,7 @@ export type ApiResponse<T> = {
   message?: string;
   success: boolean;
   headers?: HttpHeaders;
-  data?: T;
+  data?: T | null;
 };
 
 export type ApiHandler<T> = (req: Request) => Promise<NextResponse<ApiResponse<T>>>;
