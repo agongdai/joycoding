@@ -21,6 +21,7 @@ const initialState: TradingState = {
     [Exchange.OKX]: false,
     [Exchange.Bitget]: false,
     [Exchange.Gate]: false,
+    [Exchange.Game]: false,
   },
   showTradingView: true,
   currentCurrency: 'BTC',

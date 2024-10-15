@@ -17,6 +17,16 @@ model User {
   userParameters  UserParameter[]
 }
 
+model TugOfWar {
+  myexId          Int      @id @default(autoincrement())
+  leftPlayers     String
+  rightPlayers    String
+  openTimestamp   String?
+  closeTimestamp  String?
+  winner          String? // left or right
+  punches         String
+}
+
 model Parameter {
   myexId            Int      @id @default(autoincrement())
   name              String

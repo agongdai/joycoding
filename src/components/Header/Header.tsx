@@ -66,11 +66,11 @@ export default function Header({ userParameters }: { userParameters: SystemParam
           <div className='ml-2 text-xs xs:hidden'>by Shaojiang</div>
         </div>
         <ul className='flex items-center'>
+          <MenuItem>
+            <LiveIndicator />
+          </MenuItem>
           {!underConstruction && (
             <>
-              <MenuItem>
-                <LiveIndicator />
-              </MenuItem>
               <MenuItem>
                 <TradingViewSwitch
                   currentCurrencyServer={currentCurrencyServer}

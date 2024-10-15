@@ -1,3 +1,4 @@
+import { PrismaClient } from '@prisma/client';
 import http from 'http';
 import websocket from 'websocket';
 
@@ -6,10 +7,16 @@ import bitfinexWs from './bitfinex.mjs';
 import Exchange from './exchange.mjs';
 import { bitfinexSymbolToPair } from './utils.mjs';
 
+const prisma = new PrismaClient({
+  log: ['warn', 'error'],
+});
+
 const WebSocketServer = websocket.server;
 
 let myexWs = null;
 let mapSymbolToChannelId = {};
+
+const EXCHANGE_ID_BITFINEX = 1;
 
 const server = http.createServer(function(request, response) {
   console.log((new Date()) + ' Received request for ' + request.url);
@@ -49,12 +56,36 @@ wsServer.on('request', function(request) {
   console.log((new Date()) + ' Connection accepted.');
 
 
-  connection.on('message', function(message) {
+  connection.on('message', async function(message) {
     if (message.type !== 'utf8') {
       return;
     }
 
     const data = JSON.parse(message.utf8Data);
+
+    if (data.exchange === 6) {
+      console.log('data', data);
+      const existingGame = await prisma.tugOfWar.findUnique({
+        where: {
+          myexId: data.gameId,
+        },
+      });
+      if (existingGame) {
+        if (data.action === 'pull') {
+          const updatedGame = await prisma.tugOfWar.update({
+            where: { myexId: data.gameId },
+            data: {
+              ...existingGame,
+              punches: `${existingGame.punches ? existingGame.punches + ',' : ''}${data.playerId}-${new Date().getTime()}`,
+            },
+          });
+          connection.send(JSON.stringify({
+            success: true,
+            punches: updatedGame.punches,
+          }));
+        }
+      }
+    }
 
     // forward request to bitfinex ws if it's connected, otherwise connect to bitfinex ws
     if (data.exchange === EXCHANGE_ID_BITFINEX) {

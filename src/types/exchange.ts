@@ -12,6 +12,7 @@ export enum Exchange {
   OKX = 'okx',
   Bitget = 'bitget',
   Gate = 'gate',
+  Game = 'game',
 }
 
 export enum ExchangeId {
@@ -20,6 +21,7 @@ export enum ExchangeId {
   OKX = 3,
   Bitget = 4,
   Gate = 5,
+  Game = 6,
 }
 
 export const MapExchangeNameToId: Record<Exchange, ExchangeId> = {
@@ -28,6 +30,7 @@ export const MapExchangeNameToId: Record<Exchange, ExchangeId> = {
   [Exchange.OKX]: ExchangeId.OKX,
   [Exchange.Bitget]: ExchangeId.Bitget,
   [Exchange.Gate]: ExchangeId.Gate,
+  [Exchange.Game]: ExchangeId.Game,
 };
 
 export const MapExchangeIdToName: Record<ExchangeId, Exchange> = {
@@ -36,4 +39,5 @@ export const MapExchangeIdToName: Record<ExchangeId, Exchange> = {
   [ExchangeId.OKX]: Exchange.OKX,
   [ExchangeId.Bitget]: Exchange.Bitget,
   [ExchangeId.Gate]: Exchange.Gate,
+  [ExchangeId.Game]: Exchange.Game,
 };
