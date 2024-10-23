@@ -30,7 +30,7 @@ export default function Number({ value, nDecimals = 0 }: { value: Value; nDecima
       {
         BigNumber(String(value))
           .toFormat(nDecimals || displayedDecimals, priceFormat)
-          .replace(/(\.[0-9]*[1-9])0+$|\.0*$/, '$1') // Remove trailing zeros
+          .replace(/(\.[0-9]*[1-9])0+$|\.0*$/, '$1') // Remove trailing zeros.
       }
     </span>
   );
