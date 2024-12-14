@@ -9,7 +9,7 @@ import { BitgetWallet } from '@myex/types/bitget';
 import { MarketCoin } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
 import { BalanceBreakdownFromExchange } from '@myex/types/trading';
-import { filterWalletsWithValue } from '@myex/utils/trading';
+import { filterWalletsWithValue, syncExchangeSpecificCurrencies } from '@myex/utils/trading';
 
 let client: any | null = null;
 
@@ -79,8 +79,9 @@ export const getBitgetBalances = async (
       availableAmount: wallet.available,
       exchange: Exchange.Bitget,
     }));
+    const syncWallets = syncExchangeSpecificCurrencies(myexWallets, marketCoins, Exchange.Bitget);
 
-    const myexWalletsWithBalance = filterWalletsWithValue(myexWallets, marketCoins);
+    const myexWalletsWithBalance = filterWalletsWithValue(syncWallets, marketCoins);
     cache.put(bitgetCacheKey, myexWalletsWithBalance);
     return myexWalletsWithBalance;
   } catch (error) {

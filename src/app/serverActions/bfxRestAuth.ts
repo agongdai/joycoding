@@ -7,7 +7,7 @@ import { MarketCoin } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
 import { BalanceBreakdownFromExchange } from '@myex/types/trading';
 import { BfxEndpoints } from '@myex/utils/endpoints';
-import { filterWalletsWithValue, syncBitfinexCurrencies } from '@myex/utils/trading';
+import { filterWalletsWithValue, syncExchangeSpecificCurrencies } from '@myex/utils/trading';
 
 import cache from './cache';
 
@@ -60,15 +60,15 @@ export async function fetchBitfinexWallets(
             tradeDetails: wallet[6],
           }) as BfxWallet,
       );
-    const syncWallets = syncBitfinexCurrencies(wallets, marketCoins);
-    const myexWallets: BalanceBreakdownFromExchange[] = syncWallets.map((wallet) => ({
+    const myexWallets: BalanceBreakdownFromExchange[] = wallets.map((wallet) => ({
       currency: wallet.currency === 'UST' ? 'USDT' : wallet.currency,
       totalAmount: wallet.balance,
       availableAmount: wallet.availableBalance,
       exchange: Exchange.Bitfinex,
     }));
+    const syncWallets = syncExchangeSpecificCurrencies(myexWallets, marketCoins);
 
-    const myexWalletsWithBalance = filterWalletsWithValue(myexWallets, marketCoins);
+    const myexWalletsWithBalance = filterWalletsWithValue(syncWallets, marketCoins);
     cache.put(bitfinexCacheKey, myexWalletsWithBalance);
     return myexWalletsWithBalance;
   } catch (error) {
