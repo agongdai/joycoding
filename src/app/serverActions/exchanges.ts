@@ -13,13 +13,15 @@ export async function fetchAssetsFromExchanges(marketCoins: MarketCoin[]) {
     return [];
   }
 
-  const [bfxWallets, binanceWallets, gateWallets, okxWallets, bitgetWallets] = await Promise.all([
-    fetchBitfinexWallets(marketCoins),
-    getBinanceBalances(marketCoins),
-    getGateSpotAccounts(marketCoins),
-    fetchOkxWallets(marketCoins),
+  const [bitgetWallets] = await Promise.all([
+    // fetchBitfinexWallets(marketCoins),
+    // getBinanceBalances(marketCoins),
+    // getGateSpotAccounts(marketCoins),
+    // fetchOkxWallets(marketCoins),
     getBitgetBalances(marketCoins),
   ]);
 
-  return [...bfxWallets, ...binanceWallets, ...gateWallets, ...okxWallets, ...bitgetWallets];
+  return bitgetWallets;
+
+  // return [...bfxWallets, ...binanceWallets, ...gateWallets, ...okxWallets, ...bitgetWallets];
 }

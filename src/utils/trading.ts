@@ -5,6 +5,7 @@ import _uniq from 'lodash/uniq';
 
 import { IGNORED_USD_THRESHOLD } from '@myex/config';
 import { BfxWallet } from '@myex/types/bitfinex';
+import { BitgetWallet } from '@myex/types/bitget';
 import { MarketCoin } from '@myex/types/coin';
 import { Exchange } from '@myex/types/exchange';
 import {
@@ -80,11 +81,15 @@ export function getUstBalance(exchangeWallets: BalanceBreakdownFromExchange[]): 
 
 /**
  * Bitfinex coins might have different coin symbol, sync them.
- * @param bitfinexWallets
+ * @param wallets
  * @param marketCoins
  */
-export function syncBitfinexCurrencies(bitfinexWallets: BfxWallet[], marketCoins: MarketCoin[]) {
-  let syned = bitfinexWallets;
+export function syncExchangeSpecificCurrencies(
+  wallets: BalanceBreakdownFromExchange[],
+  marketCoins: MarketCoin[],
+  exchange = Exchange.Bitfinex,
+) {
+  let syned = wallets;
   marketCoins.forEach((marketCoin) => {
     const exchangeSymbols = marketCoin?.myexCoin?.exchangeSymbols;
     if (!exchangeSymbols) {
@@ -92,9 +97,9 @@ export function syncBitfinexCurrencies(bitfinexWallets: BfxWallet[], marketCoins
     }
 
     const exchangeWithSymbols = exchangeSymbols.split(',');
-    const bitfinexSymbol = exchangeWithSymbols.find((s) => s.includes(Exchange.Bitfinex));
-    if (bitfinexSymbol) {
-      const bitfinexCurrency = bitfinexSymbol.split(':')[1];
+    const exchangeSpecificSymbol = exchangeWithSymbols.find((s) => s.includes(exchange));
+    if (exchangeSpecificSymbol) {
+      const bitfinexCurrency = exchangeSpecificSymbol.split(':')[1];
       if (bitfinexCurrency) {
         syned = syned.map((wallet) => {
           if (wallet.currency === bitfinexCurrency) {
