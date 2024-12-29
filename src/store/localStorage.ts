@@ -1,3 +1,5 @@
+import _omit from 'lodash/omit';
+
 const KEY = 'redux';
 export function loadState() {
   try {
@@ -14,7 +16,8 @@ export function loadState() {
 
 export async function saveState(state: any) {
   try {
-    const serializedState = JSON.stringify(state);
+    const savedState = _omit(state, ['book']);
+    const serializedState = JSON.stringify(savedState);
     localStorage.setItem(KEY, serializedState);
   } catch (e) {
     // Ignore
