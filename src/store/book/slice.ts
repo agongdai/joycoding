@@ -1,3 +1,5 @@
+import _pick from 'lodash/pick';
+
 import {
   BookBulkyMessagesRaw,
   BookMessageRaw,
@@ -68,10 +70,14 @@ export const bookSlice = createSlice({
       return {
         ...state,
         ...action.payload,
+        ..._pick(initialState, ['asks', 'bids', 'pasks', 'pbids', 'tasks', 'tbids']),
       };
     },
-    chanUnsubscribed: () => {
-      return initialState;
+    chanUnsubscribed: (state) => {
+      return {
+        ...state,
+        chanId: undefined,
+      };
     },
   },
 });
