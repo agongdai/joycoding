@@ -9,7 +9,12 @@ class Socket {
 
   connect(url: string) {
     if (!this.socket) {
-      this.socket = new WebSocket(url);
+      console.log('connecting to socket ... in Socket');
+      try {
+        this.socket = new WebSocket(url);
+      } catch (error) {
+        console.error('Error connecting to socket', error);
+      }
     }
   }
 

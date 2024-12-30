@@ -37,4 +37,5 @@ export type ChanMeta = {
   pair: string;
   prec: Precision;
   symbol: string;
+  loading: boolean;
 };

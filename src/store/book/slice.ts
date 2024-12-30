@@ -20,6 +20,7 @@ export interface BookState extends ChanMeta {
   pbids: number[];
   tasks: number[];
   tbids: number[];
+  loading: boolean;
 }
 
 // Define the initial state using that type
@@ -36,6 +37,7 @@ const initialState: BookState = {
   pair: '',
   prec: Precision.P0,
   symbol: '',
+  loading: false,
 };
 
 export const bookSlice = createSlice({
@@ -63,6 +65,7 @@ export const bookSlice = createSlice({
         return {
           ...acc,
           ...adaptors.update([chanId, payload], acc),
+          loading: false,
         };
       }, state);
     },
@@ -77,6 +80,12 @@ export const bookSlice = createSlice({
       return {
         ...state,
         chanId: undefined,
+      };
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        loading: action.payload,
       };
     },
   },

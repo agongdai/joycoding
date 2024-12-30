@@ -3,6 +3,7 @@ import _isArray from 'lodash/isArray';
 import {
   chanSubscribed,
   chanUnsubscribed,
+  setLoading,
   updateBulkyMessages,
   updateMessage,
 } from '@myex/store/book/actions';
@@ -23,10 +24,11 @@ function isBulkyMessage(message: any) {
 export const socketMiddleware = (socket: Socket) => (params) => (next) => (action) => {
   const { dispatch, getState } = params;
   const { type, payload } = action;
-  const { channel, symbol, freq, chanId } = payload || {};
+  const { channel, symbol, freq, chanId, prec } = payload || {};
 
   switch (type) {
     case 'socket/connect':
+      console.log('connecting to socket');
       socket.connect('wss://api-pub.bitfinex.com/ws/2');
 
       socket.on('open', () => {
@@ -67,7 +69,8 @@ export const socketMiddleware = (socket: Socket) => (params) => (next) => (actio
       break;
 
     case 'socket/subscribe':
-      socket.send({ event: 'subscribe', channel, symbol, freq });
+      socket.send({ event: 'subscribe', channel, symbol, freq, prec });
+      dispatch(setLoading(true));
       break;
 
     case 'socket/unsubscribe':

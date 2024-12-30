@@ -16,10 +16,13 @@ function BookRow({ row, side, total, allTotal }: Props) {
   return (
     <div className='grid grid-cols-4 gap-1 hover:bg-hover-bg-light relative'>
       <div
-        className={classNames('absolute h-full right-0 top-0 bottom-0 opacity-20', {
-          'bg-go-up right-0': isBids,
-          'bg-go-down left-0': !isBids,
-        })}
+        className={classNames(
+          'absolute h-full right-0 top-0 bottom-0 opacity-20 transition-[width] duration-150',
+          {
+            'bg-go-up right-0': isBids,
+            'bg-go-down left-0': !isBids,
+          },
+        )}
         style={{ width: `${((total / allTotal) * 100).toFixed(2)}%` }}
       />
       {isBids ? (
