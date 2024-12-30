@@ -16,6 +16,8 @@ export interface BookState extends ChanMeta {
   bids: Record<number, BookRowParsed>;
   pasks: number[];
   pbids: number[];
+  tasks: number[];
+  tbids: number[];
 }
 
 // Define the initial state using that type
@@ -24,6 +26,8 @@ const initialState: BookState = {
   bids: {},
   pasks: [],
   pbids: [],
+  tasks: [],
+  tbids: [],
   chanId: undefined,
   freq: Frequency.F0,
   len: '25',

@@ -8,10 +8,9 @@ export type BookRowParsed = {
   price?: number;
   count: number;
   amount: number;
-  _total?: number; // computed value.
 };
 
-export type BookField = keyof BookRowParsed;
+export type BookField = keyof BookRowParsed | 'total';
 
 export enum Precision {
   P0 = 'P0',

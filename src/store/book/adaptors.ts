@@ -41,6 +41,14 @@ function getPsnap(data: Record<number, BookRowParsed>, side: BookSide) {
   return _orderBy(psnap, undefined, side === BookSide.Bids ? 'desc' : 'asc');
 }
 
+function getTsnap(data: Record<number, BookRowParsed>, psnap: number[]) {
+  const totals = psnap.map((p) => Math.abs(data[p].amount));
+  for (let i = 1; i < totals.length; i++) {
+    totals[i] += totals[i - 1];
+  }
+  return totals;
+}
+
 function update(payload: BookMessageRaw, state: BookState) {
   const rawData = getRawData(payload);
   const row = adapter(rawData);
@@ -50,11 +58,13 @@ function update(payload: BookMessageRaw, state: BookState) {
   // delete the price level
   if (row.count <= 0) {
     const data = _omit(state[side], id);
+    const pSnap = getPsnap(data, side);
 
     return {
       ...state,
       [side]: data,
-      [`p${side}`]: getPsnap(data, side),
+      [`p${side}`]: pSnap,
+      [`t${side}`]: getTsnap(data, pSnap),
     };
   }
 
@@ -64,12 +74,16 @@ function update(payload: BookMessageRaw, state: BookState) {
     [id]: row,
   };
   const otherData = _omit(state[other], id);
+  const pSideSnap = getPsnap(sideData, side);
+  const pOtherSnap = getPsnap(otherData, other);
 
   return {
     [side]: sideData,
     [other]: otherData,
-    [`p${side}`]: getPsnap(sideData, side),
-    [`p${other}`]: getPsnap(otherData, other),
+    [`p${side}`]: pSideSnap,
+    [`p${other}`]: pOtherSnap,
+    [`t${side}`]: getTsnap(sideData, pSideSnap),
+    [`t${other}`]: getTsnap(otherData, pOtherSnap),
   };
 }
 

@@ -16,7 +16,7 @@ export function loadState() {
 
 export async function saveState(state: any) {
   try {
-    const savedState = _omit(state, ['book']);
+    const savedState = _omit(state, ['book', 'wss']);
     const serializedState = JSON.stringify(savedState);
     localStorage.setItem(KEY, serializedState);
   } catch (e) {

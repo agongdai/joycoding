@@ -9,17 +9,23 @@ interface Props {
   side: BookSide;
   data: Record<number, BookRowParsed>;
   psnap: number[];
+  tsnap: number[];
 }
 
-function BookSideList({ side, data, psnap }: Props) {
+function BookSideList({ side, data, psnap, tsnap }: Props) {
   return (
     <div>
       <BookFields side={side} />
-      {psnap.map((price) => {
+      {psnap.map((price, index) => {
         const row = data[price];
         return (
           <div key={price}>
-            <BookRow row={row} side={side} />
+            <BookRow
+              row={row}
+              side={side}
+              total={tsnap[index] || 0}
+              allTotal={tsnap[tsnap.length - 1]}
+            />
           </div>
         );
       })}

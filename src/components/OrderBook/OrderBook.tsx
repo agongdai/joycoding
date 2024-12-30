@@ -4,11 +4,14 @@ import React, { useEffect } from 'react';
 
 import BookSides from '@myex/components/OrderBook/BookSides';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
+import { selectBookMessages } from '@myex/store/book/selectors';
 import { selectWssLive } from '@myex/store/wss/selectors';
 
 export default function OrderBook() {
   const isLive = useMyexSelector(selectWssLive);
   const dispatch = useMyexDispatch();
+  const bookMessages = useMyexSelector(selectBookMessages);
+  const { chanId } = bookMessages;
 
   const toggle = () => {
     dispatch({
@@ -32,7 +35,17 @@ export default function OrderBook() {
           <h2 className='text-xl font-semibold text-primary'>Order Book</h2>
           <button className='text-secondary'>BTC/USD</button>
         </div>
-        <div className='text-sm'>Precision</div>
+        <div
+          className='text-sm'
+          onClick={() => {
+            dispatch({
+              type: 'socket/unsubscribe',
+              payload: { chanId },
+            });
+          }}
+        >
+          Precision
+        </div>
       </div>
 
       <BookSides />

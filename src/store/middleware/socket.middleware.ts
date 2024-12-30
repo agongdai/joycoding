@@ -23,6 +23,7 @@ function isBulkyMessage(message: any) {
 export const socketMiddleware = (socket: Socket) => (params) => (next) => (action) => {
   const { dispatch, getState } = params;
   const { type, payload } = action;
+  const { channel, symbol, freq, chanId } = payload || {};
 
   switch (type) {
     case 'socket/connect':
@@ -66,8 +67,11 @@ export const socketMiddleware = (socket: Socket) => (params) => (next) => (actio
       break;
 
     case 'socket/subscribe':
-      const { channel, symbol, freq } = payload;
       socket.send({ event: 'subscribe', channel, symbol, freq });
+      break;
+
+    case 'socket/unsubscribe':
+      socket.send({ event: 'unsubscribe', chanId });
       break;
 
     default:
