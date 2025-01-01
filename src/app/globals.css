@@ -97,7 +97,7 @@ caption,
   @apply rounded bg-gray-600;
 }
 
-.myes-monospace {
+.myex-monospace {
   font-family: var(--font-space-mono), source-code-pro, Monaco, Consolas, monospace;
   font-size: 1.1em;
 }

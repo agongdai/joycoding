@@ -46,7 +46,7 @@ function Number({ value, nDecimals = 0, keepTrailingZeros = false, shorten = fal
   }
 
   return (
-    <span className=''>
+    <span className='myex-monospace'>
       <span className='inline-block w-[0.2rem]' />
       {formatted}
       {!!unit ? <span className='ml-[1px] font-semibold'>{unit}</span> : null}
