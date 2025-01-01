@@ -7,16 +7,18 @@ import { ListItemIcon, ListItemText, MenuItem } from '@mui/material';
 import Select, { SelectChangeEvent } from '@myex/components/form/Select';
 import BookSides from '@myex/components/OrderBook/BookSides';
 import CoinIcon from '@myex/components/ui/MyexFormatter/CoinIcon';
+import { WSS_CONNECTION_TRY_TIMES } from '@myex/config';
 import useMyexRestFetch from '@myex/hooks/useMyexRestFetch';
 import { useMyexDispatch, useMyexSelector } from '@myex/store';
 import { selectBookMessages } from '@myex/store/book/selectors';
-import { selectWssLive } from '@myex/store/wss/selectors';
+import { selectWssLive, selectWssNTryTimes } from '@myex/store/wss/selectors';
 import { Frequency, Precision } from '@myex/types/book';
 import { Coin } from '@prisma/client';
 
 export default function OrderBook() {
   const [symbol, setSymbol] = useState<string | null>('tBTCUST');
   const isLive = useMyexSelector(selectWssLive);
+  const wssNTryTimes = useMyexSelector(selectWssNTryTimes);
   const dispatch = useMyexDispatch();
   const bookMessages = useMyexSelector(selectBookMessages);
   const { isLoading, data: coins } = useMyexRestFetch<Coin[]>('coins', []);
@@ -26,12 +28,16 @@ export default function OrderBook() {
 
   // When page loads, connect to the websocket, and keep it connected
   useEffect(() => {
-    if (!isLive) {
-      dispatch({
-        type: 'socket/connect',
-      });
+    if (wssNTryTimes < WSS_CONNECTION_TRY_TIMES && !isLive) {
+      setTimeout(
+        () =>
+          dispatch({
+            type: 'socket/connect',
+          }),
+        wssNTryTimes === 0 ? 0 : 3000,
+      );
     }
-  }, [dispatch, isLive]);
+  }, [dispatch, wssNTryTimes, isLive]);
 
   // Subscribe to the order book channel
   useEffect(() => {

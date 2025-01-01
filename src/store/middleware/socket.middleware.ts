@@ -7,7 +7,8 @@ import {
   updateBulkyMessages,
   updateMessage,
 } from '@myex/store/book/actions';
-import { setLive } from '@myex/store/wss/actions';
+import { setLive, setNTryTimes } from '@myex/store/wss/actions';
+import { selectWssNTryTimes } from '@myex/store/wss/selectors';
 import { BookBulkyMessagesRaw, BookMessageRaw, ChanMeta } from '@myex/types/book';
 
 import { Socket } from '../Socket';
@@ -25,6 +26,7 @@ export const socketMiddleware = (socket: Socket) => (params) => (next) => (actio
   const { dispatch, getState } = params;
   const { type, payload } = action;
   const { channel, symbol, freq, chanId, prec } = payload || {};
+  const state = getState();
 
   switch (type) {
     case 'socket/connect':
@@ -33,6 +35,7 @@ export const socketMiddleware = (socket: Socket) => (params) => (next) => (actio
 
       socket.on('open', () => {
         console.log('socket opened');
+        dispatch(setNTryTimes(0));
         dispatch(setLive(true));
       });
 
@@ -58,6 +61,8 @@ export const socketMiddleware = (socket: Socket) => (params) => (next) => (actio
 
       socket.on('close', () => {
         console.log('socket closed');
+        socket.disconnect();
+        dispatch(setNTryTimes(selectWssNTryTimes(state) + 1));
         dispatch(setLive(false));
       });
       break;

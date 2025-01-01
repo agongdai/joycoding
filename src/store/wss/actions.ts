@@ -1,3 +1,3 @@
 import { wssSlice } from './slice';
 
-export const { setLive } = wssSlice.actions;
+export const { setLive, setNTryTimes } = wssSlice.actions;
