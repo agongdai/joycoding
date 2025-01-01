@@ -21,7 +21,7 @@ export default function BookSides() {
   const pasksShown = memo(pasks) as number[];
 
   return (
-    <div className='grid grid-cols-2 border-t border-border-dark border-b py-3 h-[48rem] relative'>
+    <div className='grid grid-cols-2 border-t border-border-dark border-b py-3 h-[52rem] relative overflow-hidden'>
       {(!isLive || loading) && (
         <div className='absolute top-0 bottom-0 left-0 right-0 bg-bg-light-dark/10 flex items-center justify-center'>
           Loading ...

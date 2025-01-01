@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import Money from '@myex/components/ui/MyexFormatter/Money';
 import Number from '@myex/components/ui/MyexFormatter/Number';
 import { BookRowParsed, BookSide } from '@myex/types/book';
 
@@ -27,25 +28,33 @@ function BookRow({ row, side, total, allTotal }: Props) {
       />
       {isBids ? (
         <>
-          <div className='text-xs text-center text-secondary'>{row.count}</div>
           <div className='text-xs text-center text-secondary'>
-            <Number value={Math.abs(row.amount)} nDecimals={4} />
+            <Number value={row.count} nDecimals={0} shorten />
           </div>
           <div className='text-xs text-center text-secondary'>
-            <Number value={total} nDecimals={4} />
+            <Number value={Math.abs(row.amount)} nDecimals={4} keepTrailingZeros shorten />
           </div>
-          <div className='text-xs text-center text-secondary'>{row.price}</div>
+          <div className='text-xs text-center text-secondary'>
+            <Number value={total} nDecimals={4} keepTrailingZeros shorten />
+          </div>
+          <div className='text-xs text-center text-secondary'>
+            <Money value={row.price} currencySymbol='' />
+          </div>
         </>
       ) : (
         <>
-          <div className='text-xs text-center text-secondary'>{row.price}</div>
           <div className='text-xs text-center text-secondary'>
-            <Number value={total} nDecimals={4} />
+            <Money value={row.price} currencySymbol='' />
           </div>
           <div className='text-xs text-center text-secondary'>
-            <Number value={Math.abs(row.amount)} nDecimals={4} />
+            <Number value={total} nDecimals={4} keepTrailingZeros shorten />
           </div>
-          <div className='text-xs text-center text-secondary'>{row.count}</div>
+          <div className='text-xs text-center text-secondary'>
+            <Number value={Math.abs(row.amount)} nDecimals={4} keepTrailingZeros shorten />
+          </div>
+          <div className='text-xs text-center text-secondary'>
+            <Number value={row.count} nDecimals={0} shorten />
+          </div>
         </>
       )}
     </div>

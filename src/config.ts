@@ -12,6 +12,7 @@ export const FIAT_CURRENCY_SYMBOL: string = '$';
 
 export const PRICE_MAX_DECIMAL_PLACES: number = 8;
 export const PRICE_DEFAULT_DECIMAL_PLACES: number = 3;
+export const NUMBER_DECIMALS_FOR_SHORTENED: number = 3;
 
 export const IGNORED_USD_THRESHOLD: number = 1;
 
