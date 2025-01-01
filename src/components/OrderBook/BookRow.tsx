@@ -15,7 +15,12 @@ interface Props {
 function BookRow({ row, side, total, allTotal }: Props) {
   const isBids = side === BookSide.Bids;
   return (
-    <div className='grid grid-cols-4 gap-1 hover:bg-hover-bg-light relative'>
+    <div
+      className={classNames('grid grid-cols-4 gap-1 hover:bg-hover-bg-light relative', {
+        'book-row-bid': isBids,
+        'book-row-ask': !isBids,
+      })}
+    >
       <div
         className={classNames(
           'absolute h-full right-0 top-0 bottom-0 opacity-20 transition-[width] duration-150',
@@ -38,13 +43,13 @@ function BookRow({ row, side, total, allTotal }: Props) {
             <Number value={total} nDecimals={4} keepTrailingZeros shorten />
           </div>
           <div className='text-xs text-center text-secondary'>
-            <Money value={row.price} currencySymbol='' />
+            <Money value={row.price} currencySymbol='' keepTrailingZeros />
           </div>
         </>
       ) : (
         <>
           <div className='text-xs text-center text-secondary'>
-            <Money value={row.price} currencySymbol='' />
+            <Money value={row.price} currencySymbol='' keepTrailingZeros />
           </div>
           <div className='text-xs text-center text-secondary'>
             <Number value={total} nDecimals={4} keepTrailingZeros shorten />

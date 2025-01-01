@@ -7,7 +7,7 @@ import {
   PRICE_MAX_DECIMAL_PLACES,
 } from '@myex/config';
 import { Value } from '@myex/types/common';
-import { shortenNumber } from '@myex/utils/number';
+import { autoDecimal, shortenNumber } from '@myex/utils/number';
 
 const priceFormat = {
   prefix: '',
@@ -35,9 +35,7 @@ function Number({ value, nDecimals = 0, keepTrailingZeros = false, shorten = fal
 
   let [displayedN, unit] = shorten ? shortenNumber(n.toString()) : [n.toString(), ''];
 
-  const displayedDecimals = BigNumber(String(value)).isLessThan(1)
-    ? PRICE_MAX_DECIMAL_PLACES
-    : PRICE_DEFAULT_DECIMAL_PLACES;
+  const displayedDecimals = autoDecimal(n.toString());
 
   const decimals = !!unit ? NUMBER_DECIMALS_FOR_SHORTENED : nDecimals || displayedDecimals;
 

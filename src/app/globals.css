@@ -127,3 +127,33 @@ caption,
 .myex-bg-contain {
   background-size: contain;
 }
+
+.book-row-bid {
+  animation: fade-in-bid 0.25s ease-in-out;
+}
+
+.book-row-ask {
+  animation: fade-in-ask 0.25s ease-in-out;
+}
+
+@keyframes fade-in-bid {
+  0% {
+    opacity: 0;
+    background-color: transparent;
+  }
+  100% {
+    opacity: 1;
+    @apply bg-go-up/20;
+  }
+}
+
+@keyframes fade-in-ask {
+  0% {
+    opacity: 0;
+    background-color: transparent;
+  }
+  100% {
+    opacity: 1;
+    @apply bg-go-down/20;
+  }
+}

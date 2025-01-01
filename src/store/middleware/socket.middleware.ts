@@ -29,7 +29,7 @@ export const socketMiddleware = (socket: Socket) => (params) => (next) => (actio
   switch (type) {
     case 'socket/connect':
       console.log('connecting to socket');
-      socket.connect('wss://api-pub.bitfinex.com/ws/2');
+      socket.connect(process.env.NEXT_PUBLIC_BITFINEX_WSS || '');
 
       socket.on('open', () => {
         console.log('socket opened');
@@ -69,7 +69,7 @@ export const socketMiddleware = (socket: Socket) => (params) => (next) => (actio
       break;
 
     case 'socket/subscribe':
-      socket.send({ event: 'subscribe', channel, symbol, freq, prec });
+      socket.send({ event: 'subscribe', channel, symbol, freq, prec, len: '25' });
       dispatch(setLoading(true));
       break;
 
