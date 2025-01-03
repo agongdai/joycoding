@@ -1,8 +1,13 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 
-import { PRICE_DEFAULT_DECIMAL_PLACES, PRICE_MAX_DECIMAL_PLACES } from '@myex/config';
+import {
+  NUMBER_DECIMALS_FOR_SHORTENED,
+  PRICE_DEFAULT_DECIMAL_PLACES,
+  PRICE_MAX_DECIMAL_PLACES,
+} from '@myex/config';
 import { Value } from '@myex/types/common';
+import { autoDecimal, shortenNumber } from '@myex/utils/number';
 
 const priceFormat = {
   prefix: '',
@@ -15,23 +20,38 @@ const priceFormat = {
   suffix: '',
 };
 
-export default function Number({ value, nDecimals = 0 }: { value: Value; nDecimals?: number }) {
-  if (BigNumber(String(value)).isNaN()) {
+interface Props {
+  value: Value;
+  nDecimals?: number;
+  keepTrailingZeros?: boolean;
+  shorten?: boolean;
+}
+
+function Number({ value, nDecimals = 0, keepTrailingZeros = false, shorten = false }: Props) {
+  const n = BigNumber(String(value));
+  if (n.isNaN()) {
     return <span>N.A.</span>;
   }
 
-  const displayedDecimals = BigNumber(String(value)).isLessThan(BigNumber(10))
-    ? PRICE_MAX_DECIMAL_PLACES
-    : PRICE_DEFAULT_DECIMAL_PLACES;
+  let [displayedN, unit] = shorten ? shortenNumber(n.toString()) : [n.toString(), ''];
+
+  const displayedDecimals = autoDecimal(n.toString());
+
+  const decimals = !!unit ? NUMBER_DECIMALS_FOR_SHORTENED : nDecimals || displayedDecimals;
+
+  let formatted = BigNumber(displayedN).toFormat(decimals, priceFormat);
+
+  if (!keepTrailingZeros) {
+    formatted = formatted.replace(/(\.[0-9]*[1-9])0+$|\.0*$/, '$1'); // Remove trailing zeros
+  }
 
   return (
-    <span className=''>
+    <span className='myex-monospace'>
       <span className='inline-block w-[0.2rem]' />
-      {
-        BigNumber(String(value))
-          .toFormat(nDecimals || displayedDecimals, priceFormat)
-          .replace(/(\.[0-9]*[1-9])0+$|\.0*$/, '$1') // Remove trailing zeros
-      }
+      {formatted}
+      {!!unit ? <span className='ml-[1px] font-semibold'>{unit}</span> : null}
     </span>
   );
 }
+
+export default React.memo(Number);

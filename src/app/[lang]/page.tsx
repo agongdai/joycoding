@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 
+import OrderBook from '@myex/components/OrderBook/OrderBook';
 import { MyexStyledPageWrapper } from '@myex/components/ui/MyexStyled';
 import Seo from '@myex/data/seo.json';
 import { getTranslations } from '@myex/i18n/translations';
@@ -23,5 +24,9 @@ export const metadata: Metadata = {
 
 export default async function Home({ params: { lang } }: { params: ParamsWithLng }) {
   const messages = await getTranslations(lang);
-  return <MyexStyledPageWrapper>My Exchanges AI</MyexStyledPageWrapper>;
+  return (
+    <MyexStyledPageWrapper>
+      <OrderBook />
+    </MyexStyledPageWrapper>
+  );
 }

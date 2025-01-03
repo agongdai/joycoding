@@ -13,7 +13,7 @@ export default function useUnderConstruction() {
   useEffect(() => {
     // @todo only allow developer to access the app right now. Move the flag to db later.
     if (user?.email !== 'caishaojiang@gmail.com') {
-      setUnderConstruction(true);
+      // setUnderConstruction(true);
     }
   }, [router, user]);
 

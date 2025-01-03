@@ -13,3 +13,5 @@ export default function Select(props: SelectProps) {
     />
   );
 }
+
+export * from '@mui/material/Select';

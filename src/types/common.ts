@@ -69,3 +69,5 @@ export const enum ValueFormat {
 }
 
 export type Value = string | number | boolean | Date | null | undefined;
+
+export type FunctionType = (...args: any[]) => any;

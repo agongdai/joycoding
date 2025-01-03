@@ -122,13 +122,13 @@ export default function MarketsTable({ marketCoins, showFavoritesServer, favorit
     [favorites, showFavorites, marketCoins],
   );
 
-  const realTimeData = useWsMarketCoins(marketCoinsWithVisibleFlag);
-  const tableCoins = realTimeData.filter((coin) => !coin.invisible);
+  // const realTimeData = useWsMarketCoins(marketCoinsWithVisibleFlag);
+  // const tableCoins = realTimeData.filter((coin) => !coin.invisible);
 
   return (
     <MyexTable<MarketCoin>
       uniqueKey='currency'
-      data={tableCoins}
+      data={marketCoinsWithVisibleFlag}
       columns={columns(showFavorites, favorites)}
       defaultSortingField='priceChangePercentage24h'
       defaultSortingDirection='-'
