@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import { ListItemIcon, ListItemText, MenuItem } from '@mui/material';
@@ -49,14 +49,20 @@ export default function OrderBook() {
     }
   }, [isLive, chanId, dispatch, symbol, frequency, precision]);
 
-  const unsubscribe = () => {
+  const unsubscribe = useCallback(() => {
     if (chanId) {
       dispatch({
         type: 'socket/unsubscribe',
         payload: { chanId },
       });
     }
-  };
+  }, [chanId, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      unsubscribe();
+    };
+  }, [unsubscribe]);
 
   const switchSymbol = (e: SelectChangeEvent<unknown>) => {
     const newSymbol = e.target.value as string;
