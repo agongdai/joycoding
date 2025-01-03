@@ -7,7 +7,7 @@
     "build": "next build",
     "bundle": "ANALYZE=true yarn build",
     "start": "next start",
-    "serve": "yarn build && yarn start",
+    "serve": "yarn install && yarn build && yarn start",
     "lint": "next lint --fix",
     "prepare": "husky install",
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|tsx|js|scss|css)\" --write",

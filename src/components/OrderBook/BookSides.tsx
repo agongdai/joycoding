@@ -33,7 +33,7 @@ export default function BookSides() {
   const doingMessage = isLive ? 'Loading ...' : 'Connecting ...';
 
   return (
-    <div className='grid grid-cols-2 border-t border-border-dark border-b py-3 h-[52rem] relative overflow-hidden'>
+    <div className='grid grid-cols-2 md:grid-cols-1 border-t border-border-dark border-b py-3 h-[52rem] md:h-[104rem] relative overflow-hidden'>
       {(!isLive || loading) && (
         <div className='absolute top-0 bottom-0 left-0 right-0 bg-bg-light-dark/10 flex items-center justify-center'>
           {wssNTryTimes > 0 ? failedMessage : doingMessage}

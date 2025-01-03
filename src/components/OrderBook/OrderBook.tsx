@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import { ListItemIcon, ListItemText, MenuItem } from '@mui/material';
@@ -49,14 +49,20 @@ export default function OrderBook() {
     }
   }, [isLive, chanId, dispatch, symbol, frequency, precision]);
 
-  const unsubscribe = () => {
+  const unsubscribe = useCallback(() => {
     if (chanId) {
       dispatch({
         type: 'socket/unsubscribe',
         payload: { chanId },
       });
     }
-  };
+  }, [chanId, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      unsubscribe();
+    };
+  }, [unsubscribe]);
 
   const switchSymbol = (e: SelectChangeEvent<unknown>) => {
     const newSymbol = e.target.value as string;
@@ -93,7 +99,7 @@ export default function OrderBook() {
 
   return (
     <div className='rounded-lg shadow-lg bg-bg-dark-light'>
-      <div className='flex justify-between py-3 px-4 items-center'>
+      <div className='flex gap-2 justify-between py-3 px-4 items-center'>
         <div className='flex gap-2 items-center'>
           <h2 className='text-xl font-semibold text-primary'>Bitfinex Order Book</h2>
           <Select
