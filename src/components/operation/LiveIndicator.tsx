@@ -12,8 +12,10 @@ export default function LiveIndicator() {
   const isLive = false; // useMyexSelector(selectExchangeWsLive(Exchange.Bitfinex));
   const dispatch = useMyexDispatch();
   const toggle = () => {
-    dispatch(toggleWsLive(Exchange.Bitfinex));
+    // dispatch(toggleWsLive(Exchange.Bitfinex));
   };
+
+  return null;
 
   return (
     <MyexTooltip title='Live data from Bitfinex WebSocket'>

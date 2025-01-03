@@ -95,7 +95,7 @@ export default function OrderBook() {
     <div className='rounded-lg shadow-lg bg-bg-dark-light'>
       <div className='flex justify-between py-3 px-4 items-center'>
         <div className='flex gap-2 items-center'>
-          <h2 className='text-xl font-semibold w-48 text-primary'>Order Book</h2>
+          <h2 className='text-xl font-semibold text-primary'>Bitfinex Order Book</h2>
           <Select
             labelId='coin-select-label'
             id='coin-select'
