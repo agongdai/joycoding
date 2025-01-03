@@ -39,11 +39,11 @@ export const autoDecimal = (num: number | string) => {
     return 8;
   }
 
-  if (n < 0.001) {
+  if (n < 0.01) {
     return 6;
   }
 
-  if (n < 0.01) {
+  if (n < 1) {
     return 4;
   }
 
